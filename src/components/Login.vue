@@ -1,6 +1,7 @@
 <template>
   <div class="d-flex m-auto h-100 align-items-center">
-    <b-form @submit="onSubmit">
+    <router-link to="/dashboard/">Dashboard</router-link>
+    <b-form @submit="onSubmit" class="w-100">
       <b-form-group id="exampleInputGroup1"
                     label="Email address:" label-for="exampleInput1"
                     description="We'll never share your email with anyone else.">
@@ -36,6 +37,7 @@
 
 <script>
 export default {
+  name: 'login',
   data: () => ({
     form: {
       email: '',

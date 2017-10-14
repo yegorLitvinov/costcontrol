@@ -2,17 +2,25 @@
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
+@import 'constants';
+
+.inner-h-100 {
+  @media (min-width: map-get($grid-breakpoints, 'md')) {
+    height: calc(100vh - #{$heading-height});
+  }
+}
+
 
 /////// CUSTOMIZATION ////////
 
 $theme-colors: (
-  primary: #203436,
-  secondary: $gray-600,
+  primary: $primary,
+  secondary: $secondary,
   success: $green,
-  info: #7c8b74,
-  warning: #f29f21,
+  info: $info,
+  warning: $warning,
   danger: $red,
-  light: #f4f4f4,
+  light: $light,
   dark: $gray-800,
   gray: #ebebeb
 );
@@ -40,12 +48,12 @@ $navbar-light-disabled-color: rgba(theme-color('info'), 0.5);
 @import '~bootstrap/scss/forms';
 @import '~bootstrap/scss/buttons';
 @import '~bootstrap/scss/transitions';
-@import '~bootstrap/scss/dropdown';
-//@import "~bootstrap/scss/button-group";
-//@import "~bootstrap/scss/input-group";
-//@import "~bootstrap/scss/custom-forms";
-@import '~bootstrap/scss/nav';
-@import '~bootstrap/scss/navbar';
+// @import '~bootstrap/scss/dropdown';
+// @import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/input-group";
+@import "~bootstrap/scss/custom-forms";
+// @import '~bootstrap/scss/nav';
+// @import '~bootstrap/scss/navbar';
 //@import "~bootstrap/scss/card";
 //@import "~bootstrap/scss/breadcrumb";
 //@import "~bootstrap/scss/pagination";

@@ -1,72 +1,27 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank">Forum</a>
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank">Community Chat</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank">Twitter</a>
-      </li>
-      <br>
-      <li>
-        <a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a href="http://router.vuejs.org/" target="_blank">vue-router</a>
-      </li>
-      <li>
-        <a href="http://vuex.vuejs.org/" target="_blank">vuex</a>
-      </li>
-      <li>
-        <a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a>
-      </li>
-      <li>
-        <a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a>
-      </li>
-    </ul>
+  <div class="h-md-100 w-100 d-flex flex-column">
+    <heading></heading>
+    <div class="h-md-100 row m-0">
+      <b-col cols="12" md="2" class="h-md-100 m-0 p-0">
+        <sidebar />
+      </b-col>
+      <b-col cols="12" md="7" class="h-md-100 bg-white m-0 p-2 p-md-3">
+        <router-view />
+      </b-col>
+      <b-col cols="12" md="3" class="h-md-100 m-0 p-0">
+        <activity></activity>
+      </b-col>
+    </div>
   </div>
 </template>
 
 <script>
+import Heading from './Heading'
+import Sidebar from './Sidebar'
+import Activity from './Activity/Activity'
+
 export default {
-  name: 'hello',
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
+  name: 'dashboard',
+  components: { Heading, Sidebar, Activity }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1,
-h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
