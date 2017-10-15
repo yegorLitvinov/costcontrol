@@ -1,16 +1,25 @@
 <template>
   <div class="header bg-primary w-100 text-white">
-    <b-row class="m-0 p-0 align-items-center h-100">
-      <b-col cols="12 text-uppercase">
-        Dashboard
-      </b-col>
-    </b-row>
+    <div class="d-flex m-0 p-0 align-items-center h-100 d-flex justify-content-between">
+      <div class="text-uppercase">Dashboard</div>
+
+      <div class="d-flex justify-content-end h-100">
+        <div class="nav-link d-flex align-items-center" @click="logout"><div class="m-auto icon-wrapper"><icon name="sign-out" scale="1.5" /></div></div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import router from '../../router'
+
 export default {
-  name: 'heading'
+  name: 'heading',
+  methods: {
+    logout: () => {
+      router.push('/')
+    }
+  }
 }
 </script>
 
@@ -19,5 +28,18 @@ export default {
 
 .header {
   height: $heading-height;
+}
+
+.nav-link {
+  width: $heading-height;
+  height: 100%;
+  color: white;
+  background-color: $warning;
+  border-bottom: 2px solid lighten($warning, 10%);
+  cursor: pointer;
+
+  .icon-wrapper {
+    max-width: 30px;
+  }
 }
 </style>
