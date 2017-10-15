@@ -1,6 +1,8 @@
 <template>
   <div id="app" class="container-fluid m-0 p-0 h-md-100">
-    <router-view></router-view>
+  	<transition name="fade">
+	    <router-view></router-view>
+		</transition>
   </div>
 </template>
 
@@ -12,9 +14,11 @@ export default {
 
 <style lang="scss">
 @import 'styles/bootstrap';
+@import 'styles/transitions';
+@import url('https://fonts.googleapis.com/css?family=Rubik');
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Rubik', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

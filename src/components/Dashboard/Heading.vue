@@ -1,7 +1,7 @@
 <template>
   <div class="header bg-primary w-100 text-white">
-    <b-row class="m-0 p-0">
-      <b-col cols="12 p-2 text-uppercase">
+    <b-row class="m-0 p-0 align-items-center h-100">
+      <b-col cols="12 text-uppercase">
         Dashboard
       </b-col>
     </b-row>

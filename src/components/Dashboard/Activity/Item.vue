@@ -1,6 +1,6 @@
 <template>
-  <div class="px-4 item-wrapper" :class="{selected}">
-    <div class="activity-item" :class="{selected}" @click.prevent="handleClick">
+  <div class="px-4 item-wrapper">
+    <div class="activity-item">
       {{ text }}
     </div>
   </div>
@@ -9,15 +9,7 @@
 <script>
 export default {
   name: 'activity-item',
-  props: ['text'],
-  data: () => ({
-    selected: false
-  }),
-  methods: {
-    handleClick() {
-      this.selected = !this.selected
-    }
-  }
+  props: ['text']
 }
 </script>
 
@@ -53,8 +45,8 @@ export default {
 }
 
 .item-wrapper {
-  &.selected {
-    background-color: $info;
+  &:hover {
+    background-color: rgba($info, 0.8);
     color: white;
   }
 }

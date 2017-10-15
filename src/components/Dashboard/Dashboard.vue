@@ -6,7 +6,9 @@
         <sidebar />
       </b-col>
       <b-col cols="12" md="7" class="h-md-100 bg-white m-0 p-2 p-md-3">
-        <router-view />
+        <transition name="fade">
+          <router-view></router-view>
+        </transition>
       </b-col>
       <b-col cols="12" md="3" class="h-md-100 m-0 p-0">
         <activity></activity>
@@ -17,7 +19,7 @@
 
 <script>
 import Heading from './Heading'
-import Sidebar from './Sidebar'
+import Sidebar from './Sidebar/Sidebar'
 import Activity from './Activity/Activity'
 
 export default {
