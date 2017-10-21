@@ -7,8 +7,16 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
-  name: 'app'
+  name: 'app',
+  mounted() {
+    const token = sessionStorage.getItem('token')
+    if (token) {
+      Vue.http.headers.common['Authorization'] = `Token ${token}`
+    }
+  }
 }
 </script>
 

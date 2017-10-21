@@ -24,6 +24,11 @@ import Activity from './Activity/Activity'
 
 export default {
   name: 'dashboard',
-  components: { Heading, Sidebar, Activity }
+  components: { Heading, Sidebar, Activity },
+  mounted() {
+    if (!sessionStorage.getItem('token')) {
+      this.$router.push('/')
+    }
+  }
 }
 </script>

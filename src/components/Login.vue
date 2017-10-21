@@ -1,11 +1,11 @@
 <template>
   <div class="d-flex m-auto h-100 align-items-center login">
     <b-form @submit.prevent="onSubmit" class="w-100 m-3">
-      <b-form-group label="Email address:" description="We'll never share your email with anyone else.">
-        <b-form-input name="email" v-model="form.email" required placeholder="Enter email"></b-form-input>
+      <b-form-group label="Email address:" :feedback="error" :state="state">
+        <b-form-input name="email" v-model="form.email" :state="state" required placeholder="Enter email"></b-form-input>
       </b-form-group>
-      <b-form-group label="Password:">
-        <b-form-input type="password" v-model="form.password" required placeholder="Enter password"></b-form-input>
+      <b-form-group label="Password:" :feedback="error" :state="state">
+        <b-form-input type="password" v-model="form.password" :state="state" required placeholder="Enter password"></b-form-input>
       </b-form-group>
       <b-form-group>
         <!-- <b-form-checkbox v-model="form.checked">
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 
 export default {
   name: 'login',
@@ -25,8 +26,14 @@ export default {
     form: {
       email: '',
       password: ''
-    }
+    },
+    error: ''
   }),
+  computed: {
+    state() {
+      return this.error ? 'invalid' : ''
+    }
+  },
   methods: {
     onSubmit() {
       this.$http.post(
@@ -35,12 +42,17 @@ export default {
         { headers: { 'Authorization': 'Basic ' + btoa(`${this.form.email}:${this.form.password}`) } }
       )
         .then(response => {
-          console.info(response)
+          return response.json()
+        })
+        .then(data => {
+          Vue.http.headers.common['Authorization'] = `Token ${data.token}`
+          sessionStorage.setItem('token', data.token)
+          this.error = ''
+          this.$router.push('/dashboard')
         })
         .catch(error => {
-          console.error(error)
+          this.error = error.data.detail
         })
-      // this.$router.push('/dashboard')
     }
   }
 }
