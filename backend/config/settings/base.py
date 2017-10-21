@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DJANGO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PROJECT_ROOT = os.path.dirname(DJANGO_ROOT)
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'django_filters',
     'knox',
 
     'apps.api',
@@ -82,11 +84,22 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'costcontrol',
+        'USER': 'costcontrol',
+        'PASSWORD': 'costcontrol',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        'TIMEOUT': 60 * 60 * 24 * 30,
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -125,6 +138,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = join(PROJECT_ROOT, 'static')
+STATICFILES_DIRS = (
+    # join(PROJECT_ROOT, 'frontend', 'build'),
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_URL = '/media/'
 
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -135,6 +155,14 @@ REST_FRAMEWORK = {
         'knox.auth.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAdminUser'
+        'rest_framework.permissions.AllowAny',
     ),
+    'PAGE_SIZE': None,  # TODO: limit page size
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DATETIME_FORMAT': '%d.%m.%Y %H:%M',
 }
+
+INTERNAL_IPS = [
+    '0.0.0.0',
+    '127.0.0.1',
+]

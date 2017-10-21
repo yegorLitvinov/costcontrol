@@ -1,8 +1,14 @@
-# costcontrol
+## Backend Build Setup
 
-> A Vue.js project
+``` bash
+# allow to load env variables from .envrc file
+direnv allow
 
-## Build Setup
+# install dependencies
+pipenv install --dev
+```
+
+## Frontend Build Setup
 
 ``` bash
 # install dependencies

@@ -1,7 +1,11 @@
-from .base import *
+from .base import *  # noqa
 
 DEBUG = True
 
-INSTALLED_APPS += [
+INSTALLED_APPS += [  # noqa
     'django_extensions',
+]
+
+ALLOWED_HOSTS = [
+    '*'
 ]

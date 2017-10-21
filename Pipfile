@@ -8,24 +8,26 @@ name = "pypi"
 [packages]
 
 Django = ">1.11.1,<1.12"
-django-filter = "*"
-djangorestframework = "*"
-django-rest-knox = "*"
 Markdown = "*"
-mysqlclient = "*"
 Pillow = "*"
+django-filter = "*"
+django-rest-knox = "*"
+djangorestframework = "*"
+psycopg2 = "*"
 python-memcached = "*"
 
 
 [dev-packages]
 
+Werkzeug = "*"
+autopep8 = "*"
 django-autofixture = "*"
 django-debug-toolbar = "*"
 django-extensions = "*"
 flake8 = "*"
 ipython = "*"
 ipython-genutils = "*"
+isort = "*"
 pdbpp = "*"
 pylint = "*"
 pylint-django = "*"
-Werkzeug = "*"
