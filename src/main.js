@@ -13,6 +13,8 @@ Vue.use(BootstrapVue)
 Vue.use(VueResource)
 Vue.component('icon', Icon)
 
+import store from './store'
+
 Vue.config.productionTip = false
 Vue.http.options.root = '/api'
 
@@ -20,6 +22,7 @@ Vue.http.options.root = '/api'
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })
