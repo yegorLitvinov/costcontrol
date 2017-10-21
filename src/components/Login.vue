@@ -18,6 +18,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'login',
   data: () => ({
@@ -28,7 +29,18 @@ export default {
   }),
   methods: {
     onSubmit() {
-      this.$router.push('/dashboard')
+      this.$http.post(
+        'accounts/login/',
+        '',
+        { headers: { 'Authorization': 'Basic ' + btoa(`${this.form.email}:${this.form.password}`) } }
+      )
+        .then(response => {
+          console.info(response)
+        })
+        .catch(error => {
+          console.error(error)
+        })
+      // this.$router.push('/dashboard')
     }
   }
 }

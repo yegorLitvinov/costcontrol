@@ -1,12 +1,17 @@
+.direnv/
 .DS_Store
-node_modules/
 dist/
+db.sqlite3
+node_modules/
 npm-debug.log*
+selenium-debug.log
+test/e2e/reports
+test/unit/coverage
 yarn-debug.log*
 yarn-error.log*
-test/unit/coverage
-test/e2e/reports
-selenium-debug.log
+
+# Python compiled
+*\.pyc
 
 # Editor directories and files
 .idea
