@@ -38,7 +38,7 @@
         - "postgres.{{ project_name }}_postgres_1.state.running"
         - "memcached.{{ project_name }}_memcached_1.state.running"
         - "web.{{ project_name }}_web_1.state.running"
-        - "web.{{ project_name }}_yarn_1.state.running"
+        - "yarn.{{ project_name }}_yarn_1.state.running"
 
   - name: Create db
     shell: docker-compose exec -T web make create-db
