@@ -1,0 +1,44 @@
+version: "2"
+services:
+
+  postgres:
+    image: "postgres:alpine"
+    restart: always
+    networks:
+      web_net:
+        ipv4_address: "{{ base_ip }}.10"
+
+  memcached:
+    image: "memcached:alpine"
+    restart: always
+    networks:
+      web_net:
+        ipv4_address: "{{ base_ip }}.11"
+
+  web:
+    build: "{{ project_dir }}/gunicorn"
+    volumes:
+      - "{{ project_dir }}:/srv/{{ project_name }}"
+    restart: always
+    command: "source /srv/{{ project_name }}/.venv/bin/activate && gunicorn config.wsgi"
+    stdin_open: true
+    tty: true
+    environment:
+      GUNICORN_CMD_ARGS: "--workers 3 --bind 0.0.0.0"
+      DJANGO_SETTINGS_MODULE: "config.settings.prod"
+      PIPENV_VENV_IN_PROJECT: "1"
+      PYTHONPATH: "{{ project_dir }}/backend"
+    networks:
+      web_net:
+        ipv4_address: "{{ base_ip }}.12"
+    depends_on:
+      - postgres
+      - memcached
+
+networks:
+  web_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "{{ base_ip }}.0/24"

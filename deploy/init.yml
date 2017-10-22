@@ -16,6 +16,11 @@
         update_password: always
         groups: docker
 
+    - name: Create docker-compose alias
+      become: yes
+      become_user: "{{ user }}"
+      command: "echo \"alias dc='docker-compose'\" >> ~/.bashrc"
+
     - name: Install necessary packages
       apt:
         name: "{{ item }}"

@@ -47,16 +47,16 @@ server {
 {% endfor %}
 
 
-{% for server in nginx_servers_com %}
+{% for server in nginx_servers %}
 
 server {
     listen 443 ssl;
     server_name {{ server.name }};
 
     ssl on;
-    ssl_certificate         /etc/letsencrypt/live/{{ nginx_servers_com[0].name }}/fullchain.pem;
-    ssl_certificate_key     /etc/letsencrypt/live/{{ nginx_servers_com[0].name }}/privkey.pem;
-    ssl_trusted_certificate /etc/letsencrypt/live/{{ nginx_servers_com[0].name }}/fullchain.pem;
+    ssl_certificate         /etc/letsencrypt/live/{{ nginx_servers[0].name }}/fullchain.pem;
+    ssl_certificate_key     /etc/letsencrypt/live/{{ nginx_servers[0].name }}/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/{{ nginx_servers[0].name }}/fullchain.pem;
 
     ssl_session_cache shared:SSL:50m;
     ssl_session_timeout 5m;

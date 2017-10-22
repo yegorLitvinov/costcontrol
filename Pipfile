@@ -7,24 +7,25 @@ name = "pypi"
 
 [packages]
 
-Django = ">1.11.1,<1.12"
-Markdown = "*"
-Pillow = "*"
+django = ">1.11.1,<1.12"
+markdown = "*"
+pillow = "*"
 django-filter = "*"
 django-rest-knox = "*"
 djangorestframework = "*"
-psycopg2 = "*"
+"psycopg2" = "*"
 python-memcached = "*"
+"e81881c" = {path = "/home/egor/Documents/vue-webpack/gunicorn"}
 
 
 [dev-packages]
 
-Werkzeug = "*"
-autopep8 = "*"
+werkzeug = "*"
+"autopep8" = "*"
 django-autofixture = "*"
 django-debug-toolbar = "*"
 django-extensions = "*"
-flake8 = "*"
+"flake8" = "*"
 ipython = "*"
 ipython-genutils = "*"
 isort = "*"

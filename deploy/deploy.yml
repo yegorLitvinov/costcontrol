@@ -16,42 +16,18 @@
       repo: https://github.com/yegorLitvinov/costcontrol.git
       dest: "{{ project_dir }}"
 
+  - name: Copy docker-compose
+    template:
+      src: docker-compose.yml
+      dest: "{{ project_dir }}"
+
+  - name: Install python requirements
+    command: dc exec -T web pipenv install
+
   - name: Setup docker-compose services
     docker_service:
       project_name: "{{ project_name }}"
-      definition:
-        version: "2"
-        services:
-          postgres:
-            image: "postgres:alpine"
-            restart: always
-            networks:
-              web_net:
-                ipv4_address: "{{ base_ip }}.10"
-          memcached:
-            image: "memcached:alpine"
-            restart: always
-            networks:
-              web_net:
-                ipv4_address: "{{ base_ip }}.11"
-          web:
-            build: "{{ project_dir }}/gunicorn"
-            volumes:
-              - "{{ project_dir }}:/srv/{{ project_name }}:ro"
-            restart: always
-            networks:
-              web_net:
-                ipv4_address: "{{ base_ip }}.12"
-            depends_on:
-              - postgres
-              - memcached
-        networks:
-          web_net:
-            driver: bridge
-            ipam:
-              driver: default
-              config:
-                - subnet: "{{ base_ip }}.0/24"
+      project_src: "{{ project_dir }}"
 
   - name: Assert services running
     assert:

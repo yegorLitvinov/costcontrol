@@ -15,8 +15,8 @@ cert_domains:
   - "{{ web_domain }}"
 
 nginx_servers:
-  - domain: "{{ web_domain }}"
-    host: "{{ base_id }}.12"
+  - name: "{{ web_domain }}"
+    host: "{{ base_ip }}.12"
     port: 8000
     static:
       - url: /media/

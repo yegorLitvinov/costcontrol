@@ -1,27 +1,25 @@
-.DS_Store
-db.sqlite3
-.vagrant/
+/.DS_Store
+/db.sqlite3
+/.vagrant/
+/docker-compose.yml
 
 # Tests result
-test/e2e/reports
-test/unit/coverage
+/test/e2e/reports
+/test/unit/coverage
 
 # Logs
-*\.log
+/*\.log
 
 # Python
 *\.pyc
 **/__pycache__/
-.direnv/
+/.direnv/
+/.venv/
 
 # Js
-dist/
-node_modules/
+/dist/
+/node_modules/
 
 # Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+/.idea
+/.vscode
