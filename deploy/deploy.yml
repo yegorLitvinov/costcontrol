@@ -55,6 +55,11 @@
     args:
       chdir: "{{ project_dir }}"
 
+  - name: Restart Gunicorn
+    shell: docker-compose restart web
+    args:
+      chdir: "{{ project_dir }}"
+
   - name: Copy nginx config
     become: yes
     become_user: root
