@@ -15,7 +15,6 @@
     git:
       repo: https://github.com/yegorLitvinov/costcontrol.git
       dest: "{{ project_dir }}"
-
   - name: Copy docker-compose
     template:
       src: docker-compose.yml
@@ -33,18 +32,13 @@
         - "memcached.{{ project_name }}_memcached_1.state.running"
         - "web.{{ project_name }}_web_1.state.running"
 
-  - name: Create database and user
-    command: pipenv shell 'cd backend && python manage.py sqlcreate | psql -h postgres -U postgres'
-  # - name: Apply migrations
-  # - name: Build static
+  - name: Create db
+    shell: dc exec -T make create-db
 
-  - name: Remove default site
-    become: yes
-    become_user: root
-    file:
-      name: /etc/nginx/sites-enabled/default
-      state: absent
-    notify: reload-nginx
+  - name: Apply migrations
+    shell: dc exec -T make migrate
+
+  # - name: Build static
 
   - name: Copy nginx config
     become: yes

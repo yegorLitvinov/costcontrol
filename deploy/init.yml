@@ -31,6 +31,12 @@
         - htop
         - git
 
+    - name: Remove default site
+      file:
+        name: /etc/nginx/sites-enabled/default
+        state: absent
+      notify: reload-nginx
+
     - name: Create /etc/nginx/dhparams.pem
       copy:
         content: ""

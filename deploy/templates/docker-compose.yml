@@ -20,9 +20,9 @@ services:
     volumes:
       - "{{ project_dir }}:/srv/{{ project_name }}"
     restart: always
-    # command: pipenv install && pipenv shell 'cd backend && gunicorn config.wsgi'
-    command: bash
-    stdin_open: true
+    command: dc exec -T web make start-gunicorn
+    # command: bash
+    # stdin_open: true
     tty: true
     environment:
       GUNICORN_CMD_ARGS: "--workers 3 --bind 0.0.0.0"
