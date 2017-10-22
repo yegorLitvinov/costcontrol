@@ -34,3 +34,9 @@ npm test
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+## TODO:
+- Disable source maps for production, but not for raven for example
+- Run yarn build sync by calling `docker-compose start yarn'
+- Migrate old db
