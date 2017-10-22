@@ -1,0 +1,50 @@
+- hosts: all
+  become: yes
+
+  handlers:
+    - name: generate-dhparam
+      shell: openssl dhparam -out /etc/nginx/dhparams.pem 4096
+
+  pre_tasks:
+    - name: Create user
+      user:
+        name: "{{ user }}"
+        uid: 1001
+        home: "{{ user_home }}"
+        shell: /bin/bash
+        password: "{{ user_pass }}"
+        update_password: always
+        groups: docker
+
+    - name: Install necessary packages
+      apt:
+        name: "{{ item }}"
+        update_cache: yes
+      with_items:
+        - nginx
+        - vim
+        - htop
+        - git
+
+    - name: Create /etc/nginx/dhparams.pem
+      copy:
+        content: ""
+        force: no
+        dest: /etc/nginx/dhparams.pem
+      notify:
+        - generate-dhparam
+
+  roles:
+    # - role: angstwad.docker_ubuntu
+    # - role: franklinkim.docker-compose
+    # - role: thefinn93.letsencrypt
+    #   letsencrypt_webroot_path: /var/www/letsencrypt
+    #   letsencrypt_email: "{{ admin_email }}"
+    #   letsencrypt_cert_domains: "{{ cert_domains }}"
+    #   letsencrypt_renewal_command_args: '--renew-hook "systemctl restart nginx"'
+
+  tasks:
+    - name: Update user group
+      user:
+        name: "{{ user }}"
+        groups: docker

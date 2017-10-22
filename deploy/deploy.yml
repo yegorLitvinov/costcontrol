@@ -1,0 +1,83 @@
+- hosts: all
+  become: yes
+  become_user: "{{ user }}"
+
+  handlers:
+  - name: reload-nginx
+    become: yes
+    become_user: root
+    service:
+      name: nginx
+      state: reloaded
+
+  tasks:
+  - name: Fetch repo
+    git:
+      repo: https://github.com/yegorLitvinov/costcontrol.git
+      dest: "{{ project_dir }}"
+
+  - name: Setup docker-compose services
+    docker_service:
+      project_name: "{{ project_name }}"
+      definition:
+        version: "2"
+        services:
+          postgres:
+            image: "postgres:alpine"
+            restart: always
+            networks:
+              web_net:
+                ipv4_address: "{{ base_ip }}.10"
+          memcached:
+            image: "memcached:alpine"
+            restart: always
+            networks:
+              web_net:
+                ipv4_address: "{{ base_ip }}.11"
+          web:
+            build: "{{ project_dir }}/gunicorn"
+            volumes:
+              - "{{ project_dir }}:/srv/{{ project_name }}:ro"
+            restart: always
+            networks:
+              web_net:
+                ipv4_address: "{{ base_ip }}.12"
+            depends_on:
+              - postgres
+              - memcached
+        networks:
+          web_net:
+            driver: bridge
+            ipam:
+              driver: default
+              config:
+                - subnet: "{{ base_ip }}.0/24"
+
+  - name: Assert services running
+    assert:
+      that:
+        - "postgres.{{ project_name }}_postgres_1.state.running"
+        - "memcached.{{ project_name }}_memcached_1.state.running"
+        - "web.{{ project_name }}_web_1.state.running"
+
+  # - name: Create database and user
+  # - name: Apply migrations
+  # - name: Build static
+
+  - name: Remove default site
+    become: yes
+    become_user: root
+    file:
+      name: /etc/nginx/sites-enabled/default
+      state: absent
+    notify: reload-nginx
+
+  - name: Copy nginx config
+    become: yes
+    become_user: root
+    template:
+      src: nginx.conf.j2
+      dest: "/etc/nginx/sites-enabled/{{ project_name }}.conf"
+    notify: reload-nginx
+
+  # - name: Restart Gunicorn

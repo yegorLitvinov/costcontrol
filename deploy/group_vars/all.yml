@@ -1,0 +1,25 @@
+user: web
+user_home: /home/web
+project_name: costcontrol
+project_dir: "{{ user_home }}/{{ project_name }}"
+user_pass: password
+
+
+admin_email: 'yegor.litvinov@yandex.ru'
+# Private docker network base address
+base_ip: "172.20.20"
+
+web_domain: costcontrol.ddns.net
+
+cert_domains:
+  - "{{ web_domain }}"
+
+nginx_servers:
+  - domain: "{{ web_domain }}"
+    host: "{{ base_id }}.12"
+    port: 8000
+    static:
+      - url: /media/
+        path: "{{ project_dir }}/media"
+      - url: /static/
+        path: "{{ project_dir }}/dist"

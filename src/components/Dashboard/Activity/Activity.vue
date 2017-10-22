@@ -1,19 +1,24 @@
 <template>
   <div class="bg-light inner-h-100">
     <p class="text-uppercase p-4">Latest Activity</p>
-    <activity-item v-for="(m, _, index) in messages" :key="index" :text="m"></activity-item>
+    <activity-item v-for="(record, _, index) in history" :key="index" :text="record"></activity-item>
   </div>
 </template>
 
 <script>
+import Vuex from 'vuex'
+
 import ActivityItem from './Item'
 
 export default {
   name: 'activity',
-  data: () => ({
-    messages: ['One dsmaffs fk dsjf jsdafj lsjdf jalsdj jsdk sjafdj fajkl jslfjkl jdklaf jls', 'two', 'three']
+  computed: Vuex.mapState({
+    history: state => state.history
   }),
-  components: { ActivityItem }
+  components: { ActivityItem },
+  mounted() {
+    this.$store.dispatch('get', { what: '/api/history/20/', where: 'history' })
+  }
 }
 </script>
 
