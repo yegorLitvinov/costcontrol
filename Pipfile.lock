@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cf0e45838cd731c519ba23630926a87aa23bfdedf9ae479a97372780c307ca2a"
+            "sha256": "c93c30266c24a48c415031bd6a5247254bdd086c30285df6697fdd0cbc5ec08a"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -132,8 +132,12 @@
             ],
             "version": "==3.7.1"
         },
-        "e81881c": {
-            "path": "/home/egor/Documents/vue-webpack/gunicorn"
+        "gunicorn": {
+            "hashes": [
+                "sha256:75af03c99389535f218cc596c7de74df4763803f7b63eb09d77e92b3956b36c6",
+                "sha256:eee1169f0ca667be05db3351a0960765620dad53f53434262ff8901b68a1b622"
+            ],
+            "version": "==19.7.1"
         },
         "idna": {
             "hashes": [

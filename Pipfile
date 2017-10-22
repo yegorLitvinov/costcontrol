@@ -15,8 +15,7 @@ django-rest-knox = "*"
 djangorestframework = "*"
 "psycopg2" = "*"
 python-memcached = "*"
-"e81881c" = {path = "/home/egor/Documents/vue-webpack/gunicorn"}
-
+gunicorn = "*"
 
 [dev-packages]
 

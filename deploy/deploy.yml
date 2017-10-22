@@ -21,9 +21,6 @@
       src: docker-compose.yml
       dest: "{{ project_dir }}"
 
-  - name: Install python requirements
-    command: dc exec -T web pipenv install
-
   - name: Setup docker-compose services
     docker_service:
       project_name: "{{ project_name }}"
@@ -35,6 +32,9 @@
         - "postgres.{{ project_name }}_postgres_1.state.running"
         - "memcached.{{ project_name }}_memcached_1.state.running"
         - "web.{{ project_name }}_web_1.state.running"
+
+  - name: Install python requirements
+    command: dc exec -T web pipenv install
 
   # - name: Create database and user
   # - name: Apply migrations

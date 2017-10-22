@@ -16,7 +16,7 @@ services:
         ipv4_address: "{{ base_ip }}.11"
 
   web:
-    build: "{{ project_dir }}/gunicorn"
+    build: "{{ project_dir }}/deploy/gunicorn"
     volumes:
       - "{{ project_dir }}:/srv/{{ project_name }}"
     restart: always
