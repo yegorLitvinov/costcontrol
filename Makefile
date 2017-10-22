@@ -26,4 +26,4 @@ migrate:
 	python backend/manage.py migrate
 
 create-db:
-	python backend/manage.py sqlcreate | psql -U posgtres -h postgres 2>/dev/null
+	python backend/manage.py sqlcreate | psql -U postgres -h postgres 2>/dev/null

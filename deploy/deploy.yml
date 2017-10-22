@@ -33,10 +33,14 @@
         - "web.{{ project_name }}_web_1.state.running"
 
   - name: Create db
-    shell: docker-compose exec -T make create-db
+    shell: docker-compose exec -T web make create-db
+    args:
+      chdir: "{{ project_dir }}"
 
   - name: Apply migrations
-    shell: docker-compose exec -T make migrate
+    shell: docker-compose exec -T web make migrate
+    args:
+      chdir: "{{ project_dir }}"
 
   # - name: Build static
 
@@ -48,4 +52,7 @@
       dest: "/etc/nginx/sites-enabled/{{ project_name }}.conf"
     notify: reload-nginx
 
-  # - name: Restart Gunicorn
+  - name: Restart containers
+    docker_service:
+      project_src: "{{ project_dir }}"
+      restarted: yes
