@@ -20,14 +20,13 @@ services:
     volumes:
       - "{{ project_dir }}:/srv/{{ project_name }}"
     restart: always
-    command: "source /srv/{{ project_name }}/.venv/bin/activate && gunicorn config.wsgi"
-    stdin_open: true
-    tty: true
+    command: "pipenv install && pipenv shell && cd backend && gunicorn config.wsgi"
     environment:
       GUNICORN_CMD_ARGS: "--workers 3 --bind 0.0.0.0"
       DJANGO_SETTINGS_MODULE: "config.settings.prod"
       PIPENV_VENV_IN_PROJECT: "1"
       PYTHONPATH: "{{ project_dir }}/backend"
+      SHELL: /bin/bash
     networks:
       web_net:
         ipv4_address: "{{ base_ip }}.12"
