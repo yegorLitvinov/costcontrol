@@ -37,12 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework',
+    'django_extensions',
     'django_filters',
     'knox',
+    'rest_framework',
 
-    'apps.api',
     'apps.accounts',
+    'apps.api',
     'apps.costcontrol',
 ]
 

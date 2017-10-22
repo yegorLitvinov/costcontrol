@@ -33,8 +33,8 @@
         - "memcached.{{ project_name }}_memcached_1.state.running"
         - "web.{{ project_name }}_web_1.state.running"
 
-  # - name: Create database and user
-  #   command: dc exec -T web 'pipenv shell && cd backend && '
+  - name: Create database and user
+    command: pipenv shell 'cd backend && python manage.py sqlcreate | psql -h postgres -U postgres'
   # - name: Apply migrations
   # - name: Build static
 
