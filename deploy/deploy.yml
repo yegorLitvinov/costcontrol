@@ -38,7 +38,6 @@
         - "postgres.{{ project_name }}_postgres_1.state.running"
         - "memcached.{{ project_name }}_memcached_1.state.running"
         - "web.{{ project_name }}_web_1.state.running"
-        - "yarn.{{ project_name }}_yarn_1.state.running"
 
   - name: Create db
     shell: docker-compose exec -T web make create-db
@@ -50,6 +49,12 @@
     args:
       chdir: "{{ project_dir }}"
 
+  # Collect static doesn't wait untill build finished
+  - name: Collect static
+    shell: docker-compose exec -T web make collectstatic
+    args:
+      chdir: "{{ project_dir }}"
+
   - name: Copy nginx config
     become: yes
     become_user: root
@@ -58,8 +63,14 @@
       dest: "/etc/nginx/sites-enabled/{{ project_name }}.conf"
     notify: reload-nginx
 
-  # Build static while restarting yarn
-  - name: Restart containers
+  - name: Build static
     docker_service:
-      project_src: "{{ project_dir }}"
-      restarted: yes
+      project_name: yarn
+      definition:
+        version: "2"
+        services:
+          yarn:
+            image: "kkarczmarczyk/node-yarn"
+            command: make yarn
+            volumes:
+              - "{{ project_dir }}:/workspace"

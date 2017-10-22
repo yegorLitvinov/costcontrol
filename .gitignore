@@ -1,6 +1,6 @@
 /db.sqlite3
 /.vagrant/
-*.retry
+*\.retry
 
 # Docker-compose
 volume/
@@ -11,7 +11,7 @@ volume/
 /test/unit/coverage
 
 # Logs
-/*\.log
+*\.log
 
 # Python
 *\.pyc

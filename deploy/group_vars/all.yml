@@ -20,6 +20,11 @@ nginx_servers:
     port: 8000
     static:
       - url: /media/
-        path: "{{ project_dir }}/media"
+        path: "{{ project_dir }}/media/"
+        directive: alias
       - url: /static/
-        path: "{{ project_dir }}/dist"
+        path: "{{ project_dir }}/static/"
+        directive: alias
+      - url: /
+        path: "/dist/index.html break"
+        directive: "rewrite ^"

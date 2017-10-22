@@ -19,6 +19,7 @@ server {
 server {
     listen 443 ssl;
     server_name {{ server.name }};
+    root {{ project_dir }};
 
     ssl on;
     ssl_certificate         /etc/letsencrypt/live/{{ nginx_servers[0].name }}/fullchain.pem;
@@ -38,11 +39,11 @@ server {
 
     {% for static in server.static %}
         location {{ static.url }} {
-            alias {{ static.path }};
+            {{ static.directive }} {{ static.path }};
         }
     {% endfor %}
 
-    location / {
+    location /api/ {
         proxy_pass http://{{ server.host }}:{{ server.port }};
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-For $remote_addr;

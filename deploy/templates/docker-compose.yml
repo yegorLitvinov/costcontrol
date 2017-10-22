@@ -17,12 +17,6 @@ services:
       web_net:
         ipv4_address: "{{ base_ip }}.11"
 
-  yarn:
-    image: "kkarczmarczyk/node-yarn"
-    command: make yarn
-    volumes:
-      - "{{ project_dir }}:/workspace"
-
   web:
     build: "{{ project_dir }}/deploy/gunicorn"
     volumes:
