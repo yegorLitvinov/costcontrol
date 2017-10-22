@@ -15,6 +15,13 @@
     git:
       repo: https://github.com/yegorLitvinov/costcontrol.git
       dest: "{{ project_dir }}"
+
+  - name: Create postgres volume directory
+    file:
+      state: directory
+      path: "{{ project_dir }}/deploy/postgres/volume"
+      recurse: yes
+
   - name: Copy docker-compose
     template:
       src: docker-compose.yml
@@ -31,6 +38,7 @@
         - "postgres.{{ project_name }}_postgres_1.state.running"
         - "memcached.{{ project_name }}_memcached_1.state.running"
         - "web.{{ project_name }}_web_1.state.running"
+        - "web.{{ project_name }}_yarn_1.state.running"
 
   - name: Create db
     shell: docker-compose exec -T web make create-db

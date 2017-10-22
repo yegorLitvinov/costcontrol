@@ -44,6 +44,8 @@ server {
 
     location / {
         proxy_pass http://{{ server.host }}:{{ server.port }};
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
     }
 
     access_log /var/log/nginx/{{ server.name }}.access.log;
