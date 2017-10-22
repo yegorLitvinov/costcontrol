@@ -42,8 +42,6 @@
     args:
       chdir: "{{ project_dir }}"
 
-  # - name: Build static
-
   - name: Copy nginx config
     become: yes
     become_user: root
@@ -52,6 +50,7 @@
       dest: "/etc/nginx/sites-enabled/{{ project_name }}.conf"
     notify: reload-nginx
 
+  # Build static while restarting yarn
   - name: Restart containers
     docker_service:
       project_src: "{{ project_dir }}"

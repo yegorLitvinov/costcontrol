@@ -27,3 +27,7 @@ migrate:
 
 create-db:
 	python backend/manage.py sqlcreate | psql -U postgres -h postgres 2>/dev/null
+
+yarn:
+	yarn
+	yarn run build

@@ -3,7 +3,7 @@
 
   handlers:
     - name: generate-dhparam
-      shell: openssl dhparam -out /etc/nginx/dhparams.pem 4096
+      shell: openssl dhparam -dsaparam -out /etc/nginx/dhparams.pem 4096
 
   pre_tasks:
     - name: Create user
@@ -14,7 +14,6 @@
         shell: /bin/bash
         password: "{{ user_pass }}"
         update_password: always
-        groups: docker
 
     - name: Create docker-compose alias
       become: yes
@@ -35,7 +34,6 @@
       file:
         name: /etc/nginx/sites-enabled/default
         state: absent
-      notify: reload-nginx
 
     - name: Create /etc/nginx/dhparams.pem
       copy:
@@ -46,13 +44,13 @@
         - generate-dhparam
 
   roles:
-    # - role: angstwad.docker_ubuntu
-    # - role: franklinkim.docker-compose
-    # - role: thefinn93.letsencrypt
-    #   letsencrypt_webroot_path: /var/www/letsencrypt
-    #   letsencrypt_email: "{{ admin_email }}"
-    #   letsencrypt_cert_domains: "{{ cert_domains }}"
-    #   letsencrypt_renewal_command_args: '--renew-hook "systemctl restart nginx"'
+    - role: angstwad.docker_ubuntu
+    - role: franklinkim.docker-compose
+    - role: thefinn93.letsencrypt
+      letsencrypt_webroot_path: /var/www/letsencrypt
+      letsencrypt_email: "{{ admin_email }}"
+      letsencrypt_cert_domains: "{{ cert_domains }}"
+      letsencrypt_renewal_command_args: '--renew-hook "systemctl restart nginx"'
 
   tasks:
     - name: Update user group

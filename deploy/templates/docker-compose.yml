@@ -4,6 +4,8 @@ services:
   postgres:
     image: "postgres:alpine"
     restart: always
+    volumes:
+      - "{{ project_dir }}/deploy/postgres/volume:/var/lib/postgresql/data"
     networks:
       web_net:
         ipv4_address: "{{ base_ip }}.10"
@@ -15,20 +17,24 @@ services:
       web_net:
         ipv4_address: "{{ base_ip }}.11"
 
+  yarn:
+    image: "kkarczmarczyk/node-yarn"
+    command: make yarn
+    volumes:
+      - "{{ project_dir }}:/workspace"
+
   web:
     build: "{{ project_dir }}/deploy/gunicorn"
     volumes:
       - "{{ project_dir }}:/srv/{{ project_name }}"
     restart: always
     command: make gunicorn
-    # command: bash
-    # stdin_open: true
     tty: true
     environment:
-      GUNICORN_CMD_ARGS: "--workers 3 --bind 0.0.0.0"
+      GUNICORN_CMD_ARGS: "--workers 3 --bind 0.0.0.0:8000"
       DJANGO_SETTINGS_MODULE: "config.settings.prod"
       PIPENV_VENV_IN_PROJECT: "1"
-      PYTHONPATH: "{{ project_dir }}/backend"
+      PYTHONPATH: "/srv/{{ project_name }}/backend"
       SHELL: /bin/bash
     networks:
       web_net:
