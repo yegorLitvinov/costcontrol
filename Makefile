@@ -19,7 +19,7 @@ deploy:
 # Commands for production container
 
 gunicorn:
-	install -r requirements/prod.txt
+	pip install -r requirements/prod.txt
 	cd backend && gunicorn config.wsgi
 
 migrate:

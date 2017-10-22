@@ -33,10 +33,10 @@
         - "web.{{ project_name }}_web_1.state.running"
 
   - name: Create db
-    shell: dc exec -T make create-db
+    shell: docker-compose exec -T make create-db
 
   - name: Apply migrations
-    shell: dc exec -T make migrate
+    shell: docker-compose exec -T make migrate
 
   # - name: Build static
 

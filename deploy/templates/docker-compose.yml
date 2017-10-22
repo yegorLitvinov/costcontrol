@@ -20,7 +20,7 @@ services:
     volumes:
       - "{{ project_dir }}:/srv/{{ project_name }}"
     restart: always
-    command: dc exec -T web make start-gunicorn
+    command: make gunicorn
     # command: bash
     # stdin_open: true
     tty: true
