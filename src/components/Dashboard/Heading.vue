@@ -4,7 +4,9 @@
       <div class="text-uppercase">Dashboard</div>
 
       <div class="d-flex justify-content-end h-100">
-        <div class="nav-link d-flex align-items-center" @click="logout"><div class="m-auto icon-wrapper"><icon name="sign-out" scale="1.5" /></div></div>
+        <div class="nav-link d-flex align-items-center justify-content-center" @click="logout">
+          <div class="m-auto icon-wrapper"><icon name="sign-out" scale="1.5" class="d-block" /></div>
+        </div>
       </div>
     </div>
   </div>

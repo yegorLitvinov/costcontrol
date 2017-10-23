@@ -77,11 +77,10 @@
 
   - name: Assert yarn service not running
     assert:
-      that:
-        - "yarn.yarn_yarn_1.state.exited"
+      that: "not yarn.yarn_yarn_1.state.running"
 
   - name: Build static
-    shell: docker-compose start yarn
+    shell: docker start -i yarn_yarn_1
     args:
       chdir: "{{ project_dir }}"
 

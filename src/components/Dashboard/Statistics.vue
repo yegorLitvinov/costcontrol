@@ -32,9 +32,9 @@ export default {
 .round-select {
   background-color: $warning;
   color: white;
-  border-radius: 10px;
+  border-radius: 20px;
   border: none;
-  height: 25px !important;
+  height: 35px !important;
   width: 90px;
 }
 </style>
