@@ -1,7 +1,10 @@
 /db.sqlite3
 /.vagrant/
 *\.retry
+
+# Static files
 /static/
+/media/
 
 # Docker-compose
 volume/

@@ -38,5 +38,4 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 ## TODO:
 - Disable source maps for production, but not for raven for example
-- Run yarn build sync by calling `docker-compose start yarn'
-- Migrate old db
+- filled-monthes and history urls are not protected

@@ -49,12 +49,6 @@
     args:
       chdir: "{{ project_dir }}"
 
-  # Collect static doesn't wait untill build finished
-  - name: Collect static
-    shell: docker-compose exec -T web make collectstatic
-    args:
-      chdir: "{{ project_dir }}"
-
   - name: Restart Gunicorn
     shell: docker-compose restart web
     args:
@@ -68,9 +62,10 @@
       dest: "/etc/nginx/sites-enabled/{{ project_name }}.conf"
     notify: reload-nginx
 
-  - name: Build static
+  - name: Setup yarn service
     docker_service:
       project_name: yarn
+      stopped: true
       definition:
         version: "2"
         services:
@@ -79,3 +74,18 @@
             command: make yarn
             volumes:
               - "{{ project_dir }}:/workspace"
+
+  - name: Assert yarn service not running
+    assert:
+      that:
+        - "yarn.yarn_yarn_1.state.exited"
+
+  - name: Build static
+    shell: docker-compose start yarn
+    args:
+      chdir: "{{ project_dir }}"
+
+  - name: Collect static
+    shell: docker-compose exec -T web make collectstatic
+    args:
+      chdir: "{{ project_dir }}"

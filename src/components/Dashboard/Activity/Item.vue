@@ -1,7 +1,7 @@
 <template>
   <div class="px-4 item-wrapper">
     <div class="activity-item">
-      {{ text }}
+      {{ `${record.sign} ${record.amount}\u20bd (${record.created_at}) ${record.comment} (${record.category__name})` }}
     </div>
   </div>
 </template>
@@ -9,7 +9,7 @@
 <script>
 export default {
   name: 'activity-item',
-  props: ['text']
+  props: ['record']
 }
 </script>
 
