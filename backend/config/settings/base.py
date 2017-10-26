@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-DJANGO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DJANGO_ROOT = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 PROJECT_ROOT = os.path.dirname(DJANGO_ROOT)
 
 
@@ -159,6 +160,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': None,  # TODO: limit page size
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DATETIME_FORMAT': '%d.%m.%Y %H:%M',
+    'USER_SERIALIZER': 'apps.api.serializers.UserSerializer',
 }
 
 INTERNAL_IPS = [

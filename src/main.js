@@ -16,7 +16,7 @@ Vue.component('icon', Icon)
 import store from './store'
 
 Vue.config.productionTip = false
-Vue.http.options.root = '/api'
+Vue.http.options.root = '/api/'
 
 /* eslint-disable no-new */
 new Vue({

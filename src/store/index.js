@@ -9,8 +9,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {
+      id: '',
       email: '',
-      name: '',
+      first_name: '',
+      last_name: '',
       token: ''
     },
     history: [],

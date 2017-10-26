@@ -17,3 +17,18 @@ export const appendRecord = (state, record) => {
   record.category__name = recordCategory.name
   state.history.unshift(record)
 }
+
+export const setUser = (state, user) => {
+  state.user = { ...state.user, ...user }
+}
+
+export const clearUser = (state) => {
+  state.user = {
+    ...state.user,
+    id: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    token: ''
+  }
+}

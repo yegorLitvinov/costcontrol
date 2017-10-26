@@ -13,21 +13,11 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default {
   name: 'heading',
   methods: {
     logout() {
-      this.$http.post('accounts/logout/')
-        .then(response => {
-          Vue.http.headers.common['Authorization'] = undefined
-          sessionStorage.removeItem('token')
-          this.$router.push('/')
-        })
-        .catch(error => {
-          console.error(error)
-        })
+      this.$store.dispatch('logout')
     }
   }
 }

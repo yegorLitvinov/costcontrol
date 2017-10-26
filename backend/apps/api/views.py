@@ -1,6 +1,6 @@
 from django.db.models import Sum
 from django.http import JsonResponse
-from django.views import View
+from rest_framework.views import APIView
 from knox.views import LoginView as KnoxLoginView
 from rest_framework import generics
 from rest_framework.authentication import BasicAuthentication
@@ -11,7 +11,8 @@ from apps.costcontrol.models import BalanceRecord, ProceedCategory, SpendingCate
 from apps.costcontrol.utils import FilledMonthesCache
 
 from .filters import ProceedMonthOfYearFilter, SpendingMonthOfYearFilter
-from .serializers import ProceedCategoryStatisticSerializer, SpeindingCategoryStatisticSerializer
+from .serializers import (ProceedCategoryStatisticSerializer, SpeindingCategoryStatisticSerializer,
+                          UserSerializer)
 from .view_mixins import OwnerMixin
 
 
@@ -24,6 +25,7 @@ class LoginView(KnoxLoginView):
     authentication_classes = (CustomBasicAuth,)
     permission_classes = (AllowAny,)
     allowed_methods = ('post',)
+    serializer_class = UserSerializer
 
     def post(self, request, format=None):
         return super().post(request, format)
@@ -32,7 +34,8 @@ class LoginView(KnoxLoginView):
 class SpendingCategoryStatisticListView(OwnerMixin, generics.ListAPIView):
     serializer_class = SpeindingCategoryStatisticSerializer
     queryset = SpendingCategory.objects.all()
-    filter_backends = api_settings.DEFAULT_FILTER_BACKENDS + [SpendingMonthOfYearFilter]
+    filter_backends = api_settings.DEFAULT_FILTER_BACKENDS + \
+        [SpendingMonthOfYearFilter]
     permission_classes = [IsAuthenticated]
 
     def filter_queryset(self, queryset):
@@ -45,7 +48,8 @@ class SpendingCategoryStatisticListView(OwnerMixin, generics.ListAPIView):
 class ProceedCategoryStatisticListView(OwnerMixin, generics.ListAPIView):
     serializer_class = ProceedCategoryStatisticSerializer
     queryset = ProceedCategory.objects.all()
-    filter_backends = api_settings.DEFAULT_FILTER_BACKENDS + [ProceedMonthOfYearFilter]
+    filter_backends = api_settings.DEFAULT_FILTER_BACKENDS + \
+        [ProceedMonthOfYearFilter]
     permission_classes = [IsAuthenticated]
 
     def filter_queryset(self, queryset):
@@ -55,7 +59,7 @@ class ProceedCategoryStatisticListView(OwnerMixin, generics.ListAPIView):
         )
 
 
-class HistoryView(View):
+class HistoryView(OwnerMixin, APIView):
     http_method_names = ['get']
     permission_classes = [IsAuthenticated]
 
@@ -65,7 +69,7 @@ class HistoryView(View):
         return JsonResponse(last_records, safe=False)
 
 
-class FilledMonthesView(View):
+class FilledMonthesView(APIView):
     http_method_names = ['get']
     permission_classes = [IsAuthenticated]
 

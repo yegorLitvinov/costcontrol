@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from apps.accounts.models import User
 from apps.costcontrol.models import Proceed, ProceedCategory, Spending, SpendingCategory
 
 
@@ -16,7 +17,8 @@ class SpendingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Spending
-        fields = ('id', 'amount', 'comment', 'created_at', 'updated_at', 'category')
+        fields = ('id', 'amount', 'comment', 'user',
+                  'created_at', 'updated_at', 'category')
 
 
 class ProceedCategorySerializer(serializers.ModelSerializer):
@@ -32,7 +34,8 @@ class ProceedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Proceed
-        fields = ('id', 'amount', 'comment', 'created_at', 'updated_at', 'category')
+        fields = ('id', 'amount', 'comment', 'user',
+                  'created_at', 'updated_at', 'category')
 
 
 class SpeindingCategoryStatisticSerializer(serializers.ModelSerializer):
@@ -49,3 +52,9 @@ class ProceedCategoryStatisticSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProceedCategory
         fields = ('id', 'name', 'color', 'total_proceeds')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'first_name', 'last_name')

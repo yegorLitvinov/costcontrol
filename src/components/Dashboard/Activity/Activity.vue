@@ -17,7 +17,7 @@ export default {
   }),
   components: { ActivityItem },
   mounted() {
-    this.$store.dispatch('get', { what: '/api/history/20/', where: 'history' })
+    this.$store.dispatch('get', { what: 'history/20/', where: 'history' })
   }
 }
 </script>

@@ -5,12 +5,12 @@
       <b-col cols="12" md="2" class="m-0 p-0">
         <sidebar />
       </b-col>
-      <b-col cols="12" md="7" class="bg-white m-0 p-2 p-md-3">
+      <b-col cols="12" md="6" lg="7" class="bg-white m-0 p-2 p-md-3">
         <transition name="fade">
           <router-view></router-view>
         </transition>
       </b-col>
-      <b-col cols="12" md="3" class="m-0 p-0">
+      <b-col cols="12" md="4" lg="3" class="m-0 p-0">
         <activity></activity>
       </b-col>
     </div>
@@ -29,6 +29,7 @@ export default {
     if (!sessionStorage.getItem('token')) {
       this.$router.push('/')
     }
+    this.$store.dispatch('get', { what: 'category/spending/', where: 'spendingCategories' })
   }
 }
 </script>

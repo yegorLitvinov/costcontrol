@@ -2,14 +2,6 @@
   become: yes
   become_user: "{{ user }}"
 
-  handlers:
-  - name: reload-nginx
-    become: yes
-    become_user: root
-    service:
-      name: nginx
-      state: reloaded
-
   tasks:
   - name: Fetch repo
     git:
@@ -60,7 +52,13 @@
     template:
       src: nginx.conf.j2
       dest: "/etc/nginx/sites-enabled/{{ project_name }}.conf"
-    notify: reload-nginx
+
+  - name: reload-nginx
+    become: yes
+    become_user: root
+    service:
+      name: nginx
+      state: reloaded
 
   - name: Setup yarn service
     docker_service:
