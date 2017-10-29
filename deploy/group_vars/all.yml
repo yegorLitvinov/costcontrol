@@ -25,6 +25,9 @@ nginx_servers:
       - url: /static/
         path: "{{ project_dir }}/static/"
         directive: alias
+      - url: /assets/
+        path: "{{ project_dir }}/dist/assets/"
+        directive: alias
       - url: /
         path: "/dist/index.html break"
         directive: "rewrite ^"
