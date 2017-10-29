@@ -26,7 +26,7 @@ nginx_servers:
         path: "{{ project_dir }}/static/"
         directive: alias
       - url: /assets/
-        path: "{{ project_dir }}/dist/assets/"
+        path: "{{ project_dir }}/frontend/dist/assets/"
         directive: alias
       - url: /
         path: "/dist/index.html break"

@@ -10,9 +10,6 @@
 volume/
 /docker-compose.yml
 
-# Tests result
-/test/e2e/reports
-/test/unit/coverage
 
 # Logs
 *\.log
@@ -24,8 +21,12 @@ volume/
 /.venv/
 
 # Js
-/dist/
+/frontend/dist/
 /node_modules/
+
+# Tests result
+/frontend/test/e2e/reports
+/frontend/test/unit/coverage
 
 # Editor directories and files
 /.idea

@@ -39,13 +39,14 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 ## TODO:
 - [X] Disable source maps for production
 - [X] Filled-monthes and history urls are not protected
+- [X] Build frontend on local machine
+- [X] Authenticate after reloading page
+- [X] Move to /frontend
 - [ ] Cool transactions
 - [ ] Make backup
 - [ ] Restart gunicorn takes a lot of time
-- [ ] Move to /frontend
-- [X] Build frontend on local machine
 - [ ] Docker service -> docker
 - [ ] Sentry integration
-- [X] Authenticate after reloading page
 - [ ] Backend error log
 - [ ] Ansible buildin vault
+- [ ] Cypress tests

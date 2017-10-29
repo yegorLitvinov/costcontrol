@@ -62,13 +62,13 @@
 
   - name: Remove dist dir
     file:
-      path: "{{ project_dir }}/dist"
+      path: "{{ project_dir }}/frontend/dist"
       state: absent
 
   - name: Send frontend static
     synchronize:
-      src: "{{ playbook_dir }}/../dist"
-      dest: "{{ project_dir }}"
+      src: "{{ playbook_dir }}/../frontend/dist"
+      dest: "{{ project_dir }}/frontend"
       rsync_opts:
         - "--exclude=*.js.map"
         - "--chown={{ user }}:{{ user }}"
