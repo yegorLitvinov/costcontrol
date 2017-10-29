@@ -1,10 +1,18 @@
 <template>
   <b-row>
-    <b-col cols="12" sm="6" md="12" lg="6">
+    <b-col cols="12" sm="6" md="12" lg="6" class="mb-3">
       <balance-record-form
         :categories="spendingCategories"
         :add-record="this.addSpending"
         :header="'Spending'"
+      />
+    </b-col>
+
+    <b-col cols="12" sm="6" md="12" lg="6" class="mb-3">
+      <balance-record-form
+        :categories="proceedCategories"
+        :add-record="this.addProceed"
+        :header="'Proceed'"
       />
     </b-col>
   </b-row>
@@ -26,13 +34,20 @@ export default {
   name: 'creation',
   components: { BalanceRecordForm },
   computed: Vuex.mapState({
-    spendingCategories: state => mapCategories(state.spendingCategories)
+    spendingCategories: state => mapCategories(state.spendingCategories),
+    proceedCategories: state => mapCategories(state.proceedCategories)
   }),
   methods: {
     addSpending: function(record) {
       return this.$store.dispatch(
         'addRecord',
         { type: 'spending', formData: record }
+      )
+    },
+    addProceed: function(record) {
+      return this.$store.dispatch(
+        'addRecord',
+        { type: 'proceed', formData: record }
       )
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 item-wrapper">
+  <div class="pl-4 item-wrapper">
     <div class="activity-item">
       {{ `${record.sign} ${record.amount}\u20bd (${record.created_at}) ${record.comment} (${record.category__name})` }}
     </div>
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../../styles/constants';
+@import "../../../styles/constants";
 
 .activity-item {
   border-left: 2px solid lightgray;
@@ -30,7 +30,7 @@ export default {
     width: 20px;
     height: 20px;
     border-radius: 10px;
-    content: 'o';
+    content: "o";
     display: inline-block;
   }
 
@@ -50,5 +50,4 @@ export default {
     color: white;
   }
 }
-
 </style>

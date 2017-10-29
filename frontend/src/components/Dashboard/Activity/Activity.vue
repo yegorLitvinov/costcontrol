@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-light inner-h-100 activity">
+  <div class="bg-light">
     <p class="text-uppercase p-4">Latest Activity</p>
     <activity-item v-for="(record, _, index) in history" :key="index" :record="record"></activity-item>
   </div>
@@ -18,10 +18,3 @@ export default {
   components: { ActivityItem }
 }
 </script>
-
-<style scoped lang="scss">
-.activity {
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-</style>

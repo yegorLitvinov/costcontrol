@@ -5,12 +5,12 @@
       <b-col cols="12" md="2" class="m-0 p-0">
         <sidebar />
       </b-col>
-      <b-col cols="12" md="6" lg="7" class="bg-white m-0 p-2 p-md-3">
+      <b-col cols="12" md="6" lg="7" class="bg-white m-0 p-3 scroll-content inner-h-100">
         <transition name="fade">
           <router-view></router-view>
         </transition>
       </b-col>
-      <b-col cols="12" md="4" lg="3" class="m-0 p-0">
+      <b-col cols="12" md="4" lg="3" class="m-0 p-0 scroll-content inner-h-100">
         <activity></activity>
       </b-col>
     </div>
@@ -36,6 +36,32 @@ export default {
     }
     this.$store.dispatch('get', { what: 'history/20/', where: 'history' })
     this.$store.dispatch('get', { what: 'category/spending/', where: 'spendingCategories' })
+    this.$store.dispatch('get', { what: 'category/proceed/', where: 'proceedCategories' })
   }
 }
 </script>
+
+<style scoped lang="scss">
+@import "../../styles/constants";
+
+.scroll-content {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: $light;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: $light;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: $primary;
+  }
+}
+</style>
