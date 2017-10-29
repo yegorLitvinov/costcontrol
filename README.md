@@ -35,6 +35,18 @@ npm test
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+## .envrc example
+```bash
+# Django
+layout python python3.6
+export DJANGO_SETTINGS_MODULE=config.settings.dev
+export PYTHONPATH=`pwd`/backend
+
+# Ansible
+export ADMIN_EMAIL=test@mail.ru
+export USER_PASS=password
+export WEB_DOMAIN=example.com
+```
 
 ## TODO:
 - [X] Disable source maps for production
@@ -50,3 +62,4 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 - [ ] Backend error log
 - [ ] Ansible buildin vault
 - [ ] Cypress tests
+- [ ] Fix different date in activity

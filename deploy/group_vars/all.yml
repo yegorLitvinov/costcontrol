@@ -2,14 +2,14 @@ user: web
 user_home: /home/web
 project_name: costcontrol
 project_dir: "{{ user_home }}/{{ project_name }}"
-user_pass: password
+user_pass: "{{ lookup('env','USER_PASS') }}"
 
+admin_email: "{{ lookup('env','ADMIN_EMAIL') }}"
 
-admin_email: 'yegor.litvinov@yandex.ru'
 # Private docker network base address
 base_ip: "172.20.20"
 
-web_domain: costcontrol.ddns.net
+web_domain: "{{ lookup('env','WEB_DOMAIN') }}"
 
 cert_domains:
   - "{{ web_domain }}"

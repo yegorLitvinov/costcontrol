@@ -1,7 +1,7 @@
 from .base import *  # noqa
 
 ALLOWED_HOSTS = [
-    'costcontrol.ddns.net',
+    '.ddns.net',
 ]
 
 DATABASES['default']['HOST'] = 'postgres'  # noqa

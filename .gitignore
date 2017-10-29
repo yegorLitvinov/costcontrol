@@ -1,6 +1,10 @@
 /db.sqlite3
 /.vagrant/
+.envrc
+
+# Ansible
 *\.retry
+/deploy/lookup_plugins/
 
 # Static files
 /static/
