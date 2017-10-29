@@ -14,6 +14,7 @@ class SpendingSerializer(serializers.ModelSerializer):
     # category = serializers.SlugRelatedField(read_only=True, slug_field='name')
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
+    comment = serializers.CharField(required=True)
 
     class Meta:
         model = Spending

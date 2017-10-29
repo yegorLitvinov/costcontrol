@@ -31,7 +31,7 @@
         <b-form-select
           v-model="record.category"
           :state="errors.category.length ? false : null"
-          :options="categories"
+          :options="[{ text: 'Select Category', value: null}].concat(categories)"
         ></b-form-select>
         <b-form-feedback v-for="error in errors.category" :key="error">
           {{error}}

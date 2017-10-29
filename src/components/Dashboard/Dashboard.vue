@@ -26,9 +26,15 @@ export default {
   name: 'dashboard',
   components: { Heading, Sidebar, Activity },
   mounted() {
-    if (!sessionStorage.getItem('token')) {
+    const token = sessionStorage.getItem('token')
+    const id = sessionStorage.getItem('userId')
+    if (token && id) {
+      this.$store.commit('setUser', { id, token })
+    } else {
       this.$router.push('/')
+      return
     }
+    this.$store.dispatch('get', { what: 'history/20/', where: 'history' })
     this.$store.dispatch('get', { what: 'category/spending/', where: 'spendingCategories' })
   }
 }

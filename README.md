@@ -37,5 +37,12 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 
 ## TODO:
-- Disable source maps for production, but not for raven for example
-- filled-monthes and history urls are not protected
+- [ ] Disable source maps for production, but not for raven for example
+- [X] Filled-monthes and history urls are not protected
+- [ ] Cool transactions
+- [ ] Make backup
+- [ ] Restart gunicorn takes a lot of time
+- [ ] Move to /frontend
+- [ ] Docker service -> docker
+- [ ] Sentry integration
+- [X] Authenticate after reloading page

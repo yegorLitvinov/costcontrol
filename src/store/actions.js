@@ -53,10 +53,7 @@ export const login = (context, loginData) => {
       return response.json()
     })
     .then(data => {
-      Vue.http.headers.common['Authorization'] = `Token ${data.token}`
       context.commit('setUser', { ...data.user, token: data.token })
-      sessionStorage.setItem('token', data.token)
-      sessionStorage.setItem('userId', data.user.id)
       router.push('/dashboard/')
       return data.user
     })
@@ -65,10 +62,7 @@ export const login = (context, loginData) => {
 export const logout = (context) => {
   Vue.http.post('accounts/logout/')
   .then(response => {
-    Vue.http.headers.common['Authorization'] = undefined
     context.commit('clearUser')
-    sessionStorage.removeItem('token')
-    sessionStorage.removeItem('userId')
     router.push('/')
   })
   .catch(error => {

@@ -15,10 +15,7 @@ export default {
   computed: Vuex.mapState({
     history: state => state.history
   }),
-  components: { ActivityItem },
-  mounted() {
-    this.$store.dispatch('get', { what: 'history/20/', where: 'history' })
-  }
+  components: { ActivityItem }
 }
 </script>
 

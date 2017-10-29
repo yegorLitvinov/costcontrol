@@ -1,4 +1,4 @@
-  // Change state (redux reducer)
+import Vue from 'vue'
 
 export const insert = (state, opts) => {
   state[opts.where] = opts.what
@@ -19,10 +19,18 @@ export const appendRecord = (state, record) => {
 }
 
 export const setUser = (state, user) => {
+  Vue.http.headers.common['Authorization'] = `Token ${user.token}`
+  sessionStorage.setItem('token', user.token)
+  sessionStorage.setItem('userId', user.id)
+
   state.user = { ...state.user, ...user }
 }
 
 export const clearUser = (state) => {
+  Vue.http.headers.common['Authorization'] = undefined
+  sessionStorage.removeItem('token')
+  sessionStorage.removeItem('userId')
+
   state.user = {
     ...state.user,
     id: '',
