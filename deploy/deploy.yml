@@ -71,6 +71,7 @@
       dest: "{{ project_dir }}"
       rsync_opts:
         - "--exclude=*.js.map"
+        - "--chown={{ user }}:{{ user }}"
 
   - name: Collect static
     shell: docker-compose exec -T web make collectstatic
