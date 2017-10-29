@@ -13,8 +13,9 @@ init-server:
 	cd deploy && ansible-playbook init.yml
 
 deploy:
+	yarn
+	yarn run build
 	cd deploy && ansible-playbook deploy.yml
-
 
 # Commands for production container
 
@@ -30,7 +31,3 @@ create-db:
 
 collectstatic:
 	python backend/manage.py collectstatic --noinput
-
-yarn:
-	yarn
-	yarn run build

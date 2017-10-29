@@ -53,34 +53,24 @@
       src: nginx.conf.j2
       dest: "/etc/nginx/sites-enabled/{{ project_name }}.conf"
 
-  - name: reload-nginx
+  - name: Reload nginx
     become: yes
     become_user: root
     service:
       name: nginx
       state: reloaded
 
-  - name: Setup yarn service
-    docker_service:
-      project_name: yarn
-      stopped: true
-      definition:
-        version: "2"
-        services:
-          yarn:
-            image: "kkarczmarczyk/node-yarn"
-            command: make yarn
-            volumes:
-              - "{{ project_dir }}:/workspace"
+  - name: Remove dist dir
+    file:
+      path: "{{ project_dir }}/dist"
+      state: absent
 
-  - name: Assert yarn service not running
-    assert:
-      that: "not yarn.yarn_yarn_1.state.running"
-
-  - name: Build static
-    shell: docker start -i yarn_yarn_1
-    args:
-      chdir: "{{ project_dir }}"
+  - name: Send frontend static
+    synchronize:
+      src: "{{ playbook_dir }}/../dist"
+      dest: "{{ project_dir }}"
+      rsync_opts:
+        - "--exclude=*.js.map"
 
   - name: Collect static
     shell: docker-compose exec -T web make collectstatic
