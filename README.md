@@ -54,12 +54,14 @@ export WEB_DOMAIN=example.com
 - [X] Build frontend on local machine
 - [X] Authenticate after reloading page
 - [X] Move to /frontend
+- [X] ~~Ansible buildin vault~~ env variables
 - [ ] Cool transactions
 - [ ] Make backup
 - [ ] Restart gunicorn takes a lot of time
 - [ ] Docker service -> docker
 - [ ] Sentry integration
 - [ ] Backend error log
-- [ ] Ansible buildin vault
 - [ ] Cypress tests
 - [ ] Fix different date in activity
+- [ ] Typescript
+- [ ] Remove api app (views, urls, serializers -> specific apps)

@@ -34,9 +34,10 @@ export default {
       this.$router.push('/')
       return
     }
-    this.$store.dispatch('get', { what: 'history/20/', where: 'history' })
     this.$store.dispatch('get', { what: 'category/spending/', where: 'spendingCategories' })
     this.$store.dispatch('get', { what: 'category/proceed/', where: 'proceedCategories' })
+    this.$store.dispatch('get', { what: 'history/20/', where: 'history' })
+    this.$store.dispatch('get', { what: '/api/filled-monthes/', where: 'filledMonthes' })
   }
 }
 </script>

@@ -41,7 +41,7 @@ class SpendingCategoryStatisticListView(OwnerMixin, generics.ListAPIView):
     def filter_queryset(self, queryset):
         spending_statistics = super().filter_queryset(queryset)
         return spending_statistics.annotate(
-            total_spendings=Sum('spendings__amount')
+            total=Sum('spendings__amount')
         )
 
 
@@ -55,7 +55,7 @@ class ProceedCategoryStatisticListView(OwnerMixin, generics.ListAPIView):
     def filter_queryset(self, queryset):
         proceed_statistics = super().filter_queryset(queryset)
         return proceed_statistics.annotate(
-            total_proceeds=Sum('proceeds__amount')
+            total=Sum('proceeds__amount')
         )
 
 

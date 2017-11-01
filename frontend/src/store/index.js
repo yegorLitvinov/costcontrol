@@ -20,7 +20,6 @@ export default new Vuex.Store({
     proceedCategories: [],
     spendingStatistics: [],
     proceedStatistics: [],
-    date: new Date(),
     filledMonthes: {}
   },
 

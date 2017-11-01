@@ -39,19 +39,19 @@ class ProceedSerializer(serializers.ModelSerializer):
 
 
 class SpeindingCategoryStatisticSerializer(serializers.ModelSerializer):
-    total_spendings = serializers.IntegerField()
+    total = serializers.IntegerField()
 
     class Meta:
         model = SpendingCategory
-        fields = ('id', 'name', 'color', 'total_spendings')
+        fields = ('id', 'name', 'color', 'total')
 
 
 class ProceedCategoryStatisticSerializer(serializers.ModelSerializer):
-    total_proceeds = serializers.IntegerField()
+    total = serializers.IntegerField()
 
     class Meta:
         model = ProceedCategory
-        fields = ('id', 'name', 'color', 'total_proceeds')
+        fields = ('id', 'name', 'color', 'total')
 
 
 class UserSerializer(serializers.ModelSerializer):

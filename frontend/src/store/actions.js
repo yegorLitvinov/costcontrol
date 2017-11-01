@@ -28,18 +28,12 @@ export const addRecord = (context, opts) => {
     })
 }
 
-export const fetchStatistics = (context, date) => {
-  context.commit('changeDate', date)
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var url = 'statistic/{0}/?year={1}&month={2}'
-  context.dispatch('get', {
-    what: url.format('spending', year, month),
-    where: 'spendingStatistics'
-  })
-  context.dispatch('get', {
-    what: url.format('proceed', year, month),
-    where: 'proceedStatistics'
+export const fetchStatistics = (context, {year, month}) => {
+  ['spending', 'proceed'].forEach(type => {
+    context.dispatch('get', {
+      what: `statistic/${type}/?year=${year}&month=${month}`,
+      where: `${type}Statistics`
+    })
   })
 }
 

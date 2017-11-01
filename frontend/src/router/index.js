@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import Login from '@/components/Login'
 import Dashboard from '@/components/Dashboard/Dashboard'
-import Statistics from '@/components/Dashboard/Statistics'
+import Statistics from '@/components/Dashboard/Statistics/Statistics'
 import Creation from '@/components/Dashboard/Creation/Creation'
 
 Vue.use(Router)
