@@ -55,5 +55,5 @@ class FilledMonthesView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        filled_monthes = FilledMonthesCache().get_filled_monthes()
+        filled_monthes = FilledMonthesCache(request.user).get_filled_monthes()
         return JsonResponse(filled_monthes, safe=False)

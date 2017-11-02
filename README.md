@@ -56,6 +56,8 @@ export WEB_DOMAIN=example.com
 - [X] Move to /frontend
 - [X] ~~Ansible buildin vault~~ env variables
 - [X] Remove api app (views, urls, serializers -> specific apps)
+- [ ] ~~Owner Mixin -> permissions~~
+- [X] User id in cache key
 - [ ] Cool transactions
 - [ ] Make backup
 - [ ] Restart gunicorn takes a lot of time
@@ -65,6 +67,6 @@ export WEB_DOMAIN=example.com
 - [ ] Cypress tests
 - [ ] Fix different date in activity
 - [ ] Typescript
-- [ ] Owner Mixin -> permissions
 - [ ] TESTS!
-
+- [ ] Secret key -> environment
+- [ ] Eslint feat. Prettier

@@ -9,14 +9,14 @@ from .serializers import (ProceedCategorySerializer, ProceedSerializer, Spending
 from .view_mixins import OwnerMixin
 
 
-class UpdateCacheMixin(object):
+class UpdateCacheMixin:
     """
     Update cache when model has changed.
     """
 
     def perform_create(self, serializer):
         super().perform_create(serializer)
-        FilledMonthesCache().add_month(timezone.now())
+        FilledMonthesCache(self.request.user).add_month(timezone.now())
 
 
 class SpendingCategoryViewSet(OwnerMixin, viewsets.ModelViewSet):

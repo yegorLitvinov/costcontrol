@@ -17,11 +17,13 @@ class BaseCategory(models.Model):
 
 
 class SpendingCategory(BaseCategory):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='spending_categories')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             related_name='spending_categories')
 
 
 class ProceedCategory(BaseCategory):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='proceed_categories')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             related_name='proceed_categories')
 
 
 class BalanceRecord(models.Model):
@@ -32,14 +34,14 @@ class BalanceRecord(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ['created_at']
+        ordering = ['id']
 
     def __str__(self):
         return f'{self.amount} RUB {self.comment}'
 
     @staticmethod
     def get_last_records(cnt):
-        """Returns formated list of dicts."""
+        """Return formated list of dicts."""
         spendings = (Spending.objects.all()
                      .select_related('category')
                      .order_by('-created_at')
@@ -73,7 +75,8 @@ class BalanceRecordQuerySet(models.QuerySet):
 
 class Spending(BalanceRecord):
     category = models.ForeignKey(SpendingCategory, related_name='spendings')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='spendings')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             related_name='spendings')
 
     objects = BalanceRecordQuerySet.as_manager()
 
