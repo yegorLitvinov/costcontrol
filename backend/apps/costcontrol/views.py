@@ -1,34 +1,15 @@
 from django.db.models import Sum
 from django.http import JsonResponse
 from rest_framework.views import APIView
-from knox.views import LoginView as KnoxLoginView
 from rest_framework import generics
-from rest_framework.authentication import BasicAuthentication
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.settings import api_settings
 
-from apps.costcontrol.models import BalanceRecord, ProceedCategory, SpendingCategory
-from apps.costcontrol.utils import FilledMonthesCache
-
+from .models import BalanceRecord, ProceedCategory, SpendingCategory
+from .utils import FilledMonthesCache
 from .filters import ProceedMonthOfYearFilter, SpendingMonthOfYearFilter
-from .serializers import (ProceedCategoryStatisticSerializer, SpeindingCategoryStatisticSerializer,
-                          UserSerializer)
+from .serializers import ProceedCategoryStatisticSerializer, SpeindingCategoryStatisticSerializer
 from .view_mixins import OwnerMixin
-
-
-class CustomBasicAuth(BasicAuthentication):
-    def authenticate_header(self, request):
-        return f'CustomBasic realm={self.www_authenticate_realm}'
-
-
-class LoginView(KnoxLoginView):
-    authentication_classes = (CustomBasicAuth,)
-    permission_classes = (AllowAny,)
-    allowed_methods = ('post',)
-    serializer_class = UserSerializer
-
-    def post(self, request, format=None):
-        return super().post(request, format)
 
 
 class SpendingCategoryStatisticListView(OwnerMixin, generics.ListAPIView):

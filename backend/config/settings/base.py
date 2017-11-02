@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'apps.accounts',
-    'apps.api',
     'apps.costcontrol',
 ]
 
@@ -157,7 +156,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': None,  # TODO: limit page size
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DATETIME_FORMAT': '%d.%m.%Y %H:%M',
-    'USER_SERIALIZER': 'apps.api.serializers.UserSerializer',
+    'USER_SERIALIZER': 'apps.accounts.serializers.UserSerializer',
 }
 
 INTERNAL_IPS = [

@@ -55,6 +55,7 @@ export WEB_DOMAIN=example.com
 - [X] Authenticate after reloading page
 - [X] Move to /frontend
 - [X] ~~Ansible buildin vault~~ env variables
+- [X] Remove api app (views, urls, serializers -> specific apps)
 - [ ] Cool transactions
 - [ ] Make backup
 - [ ] Restart gunicorn takes a lot of time
@@ -64,4 +65,6 @@ export WEB_DOMAIN=example.com
 - [ ] Cypress tests
 - [ ] Fix different date in activity
 - [ ] Typescript
-- [ ] Remove api app (views, urls, serializers -> specific apps)
+- [ ] Owner Mixin -> permissions
+- [ ] TESTS!
+

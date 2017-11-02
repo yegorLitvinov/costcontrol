@@ -2,9 +2,8 @@ from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from apps.costcontrol.models import Proceed, ProceedCategory, Spending, SpendingCategory
-from apps.costcontrol.utils import FilledMonthesCache
-
+from .models import Proceed, ProceedCategory, Spending, SpendingCategory
+from .utils import FilledMonthesCache
 from .serializers import (ProceedCategorySerializer, ProceedSerializer, SpendingCategorySerializer,
                           SpendingSerializer)
 from .view_mixins import OwnerMixin
