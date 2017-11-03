@@ -58,6 +58,7 @@ export WEB_DOMAIN=example.com
 - [X] Remove api app (views, urls, serializers -> specific apps)
 - [ ] ~~Owner Mixin -> permissions~~
 - [X] User id in cache key
+- [X] Fix different date in activity
 - [ ] Cool transactions
 - [ ] Make backup
 - [ ] Restart gunicorn takes a lot of time
@@ -65,7 +66,6 @@ export WEB_DOMAIN=example.com
 - [ ] Sentry integration
 - [ ] Backend error log
 - [ ] Cypress tests
-- [ ] Fix different date in activity
 - [ ] Typescript
 - [ ] TESTS!
 - [ ] Secret key -> environment

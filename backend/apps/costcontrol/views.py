@@ -40,13 +40,13 @@ class ProceedCategoryStatisticListView(OwnerMixin, generics.ListAPIView):
         )
 
 
-class HistoryView(OwnerMixin, APIView):
+class HistoryView(APIView):
     http_method_names = ['get']
     permission_classes = [IsAuthenticated]
 
     def get(self, request, cnt, *args, **kwargs):
         cnt = int(cnt) if cnt else 10
-        last_records = BalanceRecord.get_last_records(cnt)
+        last_records = BalanceRecord.get_last_records(cnt, user=request.user)
         return JsonResponse(last_records, safe=False)
 
 

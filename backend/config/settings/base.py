@@ -143,7 +143,7 @@ REST_FRAMEWORK = {
     ),
     'PAGE_SIZE': None,  # TODO: limit page size
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
-    'DATETIME_FORMAT': '%d.%m.%Y %H:%M',
+    'DATETIME_FORMAT': '%d %b',
     'USER_SERIALIZER': 'apps.accounts.serializers.UserSerializer',
 }
 

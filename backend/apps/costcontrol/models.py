@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.db.models.functions import ExtractMonth, ExtractYear
+from rest_framework.settings import api_settings
 
 
 class BaseCategory(models.Model):
@@ -40,16 +41,18 @@ class BalanceRecord(models.Model):
         return f'{self.amount} RUB {self.comment}'
 
     @staticmethod
-    def get_last_records(cnt):
+    def get_last_records(cnt, user):
         """Return formated list of dicts."""
-        spendings = (Spending.objects.all()
+        spendings = (Spending.objects
+                     .filter(user=user)
                      .select_related('category')
                      .order_by('-created_at')
                      .values('amount', 'comment', 'created_at', 'category__name')[:cnt])
         for spending in spendings:
             spending['sign'] = '-'
 
-        proceeds = (Proceed.objects.all()
+        proceeds = (Proceed.objects
+                    .filter(user=user)
                     .select_related('category')
                     .order_by('-created_at')
                     .values('amount', 'comment', 'created_at', 'category__name')[:cnt])
@@ -62,7 +65,8 @@ class BalanceRecord(models.Model):
         balance_records = balance_records[:cnt]
 
         for record in balance_records:
-            record['created_at'] = record['created_at'].strftime('%d %b')
+            record['created_at'] = record['created_at'].strftime(
+                api_settings.DATETIME_FORMAT)
         return balance_records
 
 
