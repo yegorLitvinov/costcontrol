@@ -59,8 +59,8 @@ export WEB_DOMAIN=example.com
 - [ ] ~~Owner Mixin -> permissions~~
 - [X] User id in cache key
 - [X] Fix different date in activity
+- [X] Make backup
 - [ ] Cool transactions
-- [ ] Make backup
 - [ ] Restart gunicorn takes a lot of time
 - [ ] Docker service -> docker
 - [ ] Sentry integration

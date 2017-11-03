@@ -1,6 +1,7 @@
 /db.sqlite3
 /.vagrant/
 .envrc
+/backup/
 
 # Ansible
 *\.retry
@@ -13,7 +14,6 @@
 # Docker-compose
 volume/
 /docker-compose.yml
-
 
 # Logs
 *\.log
