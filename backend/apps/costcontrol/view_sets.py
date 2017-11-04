@@ -2,10 +2,9 @@ from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Proceed, ProceedCategory, Spending, SpendingCategory
+from .models import BalanceRecord, Category
 from .utils import FilledMonthesCache
-from .serializers import (ProceedCategorySerializer, ProceedSerializer, SpendingCategorySerializer,
-                          SpendingSerializer)
+from .serializers import BalanceRecordSerializer, CategorySerializer
 from .view_mixins import OwnerMixin
 
 
@@ -19,25 +18,14 @@ class UpdateCacheMixin:
         FilledMonthesCache(self.request.user).add_month(timezone.now())
 
 
-class SpendingCategoryViewSet(OwnerMixin, viewsets.ModelViewSet):
-    serializer_class = SpendingCategorySerializer
-    queryset = SpendingCategory.objects.all()
+class CategoryViewSet(OwnerMixin, viewsets.ModelViewSet):
+    filter_fields = ['kind']
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
     permission_classes = [IsAuthenticated]
 
 
-class ProceedCategoryViewSet(OwnerMixin, viewsets.ModelViewSet):
-    serializer_class = ProceedCategorySerializer
-    queryset = ProceedCategory.objects.all()
-    permission_classes = [IsAuthenticated]
-
-
-class SpendingViewSet(UpdateCacheMixin, OwnerMixin, viewsets.ModelViewSet):
-    serializer_class = SpendingSerializer
-    queryset = Spending.objects.all()
-    permission_classes = [IsAuthenticated]
-
-
-class ProceedViewSet(UpdateCacheMixin, OwnerMixin, viewsets.ModelViewSet):
-    serializer_class = ProceedSerializer
-    queryset = Proceed.objects.all()
+class BalanceRecordViewSet(UpdateCacheMixin, viewsets.ModelViewSet):
+    serializer_class = BalanceRecordSerializer
+    queryset = BalanceRecord.objects.all()
     permission_classes = [IsAuthenticated]

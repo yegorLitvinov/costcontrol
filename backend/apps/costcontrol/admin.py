@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from .models import Proceed, ProceedCategory, Spending, SpendingCategory
+from .models import BalanceRecord, Category
 
-admin.site.register([ProceedCategory, SpendingCategory, Proceed, Spending])
+admin.site.register([BalanceRecord, Category])

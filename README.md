@@ -56,17 +56,21 @@ export WEB_DOMAIN=example.com
 - [X] Move to /frontend
 - [X] ~~Ansible buildin vault~~ env variables
 - [X] Remove api app (views, urls, serializers -> specific apps)
-- [ ] ~~Owner Mixin -> permissions~~
 - [X] User id in cache key
 - [X] Fix different date in activity
 - [X] Make backup
+- [ ] Owner Mixin -> permissions
 - [ ] Cool transactions
 - [ ] Restart gunicorn takes a lot of time
 - [ ] Docker service -> docker
 - [ ] Sentry integration
 - [ ] Backend error log
-- [ ] Cypress tests
+- [ ] Cypress tests; django command before, after, beforeEach test
 - [ ] Typescript
 - [ ] TESTS!
 - [ ] Secret key -> environment
 - [ ] Eslint feat. Prettier
+- [ ] Python format on save
+- [ ] UpdateCacheMixin -> Model hooks
+- [ ] Jenkins badges to github
+- [ ] HistoryView -> BalanceRecordViewSet + django_filters

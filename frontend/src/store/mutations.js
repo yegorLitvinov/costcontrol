@@ -10,7 +10,6 @@ export const changeDate = (state, date) => {
 
 // Append record to history
 export const appendRecord = (state, record) => {
-  record.sign = record.type === 'spending' ? '-' : '+'
   const recordCategory = state[record.type + 'Categories'].find(
     category => category.id === record.category
   )

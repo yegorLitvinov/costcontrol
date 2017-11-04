@@ -17,7 +17,7 @@ export const get = (context, opts) => {
 
 export const addRecord = (context, opts) => {
   return Vue.http
-    .post(opts.type + '/', opts.formData)
+    .post('balance-record/', { ...opts.formData, kind: opts.type })
     .then(function(response) {
       return response.json()
     })
@@ -31,7 +31,7 @@ export const addRecord = (context, opts) => {
 export const fetchStatistics = (context, {year, month}) => {
   ['spending', 'proceed'].forEach(type => {
     context.dispatch('get', {
-      what: `statistic/${type}/?year=${year}&month=${month}`,
+      what: `category/statistic/?year=${year}&month=${month}&kind=${type}`,
       where: `${type}Statistics`
     })
   })

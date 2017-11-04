@@ -1,7 +1,7 @@
 <template>
   <div class="pl-4 item-wrapper">
     <div class="activity-item">
-      {{ `${record.sign} ${record.amount}\u20bd (${record.created_at}) ${record.comment} (${record.category__name})` }}
+      {{ `${record.amount}\u20bd (${record.created_at}) ${record.comment} (${record.category})` }}
     </div>
   </div>
 </template>

@@ -23,10 +23,22 @@ ifndef nobuild
 endif
 	cd deploy && ansible-playbook deploy.yml
 
-backup:
+
+backup_dump:
 	mkdir -p backup
-	ssh $(HOST) "docker exec costcontrol_postgres_1 bash -c 'pg_dump -U postgres costcontrol > /var/lib/postgresql/data/dump.sql'"
-	rsync -aP --delete -e ssh $(HOST):$(PROJECT_SRC)/deploy/postgres/volume/dump.sql $(DST)/backup/dump_$(NOW).sql
+	ssh $(HOST) "docker exec costcontrol_postgres_1 bash -c 'pg_dump -U postgres -Fc costcontrol > /var/lib/postgresql/data/costcontrol.dump'"
+	rsync -aP --delete -e ssh $(HOST):$(PROJECT_SRC)/deploy/postgres/volume/costcontrol.dump $(DST)/backup/costcontrol.dump
+
+restore_dump:
+	 pg_restore -Fc -cv -W -d costcontrol -U costcontrol -h localhost backup/costcontrol.dump
+
+backup_json:
+	mkdir -p backup
+	ssh $(HOST) "docker exec costcontrol_web_1 bash -c 'python backend/manage.py dumpdata > /srv/costcontrol/backup/costcontrol.json'"
+	rsync -aP --delete -e ssh $(HOST):$(PROJECT_SRC)/backup/costcontrol.json $(DST)/backup/costcontrol.json
+
+restore_json:
+	 django-admin loaddata $(DST)/backup/costcontrol.json
 
 # Commands for production container
 

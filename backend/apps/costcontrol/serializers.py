@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Proceed, ProceedCategory, Spending, SpendingCategory
+from .models import BalanceRecord, Category
 
 
 class BalanceRecordSerializer(serializers.ModelSerializer):
@@ -9,45 +9,20 @@ class BalanceRecordSerializer(serializers.ModelSerializer):
     comment = serializers.CharField()
 
     class Meta:
-        fields = ('id', 'amount', 'comment', 'user',
-                  'created_at', 'updated_at', 'category')
+        model = BalanceRecord
+        fields = ('id', 'amount', 'category', 'comment',
+                  'created_at', 'updated_at')
 
 
-class SpendingSerializer(BalanceRecordSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Spending
-        fields = BalanceRecordSerializer.Meta.fields
+        model = Category
+        fields = ('id', 'name', 'color', 'icon', 'kind')
 
 
-class ProceedSerializer(BalanceRecordSerializer):
-    class Meta:
-        model = Proceed
-        fields = BalanceRecordSerializer.Meta.fields
-
-
-class SpendingCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SpendingCategory
-        fields = ('id', 'name', 'color', 'icon')
-
-
-class ProceedCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProceedCategory
-        fields = ('id', 'name', 'color', 'icon')
-
-
-class SpeindingCategoryStatisticSerializer(serializers.ModelSerializer):
+class CategoryStatisticSerializer(serializers.ModelSerializer):
     total = serializers.IntegerField()
 
     class Meta:
-        model = SpendingCategory
-        fields = ('id', 'name', 'color', 'total')
-
-
-class ProceedCategoryStatisticSerializer(serializers.ModelSerializer):
-    total = serializers.IntegerField()
-
-    class Meta:
-        model = ProceedCategory
-        fields = ('id', 'name', 'color', 'total')
+        model = Category
+        fields = ('id', 'name', 'color', 'total', 'kind')

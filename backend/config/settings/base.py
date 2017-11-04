@@ -26,10 +26,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_extensions',
+    'rest_framework',
     'django_filters',
     'knox',
-    'rest_framework',
+    'django_extensions',
 
     'apps.accounts',
     'apps.costcontrol',
@@ -142,7 +142,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ),
     'PAGE_SIZE': None,  # TODO: limit page size
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
     'DATETIME_FORMAT': '%d %b',
     'USER_SERIALIZER': 'apps.accounts.serializers.UserSerializer',
 }

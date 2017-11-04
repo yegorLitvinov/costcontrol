@@ -1,7 +1,7 @@
 from django.core.cache import cache
 from django.utils.functional import cached_property
 
-from .models import Proceed, Spending
+from .models import BalanceRecord
 
 
 class FilledMonthesCache:
@@ -10,8 +10,7 @@ class FilledMonthesCache:
 
     def _generate_filled_monthes(self):
         filled_monthes = {}
-        for year, month in list(Spending.objects.unique_year_month()) + \
-                list(Proceed.objects.unique_year_month()):
+        for year, month in BalanceRecord.objects.unique_year_month_for(self._user):
             if year not in filled_monthes:
                 filled_monthes[year] = {}
             filled_monthes[year][month] = True
