@@ -1,0 +1,4 @@
+- import_tasks: common.yml
+- import_tasks: nginx.yml
+- import_tasks: postgres.yml
+- import_tasks: python36.yml

@@ -3,8 +3,8 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from .models import BalanceRecord, Category
-from .utils import FilledMonthesCache
 from .serializers import BalanceRecordSerializer, CategorySerializer
+from .utils import FilledMonthesCache
 from .view_mixins import OwnerMixin
 
 

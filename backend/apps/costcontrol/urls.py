@@ -2,7 +2,7 @@ from django.conf.urls import url
 from rest_framework import routers
 
 from .view_sets import BalanceRecordViewSet, CategoryViewSet
-from .views import FilledMonthesView, HistoryView, CategoryStatisticListView
+from .views import CategoryStatisticListView, FilledMonthesView, HistoryView
 
 router = routers.DefaultRouter()
 router.register(r'balance-record', BalanceRecordViewSet)

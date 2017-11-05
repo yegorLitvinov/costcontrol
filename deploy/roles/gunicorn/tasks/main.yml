@@ -1,0 +1,6 @@
+- name: Copy gunicorn config
+  template:
+    src: gunicorn.conf.py.j2
+    dest: "{{ project_dir }}/gunicorn.conf.py"
+  notify:
+    - restart-gunicorn

@@ -10,6 +10,7 @@ isort:
 create-prod-requirements:
 	mkdir -p requirements
 	pipenv lock -r > requirements/prod.txt
+	sort requirements/prod.txt -o requirements/prod.txt
 
 precommit: isort create-prod-requirements
 
@@ -23,34 +24,10 @@ ifndef nobuild
 endif
 	cd deploy && ansible-playbook deploy.yml
 
-
-backup_dump:
+backup:
 	mkdir -p backup
-	ssh $(HOST) "docker exec costcontrol_postgres_1 bash -c 'pg_dump -U postgres -Fc costcontrol > /var/lib/postgresql/data/costcontrol.dump'"
-	rsync -aP --delete -e ssh $(HOST):$(PROJECT_SRC)/deploy/postgres/volume/costcontrol.dump $(DST)/backup/costcontrol.dump
+	ssh $(HOST) "sudo su postgres 'pg_dump -Fc costcontrol > /tmp/costcontrol.dump'"
+	rsync -aP --delete -e ssh $(HOST):/tmp/costcontrol.dump $(DST)/backup/costcontrol.dump
 
-restore_dump:
+restore:
 	 pg_restore -Fc -cv -W -d costcontrol -U costcontrol -h localhost backup/costcontrol.dump
-
-backup_json:
-	mkdir -p backup
-	ssh $(HOST) "docker exec costcontrol_web_1 bash -c 'python backend/manage.py dumpdata > /srv/costcontrol/backup/costcontrol.json'"
-	rsync -aP --delete -e ssh $(HOST):$(PROJECT_SRC)/backup/costcontrol.json $(DST)/backup/costcontrol.json
-
-restore_json:
-	 django-admin loaddata $(DST)/backup/costcontrol.json
-
-# Commands for production container
-
-gunicorn:
-	pip install -r requirements/prod.txt
-	cd backend && gunicorn config.wsgi
-
-migrate:
-	python backend/manage.py migrate
-
-create-db:
-	python backend/manage.py sqlcreate | psql -U postgres -h postgres 2>/dev/null
-
-collectstatic:
-	python backend/manage.py collectstatic --noinput

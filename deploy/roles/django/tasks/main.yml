@@ -1,0 +1,58 @@
+- name: Fetch repo
+  git:
+    repo: "{{ repo }}"
+    dest: "{{ project_dir }}"
+  notify:
+    - restart-gunicorn
+
+- name: Install pip requirements
+  pip:
+    virtualenv_python: /usr/bin/python3.6
+    virtualenv: "{{ venv_dir }}"
+    requirements: "{{ project_dir }}/requirements/prod.txt"
+
+- name: Produce create db sql
+  django_manage:
+    app_path: "{{ django_dir }}"
+    command: sqlcreate
+    settings: "{{ django_settings }}"
+    virtualenv: "{{ venv_dir }}"
+  register: create_db_sql
+
+- name: Copy output to create_db.sql
+  copy:
+    content: "{{ create_db_sql.out }}"
+    dest: /tmp/create_db.sql
+    mode: 0666
+
+- name: Create db
+  become: yes
+  become_user: postgres
+  shell: psql -f /tmp/create_db.sql 2>/dev/null
+
+- name: Migrate
+  django_manage:
+    app_path: "{{ django_dir }}"
+    command: migrate
+    settings: "{{ django_settings }}"
+    virtualenv: "{{ venv_dir }}"
+
+- name: Remove dist dir
+  file:
+    path: "{{ project_dir }}/frontend/dist"
+    state: absent
+
+- name: Send frontend static
+  synchronize:
+    src: "{{ playbook_dir }}/../frontend/dist"
+    dest: "{{ project_dir }}/frontend"
+    rsync_opts:
+      - "--exclude=*.js.map"
+      - "--chown={{ user }}:{{ user }}"
+
+- name: Collect static
+  django_manage:
+    app_path: "{{ django_dir }}"
+    command: collectstatic
+    settings: "{{ django_settings }}"
+    virtualenv: "{{ venv_dir }}"

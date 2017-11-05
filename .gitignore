@@ -23,6 +23,7 @@ volume/
 **/__pycache__/
 /.direnv/
 /.venv/
+/gunicorn.conf.py
 
 # Js
 /frontend/dist/

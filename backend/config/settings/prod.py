@@ -1,8 +1,7 @@
 from .base import *  # noqa
 
+DEBUG = False
+
 ALLOWED_HOSTS = [
     '.ddns.net',
 ]
-
-DATABASES['default']['HOST'] = 'postgres'  # noqa
-CACHES['default']['LOCATION'] = 'memcached:11211'  # noqa

@@ -1,0 +1,13 @@
+- name: Install postgres
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - postgresql
+#     - python-psycopg2
+
+# - name: Create postgres user
+#   postgresql_user:
+#     name: "{{ user }}"
+#     password: "{{ user_pass }}"
+#     role_attr_flags:  SUPERUSER

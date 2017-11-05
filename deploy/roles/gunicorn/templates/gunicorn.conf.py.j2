@@ -1,0 +1,8 @@
+import multiprocessing
+
+bind = '{{ gunicorn_host }}:{{ gunicorn_port }}'
+workers = multiprocessing.cpu_count() * 2 + 1
+pythonpath = '{{ django_dir }}'
+raw_env = {
+    'DJANGO_SETTINGS_MODULE': '{{ django_settings }}',
+}

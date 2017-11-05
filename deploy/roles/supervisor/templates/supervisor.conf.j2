@@ -1,0 +1,6 @@
+[program:gunicorn]
+command={{ venv_dir }}/bin/gunicorn config.wsgi -c {{ project_dir }}/gunicorn.conf.py
+directory={{ project_dir }}
+user={{ user }}
+autorestart=true
+redirect_stderr=true

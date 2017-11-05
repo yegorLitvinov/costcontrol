@@ -1,13 +1,17 @@
 user: web
+user_pass: "{{ lookup('env','USER_PASS') }}"
 user_home: /home/web
 project_name: costcontrol
 project_dir: "{{ user_home }}/{{ project_name }}"
-user_pass: "{{ lookup('env','USER_PASS') }}"
+
+venv_dir: "{{ project_dir }}/.venv"
+django_dir: "{{ project_dir }}/backend"
+django_settings: config.settings.prod
+gunicorn_host: localhost
+gunicorn_port: 8000
 
 admin_email: "{{ lookup('env','ADMIN_EMAIL') }}"
-
-# Private docker network base address
-base_ip: "172.20.20"
+repo: "{{ lookup('env','REPO') }}"
 
 web_domain: "{{ lookup('env','WEB_DOMAIN') }}"
 
@@ -16,8 +20,8 @@ cert_domains:
 
 nginx_servers:
   - name: "{{ web_domain }}"
-    host: "{{ base_ip }}.12"
-    port: 8000
+    host: "{{ gunicorn_host }}"
+    port: "{{ gunicorn_port }}"
     static:
       - url: /media/
         path: "{{ project_dir }}/media/"

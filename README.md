@@ -42,10 +42,14 @@ layout python python3.6
 export DJANGO_SETTINGS_MODULE=config.settings.dev
 export PYTHONPATH=`pwd`/backend
 
+# Node
+layout node
+
 # Ansible
 export ADMIN_EMAIL=test@mail.ru
 export USER_PASS=password
 export WEB_DOMAIN=example.com
+export REPO=https://bitbucket.org/team/project/
 ```
 
 ## TODO:
@@ -59,10 +63,11 @@ export WEB_DOMAIN=example.com
 - [X] User id in cache key
 - [X] Fix different date in activity
 - [X] Make backup
+- [X] Reorganizate the structure of models
+- [X] ~~Docker service -> docker~~ No docker
 - [ ] Owner Mixin -> permissions
 - [ ] Cool transactions
 - [ ] Restart gunicorn takes a lot of time
-- [ ] Docker service -> docker
 - [ ] Sentry integration
 - [ ] Backend error log
 - [ ] Cypress tests; django command before, after, beforeEach test

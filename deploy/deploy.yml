@@ -2,78 +2,8 @@
   become: yes
   become_user: "{{ user }}"
 
-  tasks:
-  - name: Fetch repo
-    git:
-      repo: https://github.com/yegorLitvinov/costcontrol.git
-      dest: "{{ project_dir }}"
-
-  - name: Create postgres volume directory
-    file:
-      state: directory
-      path: "{{ project_dir }}/deploy/postgres/volume"
-      recurse: yes
-
-  - name: Copy docker-compose
-    template:
-      src: docker-compose.yml
-      dest: "{{ project_dir }}"
-
-  - name: Setup docker-compose services
-    docker_service:
-      project_name: "{{ project_name }}"
-      project_src: "{{ project_dir }}"
-
-  - name: Assert services running
-    assert:
-      that:
-        - "postgres.{{ project_name }}_postgres_1.state.running"
-        - "memcached.{{ project_name }}_memcached_1.state.running"
-        - "web.{{ project_name }}_web_1.state.running"
-
-  - name: Create db
-    shell: docker-compose exec -T web make create-db
-    args:
-      chdir: "{{ project_dir }}"
-
-  - name: Apply migrations
-    shell: docker-compose exec -T web make migrate
-    args:
-      chdir: "{{ project_dir }}"
-
-  - name: Restart Gunicorn
-    shell: docker-compose restart web
-    args:
-      chdir: "{{ project_dir }}"
-
-  - name: Copy nginx config
-    become: yes
-    become_user: root
-    template:
-      src: nginx.conf.j2
-      dest: "/etc/nginx/sites-enabled/{{ project_name }}.conf"
-
-  - name: Reload nginx
-    become: yes
-    become_user: root
-    service:
-      name: nginx
-      state: reloaded
-
-  - name: Remove dist dir
-    file:
-      path: "{{ project_dir }}/frontend/dist"
-      state: absent
-
-  - name: Send frontend static
-    synchronize:
-      src: "{{ playbook_dir }}/../frontend/dist"
-      dest: "{{ project_dir }}/frontend"
-      rsync_opts:
-        - "--exclude=*.js.map"
-        - "--chown={{ user }}:{{ user }}"
-
-  - name: Collect static
-    shell: docker-compose exec -T web make collectstatic
-    args:
-      chdir: "{{ project_dir }}"
+  roles:
+    - django
+    # - gunicorn
+    # - supervisor
+    # - nginx

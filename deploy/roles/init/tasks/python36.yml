@@ -1,0 +1,12 @@
+- name: Add python3.6 repo
+  apt_repository:
+    repo: 'ppa:jonathonf/python-3.6'
+
+- name: Install python3.6
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - python3.6
+    - python3.6-dev
+    - virtualenv

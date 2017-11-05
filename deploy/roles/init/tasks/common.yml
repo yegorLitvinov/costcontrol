@@ -1,0 +1,25 @@
+- name: Create user
+  user:
+    name: "{{ user }}"
+    uid: 1001
+    home: "{{ user_home }}"
+    shell: /bin/bash
+    password: "{{ user_pass }}"
+    update_password: always
+
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - vim
+    - htop
+    - git
+    - memcached
+
+- name: Fetch repo
+  become: yes
+  become_user: "{{ user }}"
+  git:
+    repo: "{{ repo }}"
+    dest: "{{ project_dir }}"

@@ -1,14 +1,14 @@
 from django.db.models import Sum
 from django.http import JsonResponse
-from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.settings import api_settings
+from rest_framework.views import APIView
 
-from .models import BalanceRecord, Category
-from .utils import FilledMonthesCache
 from .filters import MonthOfYearFilter
-from .serializers import CategoryStatisticSerializer, BalanceRecordSerializer
+from .models import BalanceRecord, Category
+from .serializers import BalanceRecordSerializer, CategoryStatisticSerializer
+from .utils import FilledMonthesCache
 from .view_mixins import OwnerMixin
 
 
