@@ -53,29 +53,42 @@ export REPO=https://bitbucket.org/team/project/
 ```
 
 ## TODO:
-- [X] Disable source maps for production
-- [X] Filled-monthes and history urls are not protected
-- [X] Build frontend on local machine
-- [X] Authenticate after reloading page
-- [X] Move to /frontend
-- [X] ~~Ansible buildin vault~~ env variables
-- [X] Remove api app (views, urls, serializers -> specific apps)
-- [X] User id in cache key
-- [X] Fix different date in activity
-- [X] Make backup
-- [X] Reorganizate the structure of models
-- [X] ~~Docker service -> docker~~ No docker
-- [ ] Owner Mixin -> permissions
-- [ ] Cool transactions
-- [ ] Restart gunicorn takes a lot of time
-- [ ] Sentry integration
-- [ ] Backend error log
-- [ ] Cypress tests; django command before, after, beforeEach test
-- [ ] Typescript
-- [ ] TESTS!
-- [ ] Secret key -> environment
-- [ ] Eslint feat. Prettier
-- [ ] Python format on save
-- [ ] UpdateCacheMixin -> Model hooks
-- [ ] Jenkins badges to github
-- [ ] HistoryView -> BalanceRecordViewSet + django_filters
+- Frontend
+    - [X] Disable source maps for production
+    - [X] Move to /frontend
+    - [X] Authenticate after reloading page
+    - [X] Fix different date in activity
+    - [X] Remove default js tests
+    - [ ] Cool transactions
+    - [ ] Cypress tests; django command before, after, beforeEach test
+    - [ ] Typescript
+    - [ ] Upgrade vue up to 2.5.3
+    - [ ] Configure BundleAnalyzerPlugin
+
+- Backend
+    - [X] Filled-monthes and history urls are not protected
+    - [X] Remove api app (views, urls, serializers -> specific apps)
+    - [X] User id in cache key
+    - [X] Reorganizate the structure of models
+    - [ ] Owner Mixin -> permissions
+    - [ ] py.test
+    - [ ] Secret key -> environment
+    - [ ] UpdateCacheMixin -> Model hooks
+    - [ ] HistoryView -> BalanceRecordViewSet + django_filters
+
+- Devops
+    - [X] Build frontend on local machine
+    - [X] ~~Ansible buildin vault~~ env variables
+    - [X] Make backup
+    - [X] ~~Docker service -> docker~~ No docker
+    - [X] Restart gunicorn takes a lot of time
+    - [ ] Sentry integration
+    - [ ] Backend error log
+    - [ ] Jenkins badges to github
+
+- Editor
+    - [ ] Eslint feat. Prettier
+    - [ ] Python format on save
+    - [ ] Cypress lint errors
+
+??? it().only, request post login

@@ -11,10 +11,6 @@
 /static/
 /media/
 
-# Docker-compose
-volume/
-/docker-compose.yml
-
 # Logs
 *\.log
 
@@ -28,10 +24,8 @@ volume/
 # Js
 /frontend/dist/
 /node_modules/
-
-# Tests result
-/frontend/test/e2e/reports
-/frontend/test/unit/coverage
+/cypress/screenshots/
+/cypress/videos/
 
 # Editor directories and files
 /.idea
