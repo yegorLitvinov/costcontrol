@@ -4,6 +4,6 @@
 
   roles:
     - django
-    # - gunicorn
-    # - supervisor
-    # - nginx
+    - gunicorn
+    - supervisor
+    - nginx

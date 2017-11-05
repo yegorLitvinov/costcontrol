@@ -28,7 +28,9 @@ def fill_new_with_old(apps, schema_editor):
             proceed_values.pop('user_id')
             proceed_values.pop('id')
             proceed_values['category_id'] = category.id
-            BalanceRecord.objects.create(**proceed_values)
+            balance_record = BalanceRecord.objects.create(**proceed_values)
+            balance_record.created_at = proceed_values['created_at']
+            balance_record.save()
 
     for spending_category in SpendingCategory.objects.all():
         spending_category_values = model_to_dict(spending_category)
@@ -40,7 +42,9 @@ def fill_new_with_old(apps, schema_editor):
             spending_values.pop('user_id')
             spending_values.pop('id')
             spending_values['category_id'] = category.id
-            BalanceRecord.objects.create(**spending_values)
+            balance_record = BalanceRecord.objects.create(**spending_values)
+            balance_record.created_at = spending_values['created_at']
+            balance_record.save()
 
 
 class Migration(migrations.Migration):

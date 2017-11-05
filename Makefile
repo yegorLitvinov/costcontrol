@@ -26,8 +26,8 @@ endif
 
 backup:
 	mkdir -p backup
-	ssh $(HOST) "sudo su postgres 'pg_dump -Fc costcontrol > /tmp/costcontrol.dump'"
-	rsync -aP --delete -e ssh $(HOST):/tmp/costcontrol.dump $(DST)/backup/costcontrol.dump
+	ssh $(HOST) "sudo su postgres 'pg_dump costcontrol > /tmp/costcontrol.sql'"
+	rsync -aP --delete -e ssh $(HOST):/tmp/costcontrol.sql $(DST)/backup/costcontrol.sql
 
 restore:
-	 pg_restore -Fc -cv -W -d costcontrol -U costcontrol -h localhost backup/costcontrol.dump
+	 psql -d costcontrol -U costcontrol -h localhost -f backup/costcontrol.sql

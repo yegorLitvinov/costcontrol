@@ -1,4 +1,6 @@
 - name: restart-gunicorn
+  become: yes
+  become_user: root
   supervisorctl:
     name: gunicorn
     state: restarted
