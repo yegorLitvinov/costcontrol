@@ -59,10 +59,10 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Authenticate after reloading page
     - [X] Fix different date in activity
     - [X] Remove default js tests
+    - [X] Upgrade vue up to 2.5.3
+    - [ ] ~~Typescript~~ (bad packages support)
     - [ ] Cool transactions
     - [ ] Cypress tests; django command before, after, beforeEach test
-    - [ ] Typescript
-    - [ ] Upgrade vue up to 2.5.3
     - [ ] Configure BundleAnalyzerPlugin
 
 - Backend
