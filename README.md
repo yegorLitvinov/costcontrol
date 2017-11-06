@@ -60,10 +60,12 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Fix different date in activity
     - [X] Remove default js tests
     - [X] Upgrade vue up to 2.5.3
-    - [ ] ~~Typescript~~ (bad packages support)
+    - [X] Typescript + js (weak @types support)
     - [ ] Cool transactions
     - [ ] Cypress tests; django command before, after, beforeEach test
     - [ ] Configure BundleAnalyzerPlugin
+    - [ ] Vuex devide into modules
+    - [ ] Progress bar
 
 - Backend
     - [X] Filled-monthes and history urls are not protected

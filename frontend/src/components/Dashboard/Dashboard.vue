@@ -37,7 +37,7 @@ export default {
     this.$store.dispatch('get', { what: 'category/?kind=spending', where: 'spendingCategories' })
     this.$store.dispatch('get', { what: 'category/?kind=proceed', where: 'proceedCategories' })
     this.$store.dispatch('get', { what: 'history/', where: 'history' })
-    this.$store.dispatch('get', { what: '/api/filled-monthes/', where: 'filledMonthes' })
+    this.$store.dispatch('get', { what: 'filled-monthes/', where: 'filledMonthes' })
   }
 }
 </script>
@@ -49,7 +49,6 @@ export default {
   overflow-y: scroll;
   overflow-x: hidden;
   &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     background-color: $light;
   }
@@ -61,7 +60,6 @@ export default {
 
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: $primary;
   }
 }

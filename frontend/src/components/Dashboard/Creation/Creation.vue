@@ -18,38 +18,42 @@
   </b-row>
 </template>
 
-<script>
-import Vuex from 'vuex'
+<script lang="ts">
+// eslint-disable-next-line no-unused-vars
+import { Category, CategoryKind, BalanceRecord, RootState } from '../../../types'
+import Vue from 'vue'
+import { mapState } from 'vuex'
 
-import BalanceRecordForm from './BalanceRecordForm'
+import BalanceRecordForm from './BalanceRecordForm.vue'
 
-const mapCategories = (categories) => {
+const mapCategories = (categories: Category[]) => {
   return categories.map(category => ({
     text: category.name,
     value: category.id
   }))
 }
 
-export default {
+export default Vue.extend({
   name: 'creation',
   components: { BalanceRecordForm },
-  computed: Vuex.mapState({
-    spendingCategories: state => mapCategories(state.spendingCategories),
-    proceedCategories: state => mapCategories(state.proceedCategories)
+  data: {},
+  computed: mapState({
+    spendingCategories: (state: RootState) => mapCategories(state.spendingCategories),
+    proceedCategories: (state: RootState) => mapCategories(state.proceedCategories)
   }),
   methods: {
-    addSpending: function(record) {
+    addSpending: function(record: BalanceRecord) {
       return this.$store.dispatch(
         'addRecord',
-        { type: 'spending', formData: record }
+        { type: 'spending', record }
       )
     },
-    addProceed: function(record) {
+    addProceed: function(record: BalanceRecord) {
       return this.$store.dispatch(
         'addRecord',
-        { type: 'proceed', formData: record }
+        { type: 'proceed', record }
       )
     }
   }
-}
+})
 </script>

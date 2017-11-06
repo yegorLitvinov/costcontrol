@@ -29,8 +29,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'login',
   data: () => ({
     form: {
@@ -40,7 +42,7 @@ export default {
     error: ''
   }),
   computed: {
-    state() {
+    state(): string {
       return this.error ? 'invalid' : ''
     }
   },
@@ -52,7 +54,7 @@ export default {
         })
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

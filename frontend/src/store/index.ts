@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import * as mutations from './mutations'
-import * as actions from './actions'
+import mutations from './mutations'
+import actions from './actions'
+import { RootState } from '../types'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+export default new Vuex.Store<RootState>({
   state: {
     user: {
-      id: '',
+      id: 0,
       email: '',
       first_name: '',
       last_name: '',

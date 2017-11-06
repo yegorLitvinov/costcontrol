@@ -33,7 +33,7 @@ class HistoryView(generics.ListAPIView):
 
     def filter_queryset(self, queryset):
         qs = super().filter_queryset(queryset)
-        qs = qs.order_by('-created_at')[:20]
+        qs = qs.filter(category__user=self.request.user).order_by('-created_at')[:20]
         return qs
 
 

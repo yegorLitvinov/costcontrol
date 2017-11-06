@@ -75,7 +75,7 @@ export default {
           this.errors = { ...this.errors, ...defaultErrors }
         })
         .catch(error => {
-          this.errors = { ...this.errors, ...defaultErrors, ...error.data }
+          this.errors = { ...this.errors, ...defaultErrors, ...error.response.data }
         })
     }
   }
