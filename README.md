@@ -6,31 +6,31 @@ direnv allow
 
 # install dependencies
 pipenv install --dev
+
+# create database
+django-admin sqlcreate | psql
+
+# migrate
+django-admin migrate
+
+# start dev server
+django-admin runserver
+
+# create user
+django-admin createsuperuser
 ```
 
 ## Frontend Build Setup
 
 ``` bash
 # install dependencies
-npm install
+yarn install
 
 # serve with hot reload at localhost:8080
-npm run dev
+yarn run dev
 
 # build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+yarn run build
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
@@ -61,11 +61,12 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Remove default js tests
     - [X] Upgrade vue up to 2.5.3
     - [X] Typescript + js (weak @types support)
+    - [X] Vuex devide into modules
     - [ ] Cool transactions
     - [ ] Cypress tests; django command before, after, beforeEach test
     - [ ] Configure BundleAnalyzerPlugin
-    - [ ] Vuex devide into modules
     - [ ] Progress bar
+    - [ ] Disable eslint in <script lang="ts"> block
 
 - Backend
     - [X] Filled-monthes and history urls are not protected
@@ -92,5 +93,3 @@ export REPO=https://bitbucket.org/team/project/
     - [ ] Eslint feat. Prettier
     - [ ] Python format on save
     - [ ] Cypress lint errors
-
-??? it().only, request post login
