@@ -5,15 +5,17 @@
   </div>
 </template>
 
-<script>
-import Vuex from 'vuex'
+<script lang="ts">
+import { mapState } from 'vuex'
 
-import ActivityItem from './Item'
+// eslint-disable-next-line no-unused-vars
+import { RootState } from '../../../types'
+import ActivityItem from './Item.vue'
 
 export default {
   name: 'activity',
-  computed: Vuex.mapState({
-    history: state => state.history
+  computed: mapState({
+    history: (state: RootState) => state.costcontrol.history
   }),
   components: { ActivityItem }
 }

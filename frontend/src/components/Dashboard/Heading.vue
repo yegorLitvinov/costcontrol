@@ -17,7 +17,7 @@ export default {
   name: 'heading',
   methods: {
     logout() {
-      this.$store.dispatch('logout')
+      this.$store.dispatch('accounts/logout')
     }
   }
 }

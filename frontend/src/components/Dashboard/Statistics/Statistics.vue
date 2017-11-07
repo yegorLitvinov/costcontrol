@@ -33,33 +33,33 @@ export default {
   }),
   computed: {
     filledMonthes() {
-      return this.$store.state.filledMonthes
+      return this.$store.state.costcontrol.filledMonthes
     },
     years() {
-      return Object.keys(this.$store.state.filledMonthes)
+      return Object.keys(this.$store.state.costcontrol.filledMonthes)
     },
     monthes() {
       return moment.months()
         .map((month, index) => ({ value: index + 1, text: month.substr(0, 3) }))
         .filter((month) => {
           try {
-            return this.$store.state.filledMonthes[this.year][month.value]
+            return this.$store.state.costcontrol.filledMonthes[this.year][month.value]
           } catch (error) {
             return false
           }
         })
     },
     spendingChartData() {
-      return this.balanceStatistics(this.$store.state.spendingStatistics, 'Spendings')
+      return this.balanceStatistics(this.$store.state.costcontrol.spendingStatistics, 'Spendings')
     },
     proceedChartData() {
-      return this.balanceStatistics(this.$store.state.proceedStatistics, 'Proceeds')
+      return this.balanceStatistics(this.$store.state.costcontrol.proceedStatistics, 'Proceeds')
     }
   },
   methods: {
     fetchStatistics() {
       const { year, month } = this
-      this.$store.dispatch('fetchStatistics', {year, month})
+      this.$store.dispatch('costcontrol/fetchStatistics', {year, month})
     },
     balanceStatistics(statistics, label) {
       return {

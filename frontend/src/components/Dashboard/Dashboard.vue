@@ -29,15 +29,15 @@ export default {
     const token = sessionStorage.getItem('token')
     const id = sessionStorage.getItem('userId')
     if (token && id) {
-      this.$store.commit('setUser', { id, token })
+      this.$store.commit('accounts/setUser', { id, token })
     } else {
       this.$router.push('/')
       return
     }
-    this.$store.dispatch('get', { what: 'category/?kind=spending', where: 'spendingCategories' })
-    this.$store.dispatch('get', { what: 'category/?kind=proceed', where: 'proceedCategories' })
-    this.$store.dispatch('get', { what: 'history/', where: 'history' })
-    this.$store.dispatch('get', { what: 'filled-monthes/', where: 'filledMonthes' })
+    this.$store.dispatch('costcontrol/get', { what: 'category/?kind=spending', where: 'spendingCategories' })
+    this.$store.dispatch('costcontrol/get', { what: 'category/?kind=proceed', where: 'proceedCategories' })
+    this.$store.dispatch('costcontrol/get', { what: 'history/', where: 'history' })
+    this.$store.dispatch('costcontrol/get', { what: 'filled-monthes/', where: 'filledMonthes' })
   }
 }
 </script>

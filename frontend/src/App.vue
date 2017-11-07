@@ -6,18 +6,19 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
+import axios from 'axios'
 
-export default {
+export default Vue.extend({
   name: 'app',
   mounted() {
     const token = sessionStorage.getItem('token')
     if (token) {
-      Vue.http.headers.common['Authorization'] = `Token ${token}`
+      axios.defaults.headers.common['Authorization'] = `Token ${token}`
     }
   }
-}
+})
 </script>
 
 <style lang="scss">

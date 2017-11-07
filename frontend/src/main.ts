@@ -22,7 +22,7 @@ axios.interceptors.response.use(
   },
   error => {
     if (401 === error.response.status) {
-      store.commit('clearUser')
+      store.commit('accounts/clearUser')
     }
     return Promise.reject(error);
   }

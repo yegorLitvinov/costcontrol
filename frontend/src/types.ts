@@ -38,12 +38,20 @@ export interface FilledMonthes {
   }
 }
 
-export interface RootState {
+export interface AccountsState {
   user: User;
+}
+
+export interface CostcontrolState {
   history: BalanceRecord[],
   spendingCategories: Category[],
   proceedCategories: Category[],
   spendingStatistics: CategoryStatistic[],
   proceedStatistics: CategoryStatistic[],
   filledMonthes: FilledMonthes,
+}
+
+export interface RootState {
+  accounts: AccountsState;
+  costcontrol: CostcontrolState;
 }

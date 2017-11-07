@@ -43,8 +43,14 @@
   </b-card>
 </template>
 
-<script>
-import Vuex from 'vuex'
+<script lang="ts">
+import Vue from 'vue'
+import { mapState } from 'vuex'
+// eslint-disable-next-line no-unused-vars
+import { AxiosError } from 'axios'
+
+// eslint-disable-next-line no-unused-vars
+import { RootState } from '../../../types'
 
 const defaultRecord = {
   amount: '',
@@ -57,27 +63,28 @@ const defaultErrors = {
   category: []
 }
 
-export default {
+export default Vue.extend({
   name: 'balance-record-form',
   props: ['addRecord', 'categories', 'header'],
   data: () => ({
     record: { ...defaultRecord },
     errors: { ...defaultErrors }
   }),
-  computed: Vuex.mapState({
-    userId: state => state.user.id
+  computed: mapState({
+    userId: (state: RootState) => state.accounts.user.id
   }),
   methods: {
-    onSubmit(evt) {
+    onSubmit(): void {
       this.addRecord({ ...this.record, user: this.userId })
-        .then(response => {
+        .then(() => {
           this.record = { ...this.record, ...defaultRecord }
           this.errors = { ...this.errors, ...defaultErrors }
         })
-        .catch(error => {
-          this.errors = { ...this.errors, ...defaultErrors, ...error.response.data }
+        .catch((error: AxiosError) => {
+          const errorResponseData = error.response ? error.response.data : {}
+          this.errors = { ...this.errors, ...defaultErrors, ...errorResponseData }
         })
     }
   }
-}
+})
 </script>

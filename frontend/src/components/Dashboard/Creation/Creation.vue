@@ -36,21 +36,23 @@ const mapCategories = (categories: Category[]) => {
 export default Vue.extend({
   name: 'creation',
   components: { BalanceRecordForm },
-  data: {},
+  data() {
+    return {}
+  },
   computed: mapState({
-    spendingCategories: (state: RootState) => mapCategories(state.spendingCategories),
-    proceedCategories: (state: RootState) => mapCategories(state.proceedCategories)
+    spendingCategories: (state: RootState) => mapCategories(state.costcontrol.spendingCategories),
+    proceedCategories: (state: RootState) => mapCategories(state.costcontrol.proceedCategories)
   }),
   methods: {
     addSpending: function(record: BalanceRecord) {
       return this.$store.dispatch(
-        'addRecord',
+        'costcontrol/addRecord',
         { type: 'spending', record }
       )
     },
     addProceed: function(record: BalanceRecord) {
       return this.$store.dispatch(
-        'addRecord',
+        'costcontrol/addRecord',
         { type: 'proceed', record }
       )
     }

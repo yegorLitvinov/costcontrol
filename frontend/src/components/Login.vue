@@ -31,6 +31,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
+// eslint-disable-next-line no-unused-vars
+import { AxiosError } from 'axios'
 
 export default Vue.extend({
   name: 'login',
@@ -48,9 +50,9 @@ export default Vue.extend({
   },
   methods: {
     onSubmit() {
-      return this.$store.dispatch('login', this.form)
-        .catch(error => {
-          this.error = error.data.detail
+      return this.$store.dispatch('accounts/login', this.form)
+        .catch((error: AxiosError) => {
+          this.error = error.response ? error.response.data.detail : {}
         })
     }
   }
