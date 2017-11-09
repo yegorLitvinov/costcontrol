@@ -67,6 +67,7 @@ export REPO=https://bitbucket.org/team/project/
     - [ ] Configure BundleAnalyzerPlugin
     - [ ] Progress bar
     - [ ] Disable eslint in <script lang="ts"> block
+    - [ ] Disable buttons when submit sent
 
 - Backend
     - [X] Filled-monthes and history urls are not protected
