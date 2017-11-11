@@ -62,11 +62,11 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Upgrade vue up to 2.5.3
     - [X] Typescript + js (weak @types support)
     - [X] Vuex devide into modules
+    - [X] Disable eslint in <script lang="ts"> block
     - [ ] Cool transactions
     - [ ] Cypress tests; django command before, after, beforeEach test
     - [ ] Configure BundleAnalyzerPlugin
     - [ ] Progress bar
-    - [ ] Disable eslint in <script lang="ts"> block
     - [ ] Disable buttons when submit sent
 
 - Backend

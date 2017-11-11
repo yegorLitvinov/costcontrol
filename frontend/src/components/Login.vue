@@ -29,9 +29,8 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" type="text/prs.typescript">
 import Vue from 'vue'
-// eslint-disable-next-line no-unused-vars
 import { AxiosError } from 'axios'
 
 export default Vue.extend({

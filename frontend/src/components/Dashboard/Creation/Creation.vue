@@ -18,8 +18,7 @@
   </b-row>
 </template>
 
-<script lang="ts">
-// eslint-disable-next-line no-unused-vars
+<script lang="ts" type="text/prs.typescript">
 import { Category, CategoryKind, BalanceRecord, RootState } from '../../../types'
 import Vue from 'vue'
 import { mapState } from 'vuex'

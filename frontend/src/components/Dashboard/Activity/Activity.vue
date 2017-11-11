@@ -5,10 +5,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" type="text/prs.typescript">
 import { mapState } from 'vuex'
 
-// eslint-disable-next-line no-unused-vars
 import { RootState } from '../../../types'
 import ActivityItem from './Item.vue'
 
