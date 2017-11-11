@@ -6,7 +6,8 @@
   "compilerOptions": {
     "sourceMap": true,
     // это соответствует поддержке браузеров у Vue
-    "target": "es2015",
+    "target": "es5",
+    "lib": ["dom", "es2016"],
     // это обеспечивает более строгий вывод для свойств данных в `this`
     "strict": true,
     // если используете webpack 2+ или rollup, для использования tree-shaking:
