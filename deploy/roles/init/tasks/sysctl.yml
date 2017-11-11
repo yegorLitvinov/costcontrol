@@ -1,0 +1,17 @@
+- name: Configure vm parameters
+  sysctl:
+    name: vm.swappiness
+    value: 10
+    state: present
+
+- name: Configure vm parameters
+  sysctl:
+    name: vm.dirty_ratio
+    value: 10
+    state: present
+
+- name: Configure vm parameters
+  sysctl:
+    name: vm.dirty_background_ratio
+    value: 5
+    state: present
