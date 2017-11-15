@@ -11,10 +11,10 @@ class Category(models.Model):
         (KIND_SPENDING, 'Spending'),
     )
 
-    name = models.CharField(max_length=256)
     color = models.CharField(max_length=64)
     icon = models.ImageField(upload_to='icons')
     kind = models.CharField(max_length=10, choices=KIND_CHOICES)
+    name = models.CharField(max_length=256)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='categories')
 
     class Meta:

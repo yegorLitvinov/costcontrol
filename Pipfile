@@ -20,6 +20,8 @@ markdown = "*"
 pillow = "*"
 python-memcached = "*"
 werkzeug = "*"
+factory-boy = "*"
+
 
 [dev-packages]
 

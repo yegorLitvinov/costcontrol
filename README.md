@@ -63,8 +63,9 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Typescript + js (weak @types support)
     - [X] Vuex devide into modules
     - [X] Disable eslint in <script lang="ts"> block
+    - [X] Cypress lint errors (eslint)
+    - [X] Cypress tests; django command before, after, beforeEach test
     - [ ] Cool transactions
-    - [ ] Cypress tests; django command before, after, beforeEach test
     - [ ] Configure BundleAnalyzerPlugin
     - [ ] Progress bar
     - [ ] Disable buttons when submit sent
@@ -93,4 +94,3 @@ export REPO=https://bitbucket.org/team/project/
 - Editor
     - [ ] Eslint feat. Prettier
     - [ ] Python format on save
-    - [ ] Cypress lint errors

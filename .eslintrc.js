@@ -25,5 +25,17 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     // CUSTOM
     "space-before-function-paren": ["error", "never"],
+  },
+  globals: {
+    Cypress: true,
+    cy: true,
+    describe: true,
+    it: true,
+    before: true,
+    beforeEach: true,
+    after: true,
+    afterEach: true,
+    context: true,
+    expect: true,
   }
 }
