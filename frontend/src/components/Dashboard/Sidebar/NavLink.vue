@@ -1,6 +1,6 @@
 <template>
   <router-link :to="to" :exact="true" tag="div" class="p-2 sidebar-nav-link d-flex align-items-center">
-    <span><icon :name="icon" /></span>
+    <span></span>
     <a class="text-uppercase pl-2 w-100">{{text}}</a>
   </router-link>
 </template>

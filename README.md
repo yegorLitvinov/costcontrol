@@ -66,8 +66,8 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Cypress lint errors (eslint)
     - [X] Cypress tests; django command before, after, beforeEach test
     - [X] Disable buttons when submit sent
+    - [X] Configure BundleAnalyzerPlugin
     - [ ] Cool transactions
-    - [ ] Configure BundleAnalyzerPlugin
     - [ ] Progress bar
 
 - Backend

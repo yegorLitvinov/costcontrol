@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "node frontend/scripts/dev-server.js",
-    "build": "node frontend/scripts/build.js"
+    "build": "node frontend/scripts/build.js",
+    "report": "npm run build --report"
   },
   "dependencies": {
     "axios": "^0.17.0",
@@ -14,12 +15,11 @@
     "bootstrap-vue": "^1.0.0-beta.9",
     "chart.js": "^2.7.1",
     "js-cookie": "^2.1.4",
-    "moment": "^2.19.1",
+    "moment": "~2.18.0",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "spinkit": "^1.2.5",
     "vue": "^2.4.2",
-    "vue-awesome": "^2.3.3",
     "vue-chartjs": "^3.0.0",
     "vue-router": "^2.7.0",
     "vuex": "^3.0.0"
