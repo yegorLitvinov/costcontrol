@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 from apps.accounts.factories import UserFactory
 from apps.accounts.models import User
-from apps.costcontrol.factories import ProceedCategoryFactory, SpendingCategoryFactory
+from apps.costcontrol.factories import BalanceRecordFactory, SpendingCategoryFactory
 
 EMAIL = 'test@example.com'
 
@@ -20,37 +20,34 @@ def command_error_context():
 class Command(BaseCommand):
     help = 'Preparing for cypress tests.'
 
-    def _adduser(self):
+    def _init(self):
         user = UserFactory.build(email=EMAIL)
         user.set_password('password123')
         with command_error_context():
             user.save()
+            spending = SpendingCategoryFactory(user=user)
+            BalanceRecordFactory(category=spending)
 
-    def _rmuser(self):
-        User.objects.get(email=EMAIL).delete()
-
-    def _add_categories(self):
+    def _destroy(self):
         with command_error_context():
-            user = User.objects.get(email=EMAIL)
-        ProceedCategoryFactory(user=user)
-        SpendingCategoryFactory(user=user)
+            User.objects.get(email=EMAIL).delete()
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--adduser',
-            dest='adduser',
+            '--init',
+            dest='init',
             type=bool,
             default=False,
         )
         parser.add_argument(
-            '--rmuser',
-            dest='rmuser',
+            '--destroy',
+            dest='destroy',
             type=bool,
             default=False
         )
 
     def handle(self, *args, **options):
-        if options['adduser']:
-            self._adduser()
-        elif options['rmuser']:
-            self._rmuser()
+        if options['init']:
+            self._init()
+        elif options['destroy']:
+            self._destroy()

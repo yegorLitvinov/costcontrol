@@ -12,7 +12,7 @@ import axios from 'axios'
 
 export default Vue.extend({
   name: 'app',
-  mounted() {
+  beforeCreate() {
     const token = sessionStorage.getItem('token')
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Token ${token}`

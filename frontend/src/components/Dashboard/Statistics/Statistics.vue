@@ -10,21 +10,35 @@
 
     <b-row>
       <b-col cols="12" sm="6" md="12" lg="6" class="mb-3">
-        <balance-doughnut-chart :chartData="spendingChartData" />
+        <balance-doughnut-chart v-if="spendingStatistics.length" :chartData="spendingChartData" />
       </b-col>
 
       <b-col cols="12" sm="6" md="12" lg="6" class="mb-3">
-        <balance-doughnut-chart :chartData="proceedChartData" />
+        <balance-doughnut-chart v-if="proceedStatistics.length" :chartData="proceedChartData" />
       </b-col>
     </b-row>
   </div>
 </template>
 
-<script>
-import moment from 'moment'
-import BalanceDoughnutChart from './BalanceDoughnutChart'
+<script lang="ts" type="text/prs.typescript">
+import Vue from 'vue'
+import * as moment from 'moment'
 
-export default {
+import BalanceDoughnutChart from './BalanceDoughnutChart.vue'
+import { CategoryStatistic, FilledMonthes } from '../../../types'
+
+interface ChartDataset {
+  label: string;
+  backgroundColor: string[];
+  data: number[];
+}
+
+interface ChartData {
+  labels: string[];
+  datasets: ChartDataset[];
+}
+
+export default Vue.extend({
   name: 'dashboard-statistics',
   components: { BalanceDoughnutChart },
   data: () => ({
@@ -32,13 +46,13 @@ export default {
     month: moment().month() + 1
   }),
   computed: {
-    filledMonthes() {
+    filledMonthes(): FilledMonthes {
       return this.$store.state.costcontrol.filledMonthes
     },
-    years() {
+    years(): string[] {
       return Object.keys(this.$store.state.costcontrol.filledMonthes)
     },
-    monthes() {
+    monthes(): {value: number, text: string}[] {
       return moment.months()
         .map((month, index) => ({ value: index + 1, text: month.substr(0, 3) }))
         .filter((month) => {
@@ -49,11 +63,17 @@ export default {
           }
         })
     },
-    spendingChartData() {
-      return this.balanceStatistics(this.$store.state.costcontrol.spendingStatistics, 'Spendings')
+    spendingStatistics(): CategoryStatistic[] {
+      return this.$store.state.costcontrol.spendingStatistics
     },
-    proceedChartData() {
-      return this.balanceStatistics(this.$store.state.costcontrol.proceedStatistics, 'Proceeds')
+    proceedStatistics(): CategoryStatistic[] {
+      return this.$store.state.costcontrol.proceedStatistics
+    },
+    spendingChartData(): ChartData {
+      return this.balanceStatistics(this.spendingStatistics, 'Spendings')
+    },
+    proceedChartData(): ChartData {
+      return this.balanceStatistics(this.proceedStatistics, 'Proceeds')
     }
   },
   methods: {
@@ -61,7 +81,7 @@ export default {
       const { year, month } = this
       this.$store.dispatch('costcontrol/fetchStatistics', {year, month})
     },
-    balanceStatistics(statistics, label) {
+    balanceStatistics(statistics: CategoryStatistic[], label: string): ChartData {
       return {
         labels: statistics.map(category => category.name),
         datasets: [{
@@ -83,7 +103,7 @@ export default {
       this.fetchStatistics()
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

@@ -1,10 +1,14 @@
 describe('Auth', () => {
   before(() => {
-    cy.adduser()
+    cy.init()
   })
 
   after(() => {
-    cy.rmuser()
+    cy.destroy()
+  })
+
+  afterEach(() => {
+    cy.logout()
   })
 
   it('Login Fail', () => {
@@ -27,5 +31,28 @@ describe('Auth', () => {
     cy.get('button').contains('Login').click()
 
     cy.location('hash').should('include', 'dashboard')
+  })
+
+  it('Unauthorized Access', () => {
+    cy.server()
+    cy.visit('/#/dashboard/')
+
+    cy.location('hash').should('include', 'login')
+  })
+
+  it.only('Reload Statistics Success', () => {
+    cy.server()
+    cy.login().then((response) => {
+      cy.visit('/#/dashboard/')
+    })
+
+    cy.get('.sidebar a').contains('Statistics').click()
+    cy.get('.custom-select').first().select('2017')
+    cy.get('.chartjs-size-monitor')
+
+    cy.reload()
+
+    cy.get('.custom-select').first().select('2017')
+    cy.get('.chartjs-size-monitor')
   })
 })
