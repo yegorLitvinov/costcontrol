@@ -24,7 +24,15 @@
         </b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Login</b-button>
+      <b-button
+        type="submit"
+        variant="primary"
+        :disabled="submitting"
+        :style="{width: '100px'}"
+      >
+        <three-bounce v-if="submitting" />
+        <span v-else>Login</span>
+      </b-button>
     </b-form>
   </div>
 </template>
@@ -36,6 +44,7 @@ import { AxiosError } from 'axios'
 export default Vue.extend({
   name: 'login',
   data: () => ({
+    submitting: false,
     form: {
       email: '',
       password: ''
@@ -49,9 +58,14 @@ export default Vue.extend({
   },
   methods: {
     onSubmit() {
+      this.submitting = true
       return this.$store.dispatch('accounts/login', this.form)
+        .then(() => {
+          this.submitting = false
+        })
         .catch((error: AxiosError) => {
           this.error = error.response ? error.response.data.detail : {}
+          this.submitting = false
         })
     }
   }

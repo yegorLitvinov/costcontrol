@@ -65,10 +65,10 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Disable eslint in <script lang="ts"> block
     - [X] Cypress lint errors (eslint)
     - [X] Cypress tests; django command before, after, beforeEach test
+    - [X] Disable buttons when submit sent
     - [ ] Cool transactions
     - [ ] Configure BundleAnalyzerPlugin
     - [ ] Progress bar
-    - [ ] Disable buttons when submit sent
 
 - Backend
     - [X] Filled-monthes and history urls are not protected

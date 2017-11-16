@@ -6,8 +6,8 @@ import axios from 'axios'
 import App from './App.vue'
 import router from './router'
 import './use'
-
 import store from './store'
+import ThreeBounce from './components/common/ThreeBounce.vue'
 
 Vue.config.productionTip = false
 
@@ -36,3 +36,7 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+
+// Register global components
+Vue.component('three-bounce', ThreeBounce)

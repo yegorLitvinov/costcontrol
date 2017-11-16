@@ -38,7 +38,15 @@
         </b-form-feedback>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Create</b-button>
+      <b-button
+        type="submit"
+        variant="primary"
+        :disabled="submitting"
+        :style="{width: '100px'}"
+      >
+        <three-bounce v-if="submitting" />
+        <span v-else>Create</span>
+      </b-button>
     </b-form>
   </b-card>
 </template>
@@ -65,6 +73,7 @@ export default Vue.extend({
   name: 'balance-record-form',
   props: ['addRecord', 'categories', 'header'],
   data: () => ({
+    submitting: false,
     record: { ...defaultRecord },
     errors: { ...defaultErrors }
   }),
@@ -73,14 +82,17 @@ export default Vue.extend({
   }),
   methods: {
     onSubmit(): void {
+      this.submitting = true
       this.addRecord({ ...this.record, user: this.userId })
         .then(() => {
           this.record = { ...this.record, ...defaultRecord }
           this.errors = { ...this.errors, ...defaultErrors }
+          this.submitting = false
         })
         .catch((error: AxiosError) => {
           const errorResponseData = error.response ? error.response.data : {}
           this.errors = { ...this.errors, ...defaultErrors, ...errorResponseData }
+          this.submitting = false
         })
     }
   }

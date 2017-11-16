@@ -46,13 +46,13 @@ export default Vue.extend({
     addSpending: function(record: BalanceRecord) {
       return this.$store.dispatch(
         'costcontrol/addRecord',
-        { type: 'spending', record }
+        { type: 'spending', ...record }
       )
     },
     addProceed: function(record: BalanceRecord) {
       return this.$store.dispatch(
         'costcontrol/addRecord',
-        { type: 'proceed', record }
+        { type: 'proceed', ...record }
       )
     }
   }
