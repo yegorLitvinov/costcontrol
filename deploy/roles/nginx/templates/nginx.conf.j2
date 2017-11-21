@@ -21,6 +21,10 @@ server {
     server_name {{ server.name }};
     root {{ project_dir }};
 
+    gzip on;
+    gzip_disable "msie6";
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
     ssl on;
     ssl_certificate         /etc/letsencrypt/live/{{ nginx_servers[0].name }}/fullchain.pem;
     ssl_certificate_key     /etc/letsencrypt/live/{{ nginx_servers[0].name }}/privkey.pem;
