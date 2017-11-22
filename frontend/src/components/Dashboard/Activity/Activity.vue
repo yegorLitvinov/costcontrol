@@ -9,7 +9,7 @@
 import { mapState } from 'vuex'
 
 import { RootState } from '../../../types'
-import ActivityItem from './Item.vue'
+import ActivityItem from './ActivityItem.vue'
 
 export default {
   name: 'activity',

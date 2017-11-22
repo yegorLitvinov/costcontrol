@@ -69,14 +69,17 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Configure BundleAnalyzerPlugin
     - [ ] Cool transactions
     - [ ] Progress bar
+    - [ ] Setup tslint
+    - [ ] Class-Style Components
+    - [ ] Source maps for styles
 
 - Backend
     - [X] Filled-monthes and history urls are not protected
     - [X] Remove api app (views, urls, serializers -> specific apps)
     - [X] User id in cache key
     - [X] Reorganizate the structure of models
+    - [X] py.test
     - [ ] Owner Mixin -> permissions
-    - [ ] py.test
     - [ ] Secret key -> environment
     - [ ] UpdateCacheMixin -> Model hooks
     - [ ] HistoryView -> BalanceRecordViewSet + django_filters
@@ -89,7 +92,7 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Restart gunicorn takes a lot of time
     - [ ] Sentry integration
     - [ ] Backend error log
-    - [ ] Jenkins badges to github
+    - [ ] Travis CI badges to github
 
 - Editor
     - [ ] Eslint feat. Prettier

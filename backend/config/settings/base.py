@@ -33,6 +33,7 @@ INSTALLED_APPS = [
 
     'apps.accounts',
     'apps.costcontrol',
+    'apps.todo',
 ]
 
 MIDDLEWARE = [
@@ -147,6 +148,7 @@ REST_FRAMEWORK = {
     ),
     'DATETIME_FORMAT': '%d %b',
     'USER_SERIALIZER': 'apps.accounts.serializers.UserSerializer',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
 INTERNAL_IPS = [

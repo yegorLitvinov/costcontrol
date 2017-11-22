@@ -15,13 +15,16 @@ export interface CategoryStatistic extends Category {
   total: number;
 }
 
-export interface BalanceRecord {
+interface TimeStamped {
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface BalanceRecord extends TimeStamped{
   id?: number;
   amount: number;
   category: number;
   comment: string;
-  created_at?: string;
-  updated_at?: string;
 }
 
 export interface User {
@@ -38,6 +41,12 @@ export interface FilledMonthes {
   }
 }
 
+export interface Todo extends TimeStamped {
+  id?: string;
+  text: string;
+  completed: boolean;
+}
+
 export interface AccountsState {
   user: User;
 }
@@ -51,7 +60,14 @@ export interface CostcontrolState {
   filledMonthes: FilledMonthes,
 }
 
+export interface TodoState {
+  todos: {
+    [id: string]: Todo
+  }
+}
+
 export interface RootState {
   accounts: AccountsState;
   costcontrol: CostcontrolState;
+  todo: TodoState;
 }

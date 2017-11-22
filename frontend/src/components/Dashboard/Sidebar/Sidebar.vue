@@ -21,7 +21,8 @@ export default {
     navs: [
       { to: { name: 'dashboard' }, icon: 'dashboard', text: 'Main' },
       { to: { name: 'statistics' }, icon: 'pie-chart', text: 'Statistics' },
-      { to: { name: 'creation' }, icon: 'edit', text: 'Create' }
+      { to: { name: 'creation' }, icon: 'edit', text: 'Create' },
+      { to: { name: 'todo' }, icon: 'todo', text: 'Todo' }
     ]
   })
 }

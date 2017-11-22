@@ -2,6 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.db.models.functions import ExtractMonth, ExtractYear
 
+from apps.core.models import TimeStampedModel
+
 
 class Category(models.Model):
     KIND_PROCEED = 'proceed'
@@ -35,12 +37,10 @@ class BalanceRecordQuerySet(models.QuerySet):
         )
 
 
-class BalanceRecord(models.Model):
+class BalanceRecord(TimeStampedModel):
     amount = models.PositiveIntegerField()
     category = models.ForeignKey(Category, related_name='balance_records')
     comment = models.CharField(max_length=256, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     objects = BalanceRecordQuerySet.as_manager()
 

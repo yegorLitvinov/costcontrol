@@ -5,7 +5,7 @@ import mutations from './mutations'
 import actions from './actions'
 import { CostcontrolState, RootState } from '../../types'
 
-const State = {
+const State: CostcontrolState = {
   history: [],
   spendingCategories: [],
   proceedCategories: [],

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import AccountsModule from './accounts'
 import CostcontrolModule from './costcontrol'
+import TodoModule from './todo'
 import { RootState } from '../types'
 
 Vue.use(Vuex)
@@ -11,5 +12,6 @@ export default new Vuex.Store<RootState>({
   modules: {
     accounts: new AccountsModule(),
     costcontrol: new CostcontrolModule(),
+    todo: new TodoModule(),
   }
 })
