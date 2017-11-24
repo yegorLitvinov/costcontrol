@@ -72,6 +72,8 @@ export REPO=https://bitbucket.org/team/project/
     - [ ] Progress bar
     - [ ] Setup tslint
     - [ ] Class-Style Components
+    - [ ] Doughnut charts equal size
+    - [ ] Category name in history
 
 - Backend
     - [X] Filled-monthes and history urls are not protected
