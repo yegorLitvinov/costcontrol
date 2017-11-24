@@ -45,15 +45,19 @@ def test_not_owner(db, user, todo):
 
 def test_order(db, user):
     client = APIClient()
+    todo2 = TodoFactory(user=user)
     TodoFactory.create_batch(3, user=user)
-    todo = TodoFactory(user=user, completed=True)
+    todo1 = TodoFactory(user=user, completed=True)
+    todo2.text = 'New text'
+    todo2.save()
 
     client.force_authenticate(user=user)
     response = client.get(f'/api/todo/todo/')
 
     assert response.status_code == status.HTTP_200_OK
-    assert len(response.data) == 4
-    assert response.data[3]['id'] == todo.id
+    assert len(response.data) == 5
+    assert response.data[4]['id'] == todo1.id
+    assert response.data[0]['id'] == todo2.id
 
 
 def test_partial_update(db, user, todo):

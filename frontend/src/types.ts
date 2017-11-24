@@ -42,7 +42,7 @@ export interface FilledMonthes {
 }
 
 export interface Todo extends TimeStamped {
-  id?: string;
+  id: number;
   text: string;
   completed: boolean;
 }
@@ -61,9 +61,10 @@ export interface CostcontrolState {
 }
 
 export interface TodoState {
-  todos: {
+  entities: {
     [id: string]: Todo
-  }
+  },
+  orderedIds: number[];
 }
 
 export interface RootState {

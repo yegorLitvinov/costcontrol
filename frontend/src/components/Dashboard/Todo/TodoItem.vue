@@ -1,21 +1,22 @@
 <template>
-  <div class="d-flex align-items-center w-100">
-    <b-form-checkbox v-model="todo.completed" class="mb-0" />
+  <div class="d-flex align-items-center w-100 my-3">
+    <b-form-checkbox v-model="completed" class="mb-0" />
     <span
       v-if="!focus"
-      :class="{'text-secondary del': todo.completed}"
+      :class="{'text-secondary del': completed}"
       class="w-100"
       @click="onClick"
     >
-      {{todo.text}}
+      {{text}}
     </span>
     <input
       v-else
       type="text"
-      v-model="todo.text"
+      v-model="text"
       @blur="onBlur"
       class="w-100"
       v-focus
+      placeholder="Your todo text"
     >
   </div>
 </template>
@@ -31,7 +32,9 @@ export default Vue.extend({
   props: ['todo'],
   data: function() {
     return {
-      focus: false,
+      focus: this.todo.text === '',
+      completed: this.todo.completed,
+      text: this.todo.text,
     }
   },
   methods: {
@@ -40,12 +43,14 @@ export default Vue.extend({
     },
     onBlur() {
       this.focus = false
-      const { id, text } = this.todo;
-      this.$store.dispatch('todo/patchTodo', {id, text})
+      this.$store.dispatch('todo/patchTodo', {
+        id: this.todo.id,
+        text: this.text
+      })
     }
   },
   watch: {
-    'todo.completed': function(completed: boolean): void {
+    completed(completed: boolean): void {
       const { id } = this.todo;
       this.$store.dispatch('todo/patchTodo', {id, completed})
     }

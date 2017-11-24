@@ -23,11 +23,11 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('completed', models.BooleanField(default=False)),
-                ('text', models.CharField(max_length=255)),
+                ('text', models.CharField(blank=True, max_length=255)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='todos', to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'ordering': ('completed', 'updated_at'),
+                'ordering': ('completed', '-updated_at'),
             },
         ),
     ]

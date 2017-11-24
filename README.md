@@ -67,11 +67,11 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Cypress tests; django command before, after, beforeEach test
     - [X] Disable buttons when submit sent
     - [X] Configure BundleAnalyzerPlugin
+    - [X] Source maps for styles
     - [ ] Cool transactions
     - [ ] Progress bar
     - [ ] Setup tslint
     - [ ] Class-Style Components
-    - [ ] Source maps for styles
 
 - Backend
     - [X] Filled-monthes and history urls are not protected

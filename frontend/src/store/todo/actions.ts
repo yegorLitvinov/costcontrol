@@ -24,9 +24,9 @@ export function patchTodo(context: ActionContext<TodoState, RootState>, todo: To
     .then(function (response) {
       return response.data
     })
-    .then(function (todo) {
-      context.commit('patchTodo', todo)
-      return Promise.resolve(todo)
+    .then(function (patchedTodo) {
+      context.commit('patchTodo', patchedTodo)
+      return Promise.resolve(patchedTodo)
     })
 }
 

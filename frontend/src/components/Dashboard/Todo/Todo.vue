@@ -8,7 +8,9 @@
     >
       <span>Create</span>
     </b-button>
-    <todo-item v-for="(todo, _, index) in todos" :key="todo.id || index" :todo="todo" />
+    <transition-group name="todos">
+      <todo-item v-for="todo in todos" :key="todo.id" :todo="todo" />
+    </transition-group>
   </div>
 </template>
 
@@ -24,12 +26,15 @@ export default Vue.extend({
   components: { TodoItem },
   data: () => ({}),
   computed: mapState({
-    todos: (state: RootState) => values(state.todo.todos),
+    todos: (state: RootState) => state.todo.orderedIds.map((id) => {
+      const todo = state.todo.entities[id]
+      return {...todo}
+    }),
   }),
   methods: {
     addTodo() {
       this.$store.dispatch('todo/addTodo', {
-        text: 'Write todo here',
+        text: '',
         completed: false,
       })
     }
@@ -39,3 +44,9 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style lang="scss">
+.todos-move {
+  transition: transform .5s;
+}
+</style>

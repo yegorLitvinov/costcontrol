@@ -4,8 +4,11 @@ $heading-height: 50px;
 
 // Colors
 
-$primary: rgb(67,44,57);
-$secondary: rgb(185,177,163);
+$gray-800: #343a40 !default;
+$green:   #28a745 !default;
 $info: rgb(66,119,122);
-$warning: rgb(215,76,53);
 $light: rgba(239, 217, 181, 0.68);
+$primary: rgb(67,44,57);
+$red:     #dc3545 !default;
+$secondary: rgb(185,177,163);
+$warning: rgb(215,76,53);

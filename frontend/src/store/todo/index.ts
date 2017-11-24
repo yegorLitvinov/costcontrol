@@ -6,7 +6,8 @@ import actions from './actions'
 import { TodoState, RootState } from '../../types'
 
 const State: TodoState = {
-  todos: {}
+  entities: {},
+  orderedIds: []
 }
 
 export default class CostcontrolModule implements Module<TodoState, RootState>{

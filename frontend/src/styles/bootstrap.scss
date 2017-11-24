@@ -1,28 +1,21 @@
 // Core variables and mixins
 @import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
 @import 'constants';
-
-.inner-h-100 {
-  @media (min-width: map-get($grid-breakpoints, 'md')) {
-    height: calc(100vh - #{$heading-height});
-  }
-}
 
 
 /////// CUSTOMIZATION ////////
 
 $theme-colors: (
+  danger: $red,
+  dark: $gray-800,
+  gray: #ebebeb,
+  info: $info,
+  light: $light,
   primary: $primary,
   secondary: $secondary,
   success: $green,
-  info: $info,
   warning: $warning,
-  danger: $red,
-  light: $light,
-  dark: $gray-800,
-  gray: #ebebeb
 );
 
 // fonts
@@ -36,6 +29,16 @@ $navbar-light-color: rgba(theme-color('info'), 0.9);
 $navbar-light-hover-color: theme-color('info');
 $navbar-light-active-color: theme-color('info');
 $navbar-light-disabled-color: rgba(theme-color('info'), 0.5);
+
+$custom-control-indicator-checked-bg: theme-color("warning");
+
+@import '~bootstrap/scss/variables';
+
+.inner-h-100 {
+  @media (min-width: map-get($grid-breakpoints, 'md')) {
+    height: calc(100vh - #{$heading-height});
+  }
+}
 
 /////// END OF CUSTOMIZATION ////////
 //@import "~bootstrap/scss/print";
