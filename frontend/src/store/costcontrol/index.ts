@@ -6,9 +6,12 @@ import actions from './actions'
 import { CostcontrolState, RootState } from '../../types'
 
 const State: CostcontrolState = {
-  history: [],
-  spendingCategories: [],
-  proceedCategories: [],
+  historyOrderedIds: [],
+  historyEntities: {},
+  spendingCategoriesEntities: {},
+  spendingCategoriesOrderedIds: [],
+  proceedCategoriesEntities: {},
+  proceedCategoriesOrderedIds: [],
   spendingStatistics: [],
   proceedStatistics: [],
   filledMonthes: {}

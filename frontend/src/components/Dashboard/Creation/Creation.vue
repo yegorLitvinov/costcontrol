@@ -39,21 +39,31 @@ export default Vue.extend({
     return {}
   },
   computed: mapState({
-    spendingCategories: (state: RootState) => mapCategories(state.costcontrol.spendingCategories),
-    proceedCategories: (state: RootState) => mapCategories(state.costcontrol.proceedCategories)
+    spendingCategories: (state: RootState) =>
+      mapCategories(
+        state.costcontrol.spendingCategoriesOrderedIds.map(
+          id => state.costcontrol.spendingCategoriesEntities[id]
+        )
+      ),
+    proceedCategories: (state: RootState) =>
+      mapCategories(
+        state.costcontrol.proceedCategoriesOrderedIds.map(
+          id => state.costcontrol.proceedCategoriesEntities[id]
+        )
+      )
   }),
   methods: {
     addSpending: function(record: BalanceRecord) {
-      return this.$store.dispatch(
-        'costcontrol/addRecord',
-        { type: 'spending', ...record }
-      )
+      return this.$store.dispatch('costcontrol/addRecord', {
+        type: 'spending',
+        ...record
+      })
     },
     addProceed: function(record: BalanceRecord) {
-      return this.$store.dispatch(
-        'costcontrol/addRecord',
-        { type: 'proceed', ...record }
-      )
+      return this.$store.dispatch('costcontrol/addRecord', {
+        type: 'proceed',
+        ...record
+      })
     }
   }
 })

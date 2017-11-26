@@ -1,16 +1,34 @@
 <template>
   <div class="pl-4 item-wrapper">
     <div class="activity-item">
-      {{ `${record.amount}\u20bd (${record.created_at}) ${record.comment} (${record.category})` }}
+      {{ `${record.amount}\u20bd (${record.created_at}) ${record.comment} (${categories[record.category].name})` }}
     </div>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts" type="text/prs.typescript">
+import { Category, CategoryKind, BalanceRecord, RootState } from '../../../types'
+import Vue from 'vue'
+import { mapState } from 'vuex'
+
+import BalanceRecordForm from './BalanceRecordForm.vue'
+
+export default Vue.extend({
   name: 'activity-item',
-  props: ['record']
-}
+  props: ['record'],
+  data() {
+    return {}
+  },
+  computed: mapState({
+    categories(state: RootState): { [id: number]: Category } {
+      return {
+        ...state.costcontrol.spendingCategoriesEntities,
+        ...state.costcontrol.proceedCategoriesEntities
+      }
+    }
+  }),
+  methods: {}
+})
 </script>
 
 <style scoped lang="scss">

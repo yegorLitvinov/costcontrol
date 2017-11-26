@@ -9,11 +9,11 @@
   </div>
 
     <b-row>
-      <b-col cols="12" sm="6" md="12" lg="6" class="mb-3">
+      <b-col cols="12" class="mb-3">
         <balance-doughnut-chart v-if="spendingStatistics.length" :chartData="spendingChartData" />
       </b-col>
 
-      <b-col cols="12" sm="6" md="12" lg="6" class="mb-3">
+      <b-col cols="12" class="mb-3">
         <balance-doughnut-chart v-if="proceedStatistics.length" :chartData="proceedChartData" />
       </b-col>
     </b-row>

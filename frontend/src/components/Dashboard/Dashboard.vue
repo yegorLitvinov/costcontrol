@@ -37,7 +37,7 @@ export default {
     this.$store.dispatch('costcontrol/get', { what: 'costcontrol/category/?kind=spending', where: 'spendingCategories' })
     this.$store.dispatch('costcontrol/get', { what: 'costcontrol/category/?kind=proceed', where: 'proceedCategories' })
     this.$store.dispatch('costcontrol/get', { what: 'costcontrol/history/', where: 'history' })
-    this.$store.dispatch('costcontrol/get', { what: 'costcontrol/filled-monthes/', where: 'filledMonthes' })
+    this.$store.dispatch('costcontrol/getFilledMonthes', { what: '', where: 'filledMonthes' })
   }
 }
 </script>

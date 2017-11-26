@@ -21,7 +21,7 @@ interface TimeStamped {
 }
 
 export interface BalanceRecord extends TimeStamped{
-  id?: number;
+  id: number;
   amount: number;
   category: number;
   comment: string;
@@ -52,12 +52,15 @@ export interface AccountsState {
 }
 
 export interface CostcontrolState {
-  history: BalanceRecord[],
-  spendingCategories: Category[],
-  proceedCategories: Category[],
-  spendingStatistics: CategoryStatistic[],
-  proceedStatistics: CategoryStatistic[],
-  filledMonthes: FilledMonthes,
+  historyOrderedIds: number[];
+  historyEntities: { [id: number]: BalanceRecord}
+  spendingCategoriesOrderedIds: number[];
+  spendingCategoriesEntities: { [id: number]: Category };
+  proceedCategoriesOrderedIds: number[];
+  proceedCategoriesEntities: { [id: number]: Category };
+  spendingStatistics: CategoryStatistic[];
+  proceedStatistics: CategoryStatistic[];
+  filledMonthes: FilledMonthes;
 }
 
 export interface TodoState {

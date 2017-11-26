@@ -85,6 +85,7 @@ export REPO=https://bitbucket.org/team/project/
     - [ ] Secret key -> environment
     - [ ] UpdateCacheMixin -> Model hooks
     - [ ] HistoryView -> BalanceRecordViewSet + django_filters
+    - [ ] History pagination
 
 - Devops
     - [X] Build frontend on local machine

@@ -13,7 +13,8 @@
       v-else
       type="text"
       v-model="text"
-      @blur="onBlur"
+      @blur="save"
+      @keyup.enter="save"
       class="w-100"
       v-focus
       placeholder="Your todo text"
@@ -41,7 +42,7 @@ export default Vue.extend({
     onClick() {
       this.focus = true
     },
-    onBlur() {
+    save() {
       this.focus = false
       this.$store.dispatch('todo/patchTodo', {
         id: this.todo.id,
