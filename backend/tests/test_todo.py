@@ -7,11 +7,6 @@ from apps.todo.factories import TodoFactory
 
 
 @pytest.fixture
-def user(db):
-    return UserFactory(email='alex@black.com', password='password')
-
-
-@pytest.fixture
 def todo(user):
     return TodoFactory(user=user)
 
@@ -52,7 +47,7 @@ def test_order(db, user):
     todo2.save()
 
     client.force_authenticate(user=user)
-    response = client.get(f'/api/todo/todo/')
+    response = client.get('/api/todo/todo/')
 
     assert response.status_code == status.HTTP_200_OK
     assert len(response.data) == 5

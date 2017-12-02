@@ -1,5 +1,6 @@
 from knox.views import LoginView as KnoxLoginView
 from rest_framework.authentication import BasicAuthentication
+from rest_framework.exceptions import NotAuthenticated
 from rest_framework.permissions import AllowAny
 
 from .serializers import UserSerializer
@@ -13,8 +14,9 @@ class CustomBasicAuth(BasicAuthentication):
 class LoginView(KnoxLoginView):
     authentication_classes = (CustomBasicAuth,)
     permission_classes = (AllowAny,)
-    allowed_methods = ('post',)
     serializer_class = UserSerializer
 
     def post(self, request, format=None):
+        if request.user.is_anonymous:
+            raise NotAuthenticated()
         return super().post(request, format)
