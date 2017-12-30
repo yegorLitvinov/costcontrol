@@ -5,11 +5,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
+from apps.core.view_mixins import OwnerMixin
+
 from .filters import MonthOfYearFilter
 from .models import BalanceRecord, Category
 from .serializers import BalanceRecordSerializer, CategoryStatisticSerializer
 from .utils import FilledMonthesCache
-from .view_mixins import OwnerMixin
 
 
 class CategoryStatisticListView(OwnerMixin, generics.ListAPIView):

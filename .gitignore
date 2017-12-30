@@ -19,6 +19,7 @@
 **/__pycache__/
 /.direnv/
 /.venv/
+/.mypy_cache/
 /gunicorn.conf.py
 
 # Js

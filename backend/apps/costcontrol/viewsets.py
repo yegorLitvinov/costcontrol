@@ -2,10 +2,11 @@ from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
+from apps.core.view_mixins import OwnerMixin
+
 from .models import BalanceRecord, Category
 from .serializers import BalanceRecordSerializer, CategorySerializer
 from .utils import FilledMonthesCache
-from .view_mixins import OwnerMixin
 
 
 class UpdateCacheMixin:
