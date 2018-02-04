@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/yegorLitvinov/costcontrol.svg?branch=master)](https://travis-ci.org/yegorLitvinov/costcontrol)
+
 ## Backend Build Setup
 
 ``` bash
@@ -93,9 +95,9 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Make backup
     - [X] ~~Docker service -> docker~~ No docker
     - [X] Restart gunicorn takes a lot of time
+    - [X] Travis CI badges to github
     - [ ] Sentry integration
     - [ ] Backend error log
-    - [ ] Travis CI badges to github
 
 - Editor
     - [ ] Eslint feat. Prettier
