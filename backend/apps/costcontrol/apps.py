@@ -1,5 +1,8 @@
 from django.apps import AppConfig
 
 
-class ApiConfig(AppConfig):
-    name = 'costcontrol'
+class CostcontrolConfig(AppConfig):
+    name = 'apps.costcontrol'
+
+    def ready(self):
+        import apps.costcontrol.signals  # noqa

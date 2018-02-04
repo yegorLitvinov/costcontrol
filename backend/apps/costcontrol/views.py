@@ -1,6 +1,6 @@
 from django.db.models import Sum
 from django.http import JsonResponse
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
@@ -9,8 +9,11 @@ from apps.core.view_mixins import OwnerMixin
 
 from .filters import MonthOfYearFilter
 from .models import BalanceRecord, Category
-from .serializers import BalanceRecordSerializer, CategoryStatisticSerializer
+from .permissions import IsCategoryOwner, IsRecordOwner
+from .serializers import (BalanceRecordSerializer, CategorySerializer,
+                          CategoryStatisticSerializer)
 from .utils import FilledMonthesCache
+from .view_mixins import BalanceRecordOwnerMixin
 
 
 class CategoryStatisticListView(OwnerMixin, generics.ListAPIView):
@@ -21,20 +24,20 @@ class CategoryStatisticListView(OwnerMixin, generics.ListAPIView):
     serializer_class = CategoryStatisticSerializer
 
     def filter_queryset(self, queryset):
-        statistics = super().filter_queryset(queryset)
-        return statistics.annotate(
+        qs = super().filter_queryset(queryset)
+        return qs.annotate(
             total=Sum('balance_records__amount')
         )
 
 
-class HistoryView(generics.ListAPIView):
+class HistoryView(BalanceRecordOwnerMixin, generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     queryset = BalanceRecord.objects.all()
     serializer_class = BalanceRecordSerializer
 
     def filter_queryset(self, queryset):
         qs = super().filter_queryset(queryset)
-        qs = qs.filter(category__user=self.request.user).order_by('-created_at')[:20]
+        qs = qs.order_by('-created_at')[:20]
         return qs
 
 
@@ -43,5 +46,18 @@ class FilledMonthesView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        filled_monthes = FilledMonthesCache(request.user).get_filled_monthes()
-        return JsonResponse(filled_monthes, safe=False)
+        filled_months = FilledMonthesCache(request.user).get_filled_months()
+        return JsonResponse(filled_months)
+
+
+class CategoryViewSet(OwnerMixin, viewsets.ModelViewSet):
+    filter_fields = ['kind']
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+    permission_classes = [IsCategoryOwner]
+
+
+class BalanceRecordViewSet(BalanceRecordOwnerMixin, viewsets.ModelViewSet):
+    serializer_class = BalanceRecordSerializer
+    queryset = BalanceRecord.objects.all()
+    permission_classes = [IsRecordOwner]

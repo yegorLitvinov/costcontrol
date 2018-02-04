@@ -24,7 +24,7 @@ export function get<D = {}>(context: ActionContext<CostcontrolState, RootState>,
 
 export function getFilledMonthes(context: ActionContext<CostcontrolState, RootState>) {
   return axios
-    .get('costcontrol/filled-monthes/')
+    .get('costcontrol/filled-months/')
     .then(function (response) {
       return response.data
     })

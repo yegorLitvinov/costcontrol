@@ -76,14 +76,14 @@ export REPO=https://bitbucket.org/team/project/
     - [ ] Category name in history
 
 - Backend
-    - [X] Filled-monthes and history urls are not protected
+    - [X] Filled-months and history urls are not protected
     - [X] Remove api app (views, urls, serializers -> specific apps)
     - [X] User id in cache key
     - [X] Reorganizate the structure of models
     - [X] py.test
-    - [ ] Owner Mixin -> permissions
+    - [X] Owner Mixin -> permissions
+    - [X] UpdateCacheMixin -> Model hooks
     - [ ] Secret key -> environment
-    - [ ] UpdateCacheMixin -> Model hooks
     - [ ] HistoryView -> BalanceRecordViewSet + django_filters
     - [ ] History pagination
 

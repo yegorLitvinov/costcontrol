@@ -4,7 +4,7 @@
     <div>Statistics</div>
     <div class="d-flex justify-content-end">
       <b-form-select :options="years" v-model="year" class="mx-2 px-2 py-0 round-select"></b-form-select>
-      <b-form-select :options="monthes" v-model="month" class="mx-2 px-2 py-0 round-select"></b-form-select>
+      <b-form-select :options="months" v-model="month" class="mx-2 px-2 py-0 round-select"></b-form-select>
     </div>
   </div>
 
@@ -52,7 +52,7 @@ export default Vue.extend({
     years(): string[] {
       return Object.keys(this.$store.state.costcontrol.filledMonthes)
     },
-    monthes(): {value: number, text: string}[] {
+    months(): {value: number, text: string}[] {
       return moment.months()
         .map((month, index) => ({ value: index + 1, text: month.substr(0, 3) }))
         .filter((month) => {
