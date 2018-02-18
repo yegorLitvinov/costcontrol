@@ -1,5 +1,5 @@
 .PHONY: deploy backup
-HOST=root@139.162.149.111
+HOST=root@195.201.27.44
 PROJECT_SRC=/home/web/costcontrol
 DST=$(realpath ./)
 NOW=$(shell date +%Y-%m-%d_%H-%M)
@@ -30,4 +30,4 @@ backup:
 	rsync -aP --delete -e ssh $(HOST):/tmp/costcontrol.sql $(DST)/backup/costcontrol.sql
 
 restore:
-	 psql -d costcontrol -U costcontrol -h localhost -f backup/costcontrol.sql
+	psql -d costcontrol -U costcontrol -h localhost -f backup/costcontrol.sql

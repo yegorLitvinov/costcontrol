@@ -1,6 +1,6 @@
-user: web
+user: costcontrol
 user_pass: "{{ lookup('env','USER_PASS') }}"
-user_home: /home/web
+user_home: /home/costcontrol
 project_name: costcontrol
 project_dir: "{{ user_home }}/{{ project_name }}"
 
