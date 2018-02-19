@@ -1,6 +1,6 @@
 .PHONY: deploy backup
 HOST=root@195.201.27.44
-PROJECT_SRC=/home/web/costcontrol
+PROJECT_SRC=/home/costcontrol/costcontrol
 DST=$(realpath ./)
 NOW=$(shell date +%Y-%m-%d_%H-%M)
 
