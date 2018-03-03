@@ -1,0 +1,10 @@
+@import "./constants";
+
+.round-select {
+  background-color: $warning !important;
+  color: white !important;
+  border-radius: 20px;
+  border: none;
+  height: 35px !important;
+  width: 90px;
+}

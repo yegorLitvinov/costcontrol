@@ -46,13 +46,14 @@ describe('Auth', () => {
       cy.visit('/#/dashboard/')
     })
 
+    const year = (new Date()).getFullYear().toString()
     cy.get('.sidebar a').contains('Statistics').click()
-    cy.get('.custom-select').first().select('2017')
+    cy.get('.custom-select').first().select(year)
     cy.get('.chartjs-size-monitor')
 
     cy.reload()
 
-    cy.get('.custom-select').first().select('2017')
+    cy.get('.custom-select').first().select(year)
     cy.get('.chartjs-size-monitor')
   })
 })

@@ -85,6 +85,7 @@ export REPO=https://bitbucket.org/team/project/
     - [X] py.test
     - [X] Owner Mixin -> permissions
     - [X] UpdateCacheMixin -> Model hooks
+    - [x] Am I using djanog filters right?
     - [ ] Secret key -> environment
     - [ ] HistoryView -> BalanceRecordViewSet + django_filters
     - [ ] History pagination

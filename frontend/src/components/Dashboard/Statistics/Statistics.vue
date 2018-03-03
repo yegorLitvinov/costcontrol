@@ -16,6 +16,13 @@
       <b-col cols="12" class="mb-3">
         <balance-doughnut-chart v-if="proceedStatistics.length" :chartData="proceedChartData" />
       </b-col>
+
+      <b-col cols="12" class="mb-3">
+        <balance-doughnut-chart
+          v-if="spendingStatistics.length || proceedStatistics.length "
+          :chartData="proceedVsSpendingChartData"
+        />
+      </b-col>
     </b-row>
   </div>
 </template>
@@ -25,17 +32,19 @@ import Vue from 'vue'
 import * as moment from 'moment'
 
 import BalanceDoughnutChart from './BalanceDoughnutChart.vue'
-import { CategoryStatistic, FilledMonthes } from '../../../types'
+import { CategoryStatistic, FilledMonthes, ChartData } from '../../../types'
 
-interface ChartDataset {
-  label: string;
-  backgroundColor: string[];
-  data: number[];
-}
-
-interface ChartData {
-  labels: string[];
-  datasets: ChartDataset[];
+function balanceStatistics(statistics: CategoryStatistic[], label: string): ChartData {
+  return {
+    labels: statistics.map(category => category.name),
+    datasets: [
+      {
+        label,
+        backgroundColor: statistics.map(category => category.color),
+        data: statistics.map(category => category.total)
+      }
+    ]
+  }
 }
 
 export default Vue.extend({
@@ -70,26 +79,28 @@ export default Vue.extend({
       return this.$store.state.costcontrol.proceedStatistics
     },
     spendingChartData(): ChartData {
-      return this.balanceStatistics(this.spendingStatistics, 'Spendings')
+      return balanceStatistics(this.spendingStatistics, 'Spendings')
     },
     proceedChartData(): ChartData {
-      return this.balanceStatistics(this.proceedStatistics, 'Proceeds')
+      return balanceStatistics(this.proceedStatistics, 'Proceeds')
+    },
+    proceedVsSpendingChartData(): ChartData {
+      const proceedTotal = this.proceedStatistics.reduce((prev, curr) => (prev + curr.total), 0)
+      const spendingTotal = this.spendingStatistics.reduce((prev, curr) => (prev + curr.total), 0)
+      return {
+        labels: ['Proceed', 'Spending'],
+        datasets: [{
+          label: 'Proceed Vs. Spending',
+          backgroundColor: ['#aad962', '#ed0345'],
+          data: [proceedTotal, spendingTotal],
+        }]
+      }
     }
   },
   methods: {
     fetchStatistics() {
       const { year, month } = this
       this.$store.dispatch('costcontrol/fetchStatistics', {year, month})
-    },
-    balanceStatistics(statistics: CategoryStatistic[], label: string): ChartData {
-      return {
-        labels: statistics.map(category => category.name),
-        datasets: [{
-          label,
-          backgroundColor: statistics.map(category => category.color),
-          data: statistics.map(category => category.total)
-        }]
-      }
     }
   },
   mounted() {
@@ -105,16 +116,3 @@ export default Vue.extend({
   }
 })
 </script>
-
-<style scoped lang="scss">
-@import "../../../styles/constants";
-
-.round-select {
-  background-color: $warning;
-  color: white;
-  border-radius: 20px;
-  border: none;
-  height: 35px !important;
-  width: 90px;
-}
-</style>

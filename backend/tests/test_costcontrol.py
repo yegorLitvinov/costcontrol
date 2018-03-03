@@ -1,10 +1,13 @@
+from unittest import mock
+
 import pytest
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APIClient
 
 from apps.accounts.factories import UserFactory
-from apps.costcontrol.factories import ProceedCategoryFactory, ProceedRecordFactory
+from apps.costcontrol.factories import (ProceedCategoryFactory, ProceedRecordFactory,
+                                        SpendingRecordFactory)
 
 
 @pytest.mark.parametrize('url', ['history', 'filled-months'])
@@ -70,3 +73,38 @@ def test_filled_months_get_success(db, user):
     assert response.status_code == status.HTTP_200_OK
     now = timezone.now()
     assert response.json() == {str(now.year): {str(now.month): True}}
+
+
+def test_year_statistics(db, user):
+    category = ProceedCategoryFactory(user=user)
+    now = timezone.datetime(2018, 1, 3, tzinfo=timezone.get_current_timezone())
+    two_month_later = now + timezone.timedelta(days=60)
+    with mock.patch('django.utils.timezone.now') as now_mock:
+        now_mock.return_value = now
+        SpendingRecordFactory(category__user=user, amount=50)
+        ProceedRecordFactory.create_batch(2, category=category, amount=100)
+        now_mock.return_value = two_month_later
+        ProceedRecordFactory(category=category, amount=25)
+
+    client = APIClient()
+    client.force_authenticate(user=user)
+    response = client.get(f'/api/costcontrol/year-statistics/?year={now.year}')
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == [
+        {
+            'month': now.month,
+            'category__kind': 'proceed',
+            'total': 200
+        },
+        {
+            'month': now.month,
+            'category__kind': 'spending',
+            'total': 50
+        },
+        {
+            'month': two_month_later.month,
+            'category__kind': 'proceed',
+            'total': 25
+        }
+    ]

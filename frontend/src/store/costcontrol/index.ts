@@ -14,6 +14,7 @@ const State: CostcontrolState = {
   proceedCategoriesOrderedIds: [],
   spendingStatistics: [],
   proceedStatistics: [],
+  yearStatistics: [],
   filledMonthes: {}
 }
 

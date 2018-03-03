@@ -20,9 +20,18 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'color', 'icon', 'kind')
 
 
-class CategoryStatisticSerializer(serializers.ModelSerializer):
+class CategoryStatisticsSerializer(serializers.ModelSerializer):
     total = serializers.IntegerField()
 
     class Meta:
         model = Category
         fields = ('id', 'name', 'color', 'total', 'kind')
+
+
+class YearStatisticsSerializer(serializers.Serializer):
+    month = serializers.IntegerField()
+    category__kind = serializers.CharField()
+    total = serializers.IntegerField()
+
+    class Meta:
+        fields = ('month', 'proceeds', 'spendings')

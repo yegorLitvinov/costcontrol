@@ -34,10 +34,24 @@ export default {
       this.$router.push('/')
       return
     }
-    this.$store.dispatch('costcontrol/get', { what: 'costcontrol/category/?kind=spending', where: 'spendingCategories' })
-    this.$store.dispatch('costcontrol/get', { what: 'costcontrol/category/?kind=proceed', where: 'proceedCategories' })
-    this.$store.dispatch('costcontrol/get', { what: 'costcontrol/history/', where: 'history' })
-    this.$store.dispatch('costcontrol/getFilledMonthes', { what: '', where: 'filledMonthes' })
+    this.$store.dispatch('costcontrol/get', {
+      what: 'costcontrol/category/?kind=spending',
+      where: 'spendingCategories'
+    })
+    this.$store.dispatch('costcontrol/get', {
+      what: 'costcontrol/category/?kind=proceed',
+      where: 'proceedCategories'
+    })
+    setTimeout(() => {
+      this.$store.dispatch('costcontrol/get', {
+        what: 'costcontrol/history/',
+        where: 'history'
+      })
+    }, 300)
+    this.$store.dispatch('costcontrol/getFilledMonthes', {
+      what: '',
+      where: 'filledMonthes'
+    })
   }
 }
 </script>

@@ -23,6 +23,7 @@ export default Vue.extend({
 
 <style lang="scss">
 @import 'styles/bootstrap';
+@import 'styles/custom';
 @import 'styles/transitions';
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 

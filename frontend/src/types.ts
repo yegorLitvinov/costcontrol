@@ -60,6 +60,7 @@ export interface CostcontrolState {
   proceedCategoriesEntities: { [id: number]: Category };
   spendingStatistics: CategoryStatistic[];
   proceedStatistics: CategoryStatistic[];
+  yearStatistics: YearStatistic[];
   filledMonthes: FilledMonthes;
 }
 
@@ -74,4 +75,22 @@ export interface RootState {
   accounts: AccountsState;
   costcontrol: CostcontrolState;
   todo: TodoState;
+}
+
+interface ChartDataset {
+  label: string;
+  backgroundColor: string[] | string;
+  data: number[] | { x: number, y: number }[];
+  options?: any;
+}
+
+export interface ChartData {
+  labels: string[] | number[];
+  datasets: ChartDataset[];
+}
+
+export interface YearStatistic {
+  month: number;
+  category__kind: string;
+  total: number;
 }

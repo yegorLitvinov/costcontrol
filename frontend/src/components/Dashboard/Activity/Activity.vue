@@ -13,10 +13,10 @@ import ActivityItem from './ActivityItem.vue'
 
 export default {
   name: 'activity',
+  components: { ActivityItem },
   computed: mapState({
     history: (state: RootState) =>
       state.costcontrol.historyOrderedIds.map(id => state.costcontrol.historyEntities[id])
   }),
-  components: { ActivityItem }
 }
 </script>
