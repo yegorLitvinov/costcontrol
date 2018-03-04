@@ -5,10 +5,10 @@ DST=$(realpath ./)
 NOW=$(shell date +%Y-%m-%d_%H-%M)
 
 isort:
-	isort -rc backend/
+	isort -rc backend
 
 flake:
-	flake8 backend
+	flake8 backend locustfile.py
 
 create-prod-requirements:
 	mkdir -p requirements
