@@ -7,12 +7,15 @@ NOW=$(shell date +%Y-%m-%d_%H-%M)
 isort:
 	isort -rc backend/
 
+flake:
+	flake8 backend
+
 create-prod-requirements:
 	mkdir -p requirements
 	pipenv lock -r > requirements/prod.txt
 	sort requirements/prod.txt -o requirements/prod.txt
 
-precommit: isort create-prod-requirements
+precommit: isort flake
 
 init-server:
 	cd deploy && ansible-playbook init.yml
