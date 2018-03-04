@@ -1,3 +1,6 @@
+from calendar import monthrange
+
+from django.utils import timezone
 from django_filters.filters import Filter
 
 from .forms import DateFilterForm, YearFilterForm
@@ -9,11 +12,20 @@ class CategoryMonthOfYearFilter(Filter):
         if form.is_valid():
             month = form.cleaned_data.get('month')
             year = form.cleaned_data.get('year')
-            return (
-                queryset
-                .filter(balance_records__created_at__month=month)
-                .filter(balance_records__created_at__year=year)
+            start_date = timezone.datetime(
+                year,
+                month,
+                1,
+                tzinfo=timezone.get_current_timezone()
             )
+            end_day = monthrange(year, month)[1]
+            end_date = start_date.replace(day=end_day)
+            qs = (
+                queryset
+                .filter(balance_records__created_at__range=(start_date, end_date))
+                .distinct()
+            )
+            return qs
         return queryset.none()
 
 

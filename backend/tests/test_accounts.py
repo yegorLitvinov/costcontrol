@@ -23,7 +23,7 @@ def test_login_no_auth_header(db):
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
 
-def test_login_wrong_password(db, user):
+def test_login_success(db, user):
     client = APIClient()
     base64_bytes = b64encode(f'{user.email}:password'.encode())
     response = client.post(
