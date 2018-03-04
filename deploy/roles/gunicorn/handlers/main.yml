@@ -2,5 +2,7 @@
   become: yes
   become_user: root
   supervisorctl:
-    name: gunicorn
+    name: "{{ item }}_gunicorn"
     state: restarted
+  with_items:
+    - "{{ project_name }}"
