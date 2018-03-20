@@ -24,8 +24,11 @@
   </div>
 </template>
 
+
 <script lang="ts" type="text/prs.typescript">
 import Vue from 'vue'
+import Component from 'vue-class-component'
+import { Watch } from 'vue-property-decorator'
 import * as moment from 'moment'
 
 import BalanceDoughnutChart from './BalanceDoughnutChart.vue'
@@ -38,7 +41,7 @@ import {
   CategoryKind
 } from '../../../types'
 
-export function balanceStatistics(
+function balanceStatistics(
   allStatistics: YearStatistic[],
   spendingStatistics: YearStatistic[],
   proceedStatistics: YearStatistic[],
@@ -70,72 +73,79 @@ export function balanceStatistics(
   }
 }
 
-export default Vue.extend({
-  name: 'dashboard-statistics',
+@Component({
+  name: 'dashboard-year-statistics',
   components: { BalanceDoughnutChart, BalanceBarChart },
-  data: () => ({
-    year: moment().year(),
-    month: moment().month() + 1
-  }),
-  computed: {
-    filledMonthes(): FilledMonthes {
-      return this.$store.state.costcontrol.filledMonthes
-    },
-    years(): string[] {
-      return Object.keys(this.$store.state.costcontrol.filledMonthes)
-    },
-    months(): { value: number; text: string }[] {
-      return moment
-        .months()
-        .map((month, index) => ({ value: index + 1, text: month.substr(0, 3) }))
-        .filter(month => {
-          try {
-            return this.$store.state.costcontrol.filledMonthes[this.year][month.value]
-          } catch (error) {
-            return false
-          }
-        })
-    },
-    yearStatistics(): YearStatistic[] {
-      return this.$store.state.costcontrol.yearStatistics
-    },
-    proceedYearStatistics(): YearStatistic[] {
-      return this.yearStatistics.filter(item => item.category__kind == CategoryKind.Proceed)
-    },
-    spendingYearStatistics(): YearStatistic[] {
-      return this.yearStatistics.filter(item => item.category__kind == CategoryKind.Spending)
-    },
-    lineChartData(): ChartData {
-      return balanceStatistics(this.yearStatistics, this.spendingYearStatistics, this.proceedYearStatistics)
-    },
-    proceedVsSpendingChartData(): ChartData {
-      const proceedTotal = this.proceedYearStatistics.reduce((prev, curr) => prev + curr.total, 0)
-      const spendingTotal = this.spendingYearStatistics.reduce((prev, curr) => prev + curr.total, 0)
-      return {
-        labels: ['Proceed', 'Spending'],
-        datasets: [
-          {
-            label: 'Proceed Vs. Spending',
-            backgroundColor: ['#aad962', '#ed0345'],
-            data: [proceedTotal, spendingTotal]
-          }
-        ]
-      }
-    }
-  },
-  methods: {
-    fetchStatistics() {
-      const { year } = this
-      this.$store.dispatch('costcontrol/fetchYearStatistics', { year })
-    }
-  },
-  mounted() {
-    this.fetchStatistics()
-  },
-  watch: {
-    year() {
-      this.fetchStatistics()
+})
+export default class YearStatistics extends Vue{
+  year = moment().year()
+  month = moment().month() + 1
+
+  get filledMonthes(): FilledMonthes {
+    return this.$store.state.costcontrol.filledMonthes
+  }
+
+  get years(): string[] {
+    return Object.keys(this.$store.state.costcontrol.filledMonthes)
+  }
+
+  get months(): { value: number; text: string }[] {
+    return moment
+      .months()
+      .map((month, index) => ({ value: index + 1, text: month.substr(0, 3) }))
+      .filter(month => {
+        try {
+          return this.$store.state.costcontrol.filledMonthes[this.year][month.value]
+        } catch (error) {
+          return false
+        }
+      })
+  }
+
+  get yearStatistics(): YearStatistic[] {
+    return this.$store.state.costcontrol.yearStatistics
+  }
+
+  get proceedYearStatistics(): YearStatistic[] {
+    return this.yearStatistics.filter(item => item.category__kind == CategoryKind.Proceed)
+  }
+
+  get spendingYearStatistics(): YearStatistic[] {
+    return this.yearStatistics.filter(item => item.category__kind == CategoryKind.Spending)
+  }
+
+  get lineChartData(): ChartData {
+    return balanceStatistics(this.yearStatistics, this.spendingYearStatistics, this.proceedYearStatistics)
+  }
+
+  get proceedVsSpendingChartData(): ChartData {
+    const proceedTotal = this.proceedYearStatistics.reduce((prev, curr) => prev + curr.total, 0)
+    const spendingTotal = this.spendingYearStatistics.reduce((prev, curr) => prev + curr.total, 0)
+    return {
+      labels: ['Proceed', 'Spending'],
+      datasets: [
+        {
+          label: 'Proceed Vs. Spending',
+          backgroundColor: ['#aad962', '#ed0345'],
+          data: [proceedTotal, spendingTotal]
+        }
+      ]
     }
   }
-})
+
+
+  fetchStatistics() {
+    const { year } = this
+    this.$store.dispatch('costcontrol/fetchYearStatistics', { year })
+  }
+
+  mounted() {
+    this.fetchStatistics()
+  }
+
+  @Watch('year')
+  onYearChange() {
+    this.fetchStatistics()
+  }
+}
 </script>

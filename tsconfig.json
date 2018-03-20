@@ -15,7 +15,8 @@
     "moduleResolution": "node",
     "allowJs": true,
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "experimentalDecorators": true
     // "allowSyntheticDefaultImports": true
   }
 }
