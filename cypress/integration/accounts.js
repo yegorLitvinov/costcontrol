@@ -40,7 +40,7 @@ describe('Auth', () => {
     cy.location('hash').should('include', 'login')
   })
 
-  it.only('Reload Statistics Success', () => {
+  it('Reload Statistics Success', () => {
     cy.server()
     cy.login().then((response) => {
       cy.visit('/#/dashboard/')

@@ -19,7 +19,15 @@ class CategoryMonthOfYearFilter(Filter):
                 tzinfo=timezone.get_current_timezone()
             )
             end_day = monthrange(year, month)[1]
-            end_date = start_date.replace(day=end_day)
+            end_date = timezone.datetime(
+                year,
+                month,
+                end_day,
+                23,
+                59,
+                59,
+                tzinfo=timezone.get_current_timezone()
+            )
             qs = (
                 queryset
                 .filter(balance_records__created_at__range=(start_date, end_date))
