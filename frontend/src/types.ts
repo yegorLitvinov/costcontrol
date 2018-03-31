@@ -41,12 +41,6 @@ export interface FilledMonthes {
   }
 }
 
-export interface Todo extends TimeStamped {
-  id: number;
-  text: string;
-  completed: boolean;
-}
-
 export interface AccountsState {
   user: User;
 }
@@ -64,17 +58,9 @@ export interface CostcontrolState {
   filledMonthes: FilledMonthes;
 }
 
-export interface TodoState {
-  entities: {
-    [id: string]: Todo
-  },
-  orderedIds: number[];
-}
-
 export interface RootState {
   accounts: AccountsState;
   costcontrol: CostcontrolState;
-  todo: TodoState;
 }
 
 interface ChartDataset {

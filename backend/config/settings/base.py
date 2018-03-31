@@ -33,7 +33,6 @@ INSTALLED_APPS = [
 
     'apps.accounts',
     'apps.costcontrol',
-    'apps.todo',
 ]
 
 MIDDLEWARE = [
