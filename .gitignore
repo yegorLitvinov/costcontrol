@@ -22,6 +22,7 @@
 /.venv/
 /.tox/
 /.mypy_cache/
+/.pytest_cache/
 /gunicorn.conf.py
 
 # Js
