@@ -1,13 +1,9 @@
 [[source]]
-
 verify_ssl = true
 url = "https://pypi.python.org/simple"
 name = "pypi"
 
-
 [packages]
-
-"psycopg2" = "*"
 django = ">1.11.1,<1.12"
 django-extensions = "*"
 django-filter = "*"
@@ -20,10 +16,9 @@ markdown = "*"
 pillow = "*"
 python-memcached = "*"
 werkzeug = "*"
-
+"psycopg2-binary" = "*"
 
 [dev-packages]
-
 "autopep8" = "*"
 "flake8" = "*"
 isort = "*"

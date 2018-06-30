@@ -52,8 +52,8 @@ export default Vue.extend({
     error: ''
   }),
   computed: {
-    state(): string {
-      return this.error ? 'invalid' : ''
+    state(): string | null {
+      return this.error ? 'invalid' : null
     }
   },
   methods: {
@@ -61,6 +61,7 @@ export default Vue.extend({
       this.submitting = true
       return this.$store.dispatch('accounts/login', this.form)
         .then(() => {
+          this.error = ''
           this.submitting = false
         })
         .catch((error: AxiosError) => {

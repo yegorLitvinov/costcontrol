@@ -1,6 +1,7 @@
 <template>
   <div class="pl-4 item-wrapper">
     <div class="activity-item">
+      {{ categories[record.category].kind === 'spending' ? '- ' : '+ '}}
       {{ `${record.amount}\u20bd (${record.created_at}) ${record.comment} (${categories[record.category].name})` }}
     </div>
   </div>

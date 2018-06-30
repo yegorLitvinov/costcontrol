@@ -14,19 +14,20 @@ export default new Vuex.Store<RootState>({
   }
 })
 
-// If you get errors in the following lines you need to remove
-// ones from node_modules/vuex/types/vue.d.ts or wait for support
-// of custom store type declaration in vuex
+// You get errors in the following lines because vuex does not support
+// custom store type declaration.
 
 declare module "vue/types/options" {
-  // @ts-ignore
+    // @ts-ignore
   interface ComponentOptions<V extends Vue> {
+    // @ts-ignore
     store?: Store<RootState>;
   }
 }
 
 declare module "vue/types/vue" {
   interface Vue {
+    // @ts-ignore
     $store: Store<RootState>;
   }
 }
