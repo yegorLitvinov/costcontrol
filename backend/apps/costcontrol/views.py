@@ -4,6 +4,7 @@ from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
+from rest_framework.pagination import PageNumberPagination
 
 from apps.core.view_mixins import OwnerMixin
 
@@ -48,13 +49,9 @@ class YearStatisticsListView(BalanceRecordOwnerMixin, generics.ListAPIView):
 
 class HistoryView(BalanceRecordOwnerMixin, generics.ListAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = BalanceRecord.objects.all()
+    queryset = BalanceRecord.objects.order_by("-created_at")
     serializer_class = BalanceRecordSerializer
-
-    def filter_queryset(self, queryset):
-        qs = super().filter_queryset(queryset)
-        qs = qs.order_by("-created_at")[:20]
-        return qs
+    pagination_class = PageNumberPagination
 
 
 class FilledMonthesView(APIView):

@@ -3,7 +3,7 @@ import { ActionContext, ActionTree } from 'vuex'
 import axios from 'axios'
 
 import router from '../../router'
-import { RootState, CostcontrolState, BalanceRecord, CategoryKind } from '../../types'
+import { RootState, CostcontrolState, BalanceRecord, CategoryKind, PaginatedResults } from '../../types'
 
 // Get 'what' from api and put it into store's 'where'
 export function get<D = {}>(context: ActionContext<CostcontrolState, RootState>, payload: { what: string, where: string, asIs?: boolean }) {
@@ -20,6 +20,13 @@ export function get<D = {}>(context: ActionContext<CostcontrolState, RootState>,
       }
       return Promise.resolve(data)
     })
+}
+
+function getHistory(context: ActionContext<CostcontrolState, RootState>, payload?: {page?: number}) {
+  return axios.get<PaginatedResults<BalanceRecord>>('/costcontrol/history/', {params: {page: payload && payload.page}}).then(function(response) {
+    context.commit('appendHistory', response.data.results)
+    return Promise.resolve(response.data)
+  })
 }
 
 export function getFilledMonthes(context: ActionContext<CostcontrolState, RootState>) {
@@ -66,5 +73,5 @@ export function fetchYearStatistics(context: ActionContext<CostcontrolState, Roo
 }
 
 export default <ActionTree<CostcontrolState, RootState>>{
-  get, getFilledMonthes, addRecord, fetchStatistics, fetchYearStatistics
+  get, getHistory, getFilledMonthes, addRecord, fetchStatistics, fetchYearStatistics,
 }

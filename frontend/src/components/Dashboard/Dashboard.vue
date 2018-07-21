@@ -42,12 +42,6 @@ export default {
       what: 'costcontrol/category/?kind=proceed',
       where: 'proceedCategories'
     })
-    setTimeout(() => {
-      this.$store.dispatch('costcontrol/get', {
-        what: 'costcontrol/history/',
-        where: 'history'
-      })
-    }, 300)
     this.$store.dispatch('costcontrol/getFilledMonthes', {
       what: '',
       where: 'filledMonthes'

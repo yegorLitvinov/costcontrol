@@ -56,7 +56,7 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 import { AxiosError } from 'axios'
 
-import { RootState } from '../../../types'
+import { RootState, Category } from '../../../types'
 
 const defaultRecord = {
   amount: '',
@@ -71,7 +71,17 @@ const defaultErrors = {
 
 export default Vue.extend({
   name: 'balance-record-form',
-  props: ['addRecord', 'categories', 'header'],
+  props: {
+    addRecord: {
+      type: Function,
+      required: true,
+    },
+    categories : {
+      type: Array as () => Category[],
+      required: true,
+    },
+    header: String
+  },
   data: () => ({
     submitting: false,
     record: { ...defaultRecord },

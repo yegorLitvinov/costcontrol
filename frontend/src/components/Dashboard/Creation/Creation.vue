@@ -4,7 +4,7 @@
       <balance-record-form
         :categories="spendingCategories"
         :add-record="this.addSpending"
-        :header="'Spending'"
+        header="Spending"
       />
     </b-col>
 
@@ -12,7 +12,7 @@
       <balance-record-form
         :categories="proceedCategories"
         :add-record="this.addProceed"
-        :header="'Proceed'"
+        header="Proceed"
       />
     </b-col>
   </b-row>

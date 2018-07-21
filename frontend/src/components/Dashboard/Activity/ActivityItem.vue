@@ -1,8 +1,8 @@
 <template>
   <div class="pl-4 item-wrapper">
     <div class="activity-item">
-      {{ categories[record.category].kind === 'spending' ? '- ' : '+ '}}
-      {{ `${record.amount}\u20bd (${record.created_at}) ${record.comment} (${categories[record.category].name})` }}
+      {{ category && (category.kind === 'spending' ? '- ' : '+ ')}}
+      {{ `${record.amount}\u20bd (${record.created_at}) ${record.comment} (${category ? category.name : ''})` }}
     </div>
   </div>
 </template>
@@ -16,24 +16,33 @@ import BalanceRecordForm from './BalanceRecordForm.vue'
 
 export default Vue.extend({
   name: 'activity-item',
-  props: ['record'],
+  props: {
+    record: {
+      type: Object as () => BalanceRecord,
+      required: true
+    }
+  },
   data() {
     return {}
   },
-  computed: mapState({
-    categories(state: RootState): { [id: number]: Category } {
+  computed: {
+    categories() {
+      const state: RootState = this.$store.state
       return {
         ...state.costcontrol.spendingCategoriesEntities,
         ...state.costcontrol.proceedCategoriesEntities
       }
+    },
+    category(): Category | undefined {
+      return this.categories[this.record.category]
     }
-  }),
+  },
   methods: {}
 })
 </script>
 
 <style scoped lang="scss">
-@import "../../../styles/constants";
+@import '../../../styles/constants';
 
 .activity-item {
   border-left: 2px solid lightgray;
@@ -49,7 +58,7 @@ export default Vue.extend({
     width: 20px;
     height: 20px;
     border-radius: 10px;
-    content: "o";
+    content: 'o';
     display: inline-block;
   }
 

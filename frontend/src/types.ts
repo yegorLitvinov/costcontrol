@@ -80,3 +80,10 @@ export interface YearStatistic {
   category__kind: string;
   total: number;
 }
+
+export interface PaginatedResults<T> {
+  count: number;
+  next: null | string;
+  previous: null | string;
+  results: T[];
+}
