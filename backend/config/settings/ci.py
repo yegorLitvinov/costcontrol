@@ -8,3 +8,5 @@ CACHES = {
         "LOCATION": "/tmp/django_cache",
     }
 }
+
+PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
