@@ -10,14 +10,13 @@ class BalanceRecordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BalanceRecord
-        fields = ('id', 'amount', 'category', 'comment',
-                  'created_at', 'updated_at')
+        fields = ("id", "amount", "category", "comment", "created_at", "updated_at")
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name', 'color', 'icon', 'kind')
+        fields = ("id", "name", "color", "icon", "kind")
 
 
 class CategoryStatisticsSerializer(serializers.ModelSerializer):
@@ -25,7 +24,7 @@ class CategoryStatisticsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'name', 'color', 'total', 'kind')
+        fields = ("id", "name", "color", "total", "kind")
 
 
 class YearStatisticsSerializer(serializers.Serializer):
@@ -34,4 +33,4 @@ class YearStatisticsSerializer(serializers.Serializer):
     total = serializers.IntegerField()
 
     class Meta:
-        fields = ('month', 'proceeds', 'spendings')
+        fields = ("month", "proceeds", "spendings")

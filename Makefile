@@ -7,6 +7,9 @@ NOW=$(shell date +%Y-%m-%d_%H-%M)
 isort:
 	isort -rc backend
 
+black:
+	black -l 90 backend
+
 flake:
 	flake8 backend locustfile.py
 
@@ -15,7 +18,7 @@ create-prod-requirements:
 	pipenv lock -r > requirements/prod.txt
 	sort requirements/prod.txt -o requirements/prod.txt
 
-precommit: isort flake
+precommit: black isort flake
 
 init-server:
 	cd deploy && ansible-playbook init.yml

@@ -9,9 +9,9 @@ class CategoryFactory(factory.DjangoModelFactory):
     class Meta:
         model = Category
 
-    color = 'red'
+    color = "red"
     icon = factory.django.ImageField()
-    name = factory.Faker('word')
+    name = factory.Faker("word")
     user = factory.SubFactory(UserFactory)
 
 
@@ -27,8 +27,8 @@ class BalanceRecordFactory(factory.DjangoModelFactory):
     class Meta:
         model = BalanceRecord
 
-    amount = factory.Faker('pyint')
-    comment = factory.Faker('word')
+    amount = factory.Faker("pyint")
+    comment = factory.Faker("word")
 
 
 class ProceedRecordFactory(BalanceRecordFactory):

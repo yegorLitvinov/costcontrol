@@ -18,16 +18,14 @@ from .view_mixins import BalanceRecordOwnerMixin
 
 class CategoryStatisticsListView(OwnerMixin, generics.ListAPIView):
     filter_backends = api_settings.DEFAULT_FILTER_BACKENDS + [CategoryMonthOfYearFilter]
-    filter_fields = ['kind']
+    filter_fields = ["kind"]
     permission_classes = [IsAuthenticated]
     queryset = Category.objects.all()
     serializer_class = CategoryStatisticsSerializer
 
     def filter_queryset(self, queryset):
         qs = super().filter_queryset(queryset)
-        return qs.annotate(
-            total=Sum('balance_records__amount')
-        )
+        return qs.annotate(total=Sum("balance_records__amount"))
 
 
 class YearStatisticsListView(BalanceRecordOwnerMixin, generics.ListAPIView):
@@ -39,12 +37,11 @@ class YearStatisticsListView(BalanceRecordOwnerMixin, generics.ListAPIView):
     def filter_queryset(self, queryset):
         qs = super().filter_queryset(queryset)
         qs = (
-            qs
-            .annotate(month=functions.ExtractMonth('created_at'))
-            .only('category__kind', 'amount', 'month')
-            .values('category__kind', 'month')
-            .annotate(total=Sum('amount'))
-            .order_by('month', 'category__kind')
+            qs.annotate(month=functions.ExtractMonth("created_at"))
+            .only("category__kind", "amount", "month")
+            .values("category__kind", "month")
+            .annotate(total=Sum("amount"))
+            .order_by("month", "category__kind")
         )
         return qs
 
@@ -56,12 +53,12 @@ class HistoryView(BalanceRecordOwnerMixin, generics.ListAPIView):
 
     def filter_queryset(self, queryset):
         qs = super().filter_queryset(queryset)
-        qs = qs.order_by('-created_at')[:20]
+        qs = qs.order_by("-created_at")[:20]
         return qs
 
 
 class FilledMonthesView(APIView):
-    http_method_names = ['get']
+    http_method_names = ["get"]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
@@ -70,7 +67,7 @@ class FilledMonthesView(APIView):
 
 
 class CategoryViewSet(OwnerMixin, viewsets.ModelViewSet):
-    filter_fields = ['kind']
+    filter_fields = ["kind"]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
     permission_classes = [IsCategoryOwner]

@@ -18,7 +18,7 @@ class FilledMonthesCache:
 
     @cached_property
     def cache_key(self):
-        return f'api:{self.__class__.__name__}:user_{self._user.id}'
+        return f"api:{self.__class__.__name__}:user_{self._user.id}"
 
     def get_filled_months(self):
         filled_months = cache.get(self.cache_key)

@@ -2,6 +2,4 @@ from .base import *  # noqa
 
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    '.tvgun.ga',
-]
+ALLOWED_HOSTS = [".tvgun.ga"]

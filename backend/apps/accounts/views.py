@@ -8,7 +8,7 @@ from .serializers import UserSerializer
 
 class CustomBasicAuth(BasicAuthentication):
     def authenticate_header(self, request):
-        return f'CustomBasic realm={self.www_authenticate_realm}'
+        return f"CustomBasic realm={self.www_authenticate_realm}"
 
 
 class LoginView(KnoxLoginView):

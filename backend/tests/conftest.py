@@ -7,8 +7,8 @@ from apps.accounts.factories import UserFactory
 
 @pytest.fixture
 def user(db):
-    u = UserFactory(email='alex@black.com')
-    u.set_password('password')
+    u = UserFactory(email="alex@black.com")
+    u.set_password("password")
     u.save()
     return u
 
@@ -17,5 +17,5 @@ def user(db):
 def client(user):
     token_str = AuthToken.objects.create(user)
     client = APIClient()
-    client.credentials(HTTP_AUTHORIZATION='Token ' + token_str)
+    client.credentials(HTTP_AUTHORIZATION="Token " + token_str)
     return client
