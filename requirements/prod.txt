@@ -1,24 +1,24 @@
 asn1crypto==0.24.0
 backcall==0.1.0
-cffi==1.11.5; platform_python_implementation != "PyPy"
-cryptography==2.2.2
+cffi==1.11.5; platform_python_implementation != 'PyPy'
+cryptography==2.3
 decorator==4.3.0
-django==1.11.13
-django-extensions==2.0.7
-django-filter==1.1.0
+django==1.11.14
+django-extensions==2.1.0
+django-filter==2.0.0
 djangorestframework==3.8.2
-django-rest-knox==3.1.4
-gunicorn==19.8.1
+django-rest-knox==3.1.5
+gunicorn==19.9.0
 idna==2.7
 -i https://pypi.python.org/simple
 ipython==6.4.0
 ipython-genutils==0.2.0
 jedi==0.12.1
 markdown==2.6.11
-parso==0.3.0
-pexpect==4.6.0; sys_platform != "win32"
+parso==0.3.1
+pexpect==4.6.0; sys_platform != 'win32'
 pickleshare==0.7.4
-pillow==5.1.0
+pillow==5.2.0
 prompt-toolkit==1.0.15
 psycopg2-binary==2.7.5
 ptyprocess==0.6.0

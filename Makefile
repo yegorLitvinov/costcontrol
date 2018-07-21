@@ -18,7 +18,7 @@ create-prod-requirements:
 	pipenv lock -r > requirements/prod.txt
 	sort requirements/prod.txt -o requirements/prod.txt
 
-precommit: black isort flake
+precommit: black isort flake create-prod-requirements
 
 init-server:
 	cd deploy && ansible-playbook init.yml
