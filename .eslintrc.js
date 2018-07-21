@@ -27,8 +27,6 @@ module.exports = {
     "space-before-function-paren": ["error", "never"],
   },
   globals: {
-    Cypress: true,
-    cy: true,
     describe: true,
     it: true,
     before: true,

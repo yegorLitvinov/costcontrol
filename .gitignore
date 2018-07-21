@@ -28,8 +28,6 @@
 # Js
 /frontend/dist/
 /node_modules/
-/cypress/screenshots/
-/cypress/videos/
 
 # Editor directories and files
 /.idea
