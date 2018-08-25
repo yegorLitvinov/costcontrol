@@ -1,3 +1,4 @@
+from datetime import timedelta
 from unittest import mock
 
 import pytest
@@ -6,8 +7,13 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 from apps.accounts.factories import UserFactory
-from apps.costcontrol.factories import (ProceedCategoryFactory, ProceedRecordFactory,
-                                        SpendingRecordFactory)
+from apps.costcontrol.factories import (
+    BalanceRecordFactory,
+    ProceedCategoryFactory,
+    ProceedRecordFactory,
+    SpendingCategoryFactory,
+    SpendingRecordFactory,
+)
 
 
 @pytest.mark.parametrize("url", ["history", "filled-months"])
@@ -48,14 +54,9 @@ def test_history_get_another_user(db):
     ProceedRecordFactory(category=category)
     client = APIClient()
     client.force_authenticate(user=user2)
-    response = client.get(f"/api/costcontrol/history/")
+    response = client.get("/api/costcontrol/history/")
     assert response.status_code == status.HTTP_200_OK
-    assert response.data == {
-        "count": 0,
-        "next": None,
-        "previous": None,
-        "results": [],
-    }
+    assert response.data == {"count": 0, "next": None, "previous": None, "results": []}
 
 
 def test_filled_months_get_another_user(db):
@@ -64,7 +65,7 @@ def test_filled_months_get_another_user(db):
     ProceedRecordFactory(category=category)
     client = APIClient()
     client.force_authenticate(user=user2)
-    response = client.get(f"/api/costcontrol/filled-months/")
+    response = client.get("/api/costcontrol/filled-months/")
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == {}
 
@@ -74,7 +75,7 @@ def test_filled_months_get_success(db, user):
     ProceedRecordFactory(category=category)
     client = APIClient()
     client.force_authenticate(user=user)
-    response = client.get(f"/api/costcontrol/filled-months/")
+    response = client.get("/api/costcontrol/filled-months/")
     assert response.status_code == status.HTTP_200_OK
     now = timezone.now()
     assert response.json() == {str(now.year): {str(now.month): True}}
@@ -100,3 +101,20 @@ def test_year_statistics(db, user):
         {"month": now.month, "category__kind": "spending", "total": 50},
         {"month": two_month_later.month, "category__kind": "proceed", "total": 25},
     ]
+
+
+def test_category_statistics(db, user):
+    now = timezone.now()
+    category = SpendingCategoryFactory(user=user)
+    BalanceRecordFactory.create_batch(2, category=category, amount=123)
+    old_record = BalanceRecordFactory(category=category, amount=100)
+    old_record.created_at = now - timedelta(days=367)
+    old_record.save()
+
+    client = APIClient()
+    client.force_authenticate(user=user)
+    response = client.get(
+        f"/api/costcontrol/categories/{category.id}/year_statistics/?year={now.year}"
+    )
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == [{"month": now.month, "total": 123 * 2}]

@@ -28,7 +28,7 @@ class UserTasks(TaskSet):
     @task
     def category_statistics(self):
         self.client.get(
-            '/api/costcontrol/category/statistics/',
+            '/api/costcontrol/categories/statistics/',
             params={
                 'year': self._date.year,
                 'month': self._date.month,

@@ -75,10 +75,13 @@ export interface ChartData {
   datasets: ChartDataset[];
 }
 
-export interface YearStatistic {
-  month: number;
-  category__kind: string;
+export interface CategoryYearStatistics {
   total: number;
+  month: number;
+}
+
+export interface YearStatistic extends CategoryYearStatistics {
+  category__kind: string;
 }
 
 export interface PaginatedResults<T> {

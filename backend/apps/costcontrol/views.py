@@ -1,18 +1,23 @@
 from django.db.models import Sum, functions
 from django.http import JsonResponse
 from rest_framework import generics, viewsets
+from rest_framework.decorators import action
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
-from rest_framework.pagination import PageNumberPagination
 
 from apps.core.view_mixins import OwnerMixin
 
 from .filters import BalanceRecordYearFilter, CategoryMonthOfYearFilter
 from .models import BalanceRecord, Category
 from .permissions import IsCategoryOwner, IsRecordOwner
-from .serializers import (BalanceRecordSerializer, CategorySerializer,
-                          CategoryStatisticsSerializer, YearStatisticsSerializer)
+from .serializers import (
+    BalanceRecordSerializer,
+    CategorySerializer,
+    CategoryStatisticsSerializer,
+    YearStatisticsSerializer,
+)
 from .utils import FilledMonthesCache
 from .view_mixins import BalanceRecordOwnerMixin
 
@@ -68,6 +73,20 @@ class CategoryViewSet(OwnerMixin, viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
     permission_classes = [IsCategoryOwner]
+
+    @action(methods=["get"], detail=True)
+    def year_statistics(self, request, pk):
+        category = self.get_object()
+        year_filter = BalanceRecordYearFilter()
+        records = year_filter.filter_queryset(request, category.balance_records, self)
+        records = (
+            records.annotate(month=functions.ExtractMonth("created_at"))
+            .only("amount", "month")
+            .values("month")
+            .annotate(total=Sum("amount"))
+            .order_by("month")
+        )
+        return JsonResponse(list(records), safe=False)
 
 
 class BalanceRecordViewSet(BalanceRecordOwnerMixin, viewsets.ModelViewSet):

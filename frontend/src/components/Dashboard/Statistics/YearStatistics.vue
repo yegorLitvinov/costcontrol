@@ -16,8 +16,9 @@
 
       <b-col cols="12" class="mb-3">
         <balance-doughnut-chart
-          v-if="yearStatistics"
-          :chartData="proceedVsSpendingChartData"
+          v-if="yearStatistics.length"
+          :items="proceedVsSpendingStatistics"
+          label="Proceed vs Spending"
         />
       </b-col>
     </b-row>
@@ -31,7 +32,7 @@ import Component from 'vue-class-component'
 import { Watch } from 'vue-property-decorator'
 import * as moment from 'moment'
 
-import BalanceDoughnutChart from './BalanceDoughnutChart.vue'
+import BalanceDoughnutChart,{ BalanceDoughnutChartItem } from './BalanceDoughnutChart.vue'
 import BalanceBarChart from './BalanceBarChart.vue'
 import {
   CategoryStatistic,
@@ -118,19 +119,13 @@ export default class YearStatistics extends Vue{
     return balanceStatistics(this.yearStatistics, this.spendingYearStatistics, this.proceedYearStatistics)
   }
 
-  get proceedVsSpendingChartData(): ChartData {
+  get proceedVsSpendingStatistics(): BalanceDoughnutChartItem[] {
     const proceedTotal = this.proceedYearStatistics.reduce((prev, curr) => prev + curr.total, 0)
     const spendingTotal = this.spendingYearStatistics.reduce((prev, curr) => prev + curr.total, 0)
-    return {
-      labels: ['Proceed', 'Spending'],
-      datasets: [
-        {
-          label: 'Proceed Vs. Spending',
-          backgroundColor: ['#aad962', '#ed0345'],
-          data: [proceedTotal, spendingTotal]
-        }
-      ]
-    }
+    return [
+      { id: 1, name: 'Proceed', color: '#aad962', total: proceedTotal },
+      { id: 2, name: 'Spending', color: '#ed0345', total: spendingTotal }
+    ]
   }
 
 

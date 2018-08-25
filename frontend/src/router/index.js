@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Dashboard from '@/components/Dashboard/Dashboard'
 import Statistics from '@/components/Dashboard/Statistics/Statistics'
+import CategoryStatistics from '@/components/Dashboard/Statistics/CategoryStatistics'
 import YearStatistics from '@/components/Dashboard/Statistics/YearStatistics'
 import Creation from '@/components/Dashboard/Creation/Creation'
 
@@ -29,6 +30,11 @@ export default new Router({
           path: 'statistics',
           name: 'statistics',
           component: Statistics
+        },
+        {
+          path: 'categories/:id/',
+          name: 'category',
+          component: CategoryStatistics
         },
         {
           path: 'year-statistics',

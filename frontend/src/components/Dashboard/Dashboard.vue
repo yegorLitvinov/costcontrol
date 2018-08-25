@@ -35,11 +35,11 @@ export default {
       return
     }
     this.$store.dispatch('costcontrol/get', {
-      what: 'costcontrol/category/?kind=spending',
+      what: 'costcontrol/categories/?kind=spending',
       where: 'spendingCategories'
     })
     this.$store.dispatch('costcontrol/get', {
-      what: 'costcontrol/category/?kind=proceed',
+      what: 'costcontrol/categories/?kind=proceed',
       where: 'proceedCategories'
     })
     this.$store.dispatch('costcontrol/getFilledMonthes', {

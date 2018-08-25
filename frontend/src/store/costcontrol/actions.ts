@@ -57,7 +57,7 @@ export function addRecord(context: ActionContext<CostcontrolState, RootState>, r
 export function fetchStatistics(context: ActionContext<CostcontrolState, RootState>, payload: { year: number, month: number }) {
   [CategoryKind.Proceed, CategoryKind.Spending].forEach(kind => {
     context.dispatch('get', {
-      what: `costcontrol/category/statistics/?year=${payload.year}&month=${payload.month}&kind=${kind}`,
+      what: `costcontrol/categories/statistics/?year=${payload.year}&month=${payload.month}&kind=${kind}`,
       where: `${kind}Statistics`,
       asIs: true
     })

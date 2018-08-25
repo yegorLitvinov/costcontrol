@@ -10,17 +10,28 @@
 
     <b-row>
       <b-col cols="12" class="mb-3">
-        <balance-doughnut-chart v-if="spendingStatistics.length" :chartData="spendingChartData" />
+        <balance-doughnut-chart
+          v-if="spendingStatistics.length"
+          :onSectorClick="onSectorClick"
+          :items="spendingStatistics"
+          label="Spendings"
+        />
       </b-col>
 
       <b-col cols="12" class="mb-3">
-        <balance-doughnut-chart v-if="proceedStatistics.length" :chartData="proceedChartData" />
+        <balance-doughnut-chart
+          v-if="proceedStatistics.length"
+          :onSectorClick="onSectorClick"
+          :items="proceedStatistics"
+          label="Proceed"
+        />
       </b-col>
 
       <b-col cols="12" class="mb-3">
         <balance-doughnut-chart
           v-if="spendingStatistics.length || proceedStatistics.length "
-          :chartData="proceedVsSpendingChartData"
+          :items="proceedVsSpendingStatistics"
+          label="Proceed"
         />
       </b-col>
     </b-row>
@@ -34,25 +45,12 @@ import Component from 'vue-class-component'
 import { Watch } from 'vue-property-decorator'
 import * as moment from 'moment'
 
-import BalanceDoughnutChart from './BalanceDoughnutChart.vue'
+import BalanceDoughnutChart, { BalanceDoughnutChartItem } from './BalanceDoughnutChart.vue'
 import { CategoryStatistic, FilledMonthes, ChartData } from '../../../types'
-
-function balanceStatistics(statistics: CategoryStatistic[], label: string): ChartData {
-  return {
-    labels: statistics.map(category => category.name),
-    datasets: [
-      {
-        label,
-        backgroundColor: statistics.map(category => category.color),
-        data: statistics.map(category => category.total)
-      }
-    ]
-  }
-}
 
 @Component({
   name: 'dashboard-statistics',
-  components: { BalanceDoughnutChart },
+  components: { BalanceDoughnutChart }
 })
 export default class Statistics extends Vue {
   year = moment().year()
@@ -63,7 +61,7 @@ export default class Statistics extends Vue {
   }
 
   get years(): string[] {
-    return Object.keys(this.$store.state.costcontrol.filledMonthes)
+    return Object.keys(this.filledMonthes)
   }
 
   get months(): { value: number; text: string }[] {
@@ -72,7 +70,7 @@ export default class Statistics extends Vue {
       .map((month, index) => ({ value: index + 1, text: month.substr(0, 3) }))
       .filter(month => {
         try {
-          return this.$store.state.costcontrol.filledMonthes[this.year][month.value]
+          return this.filledMonthes[this.year][month.value]
         } catch (error) {
           return false
         }
@@ -87,32 +85,22 @@ export default class Statistics extends Vue {
     return this.$store.state.costcontrol.proceedStatistics
   }
 
-  get spendingChartData(): ChartData {
-    return balanceStatistics(this.spendingStatistics, 'Spendings')
-  }
-
-  get proceedChartData(): ChartData {
-    return balanceStatistics(this.proceedStatistics, 'Proceeds')
-  }
-
-  get proceedVsSpendingChartData(): ChartData {
+  get proceedVsSpendingStatistics(): BalanceDoughnutChartItem[] {
     const proceedTotal = this.proceedStatistics.reduce((prev, curr) => prev + curr.total, 0)
     const spendingTotal = this.spendingStatistics.reduce((prev, curr) => prev + curr.total, 0)
-    return {
-      labels: ['Proceed', 'Spending'],
-      datasets: [
-        {
-          label: 'Proceed Vs. Spending',
-          backgroundColor: ['#aad962', '#ed0345'],
-          data: [proceedTotal, spendingTotal]
-        }
-      ]
-    }
+    return [
+      { id: 1, name: 'Proceed', color: '#aad962', total: proceedTotal },
+      { id: 2, name: 'Spending', color: '#ed0345', total: spendingTotal }
+    ]
   }
 
   fetchStatistics() {
     const { year, month } = this
     this.$store.dispatch('costcontrol/fetchStatistics', { year, month })
+  }
+
+  onSectorClick(id: number) {
+    this.$router.push(`/dashboard/categories/${id}/`)
   }
 
   mounted() {
