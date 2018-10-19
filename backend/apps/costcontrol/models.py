@@ -2,10 +2,12 @@ from django.conf import settings
 from django.db import models
 from django.db.models.functions import ExtractMonth, ExtractYear
 
-from apps.core.models import TimeStampedModel
+from apps.core.models import AppModel, TimeStampedMixin
 
 
-class Category(models.Model):
+class Category(AppModel):
+    owner = "user"
+
     KIND_PROCEED = "proceed"
     KIND_SPENDING = "spending"
     KIND_CHOICES = ((KIND_PROCEED, "Proceed"), (KIND_SPENDING, "Spending"))
@@ -35,7 +37,9 @@ class BalanceRecordQuerySet(models.QuerySet):
         )
 
 
-class BalanceRecord(TimeStampedModel):
+class BalanceRecord(TimeStampedMixin, AppModel):
+    owner = "category__user"
+
     amount = models.PositiveIntegerField()
     category = models.ForeignKey(
         Category, related_name="balance_records", on_delete=models.PROTECT

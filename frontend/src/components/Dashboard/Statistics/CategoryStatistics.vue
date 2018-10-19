@@ -2,9 +2,6 @@
 <div>
   <div class="d-flex justify-content-between">
     <div>Statistics</div>
-    <div class="d-flex justify-content-end">
-      <b-form-select :options="years" v-model="year" class="mx-2 px-2 py-0 round-select"></b-form-select>
-    </div>
   </div>
     <b-row>
       <b-col cols="12" class="mb-3">
@@ -41,8 +38,6 @@ import {
   components: { BalanceLineChart }
 })
 export default class Statistics extends Vue {
-  year = moment().year()
-  month = moment().month() + 1
   statistics: CategoryYearStatistics[] = []
 
   get filledMonthes(): FilledMonthes {
@@ -64,7 +59,7 @@ export default class Statistics extends Vue {
 
   get chartData(): ChartData {
     return {
-      labels: this.statistics.map(item => item.month),
+      labels: this.statistics.map(item => item.year_month),
       datasets: [
         {
           label: this.category.name,
@@ -77,9 +72,7 @@ export default class Statistics extends Vue {
 
   fetchStatistics() {
     axios
-      .get<CategoryYearStatistics[]>(`/costcontrol/categories/${this.id}/year_statistics/`, {
-        params: { year: this.year }
-      })
+      .get<CategoryYearStatistics[]>(`/costcontrol/categories/${this.id}/year_statistics/`)
       .then(response => {
         this.statistics = response.data
       })

@@ -77,10 +77,12 @@ export interface ChartData {
 
 export interface CategoryYearStatistics {
   total: number;
-  month: number;
+  year_month: number;
 }
 
-export interface YearStatistic extends CategoryYearStatistics {
+export interface YearStatistic {
+  total: number;
+  month: number;
   category__kind: string;
 }
 

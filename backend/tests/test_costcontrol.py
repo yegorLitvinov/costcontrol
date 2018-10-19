@@ -83,7 +83,7 @@ def test_filled_months_get_success(db, user):
 
 def test_year_statistics(db, user):
     now = timezone.datetime(2018, 1, 3, tzinfo=timezone.get_current_timezone())
-    two_month_later = now + timezone.timedelta(days=60)
+    two_month_later = now + timedelta(days=60)
     with mock.patch("django.utils.timezone.now") as now_mock:
         now_mock.return_value = now
         SpendingRecordFactory(category__user=user, amount=50)
@@ -106,15 +106,10 @@ def test_year_statistics(db, user):
 def test_category_statistics(db, user):
     now = timezone.now()
     category = SpendingCategoryFactory(user=user)
-    BalanceRecordFactory.create_batch(2, category=category, amount=123)
-    old_record = BalanceRecordFactory(category=category, amount=100)
-    old_record.created_at = now - timedelta(days=367)
-    old_record.save()
+    BalanceRecordFactory(category=category, amount=123)
 
     client = APIClient()
     client.force_authenticate(user=user)
-    response = client.get(
-        f"/api/costcontrol/categories/{category.id}/year_statistics/?year={now.year}"
-    )
+    response = client.get(f"/api/costcontrol/categories/{category.id}/year_statistics/")
     assert response.status_code == status.HTTP_200_OK
-    assert response.json() == [{"month": now.month, "total": 123 * 2}]
+    assert response.json() == [{"year_month": f"{now.year}-{now.month}", "total": 123}]

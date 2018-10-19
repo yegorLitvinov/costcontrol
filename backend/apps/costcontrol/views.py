@@ -1,31 +1,29 @@
 from django.db.models import Sum, functions
-from django.http import JsonResponse
+from django.db.models.functions import ExtractMonth, ExtractYear
+from django.utils import timezone
 from rest_framework import generics, viewsets
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
-from apps.core.view_mixins import OwnerMixin
+from apps.core.views import OwnerMixin
 
 from .filters import BalanceRecordYearFilter, CategoryMonthOfYearFilter
 from .models import BalanceRecord, Category
-from .permissions import IsCategoryOwner, IsRecordOwner
 from .serializers import (
     BalanceRecordSerializer,
     CategorySerializer,
     CategoryStatisticsSerializer,
     YearStatisticsSerializer,
 )
-from .utils import FilledMonthesCache
-from .view_mixins import BalanceRecordOwnerMixin
+from .utils import FilledMonthesCache, fill_empty_period
 
 
 class CategoryStatisticsListView(OwnerMixin, generics.ListAPIView):
     filter_backends = api_settings.DEFAULT_FILTER_BACKENDS + [CategoryMonthOfYearFilter]
     filter_fields = ["kind"]
-    permission_classes = [IsAuthenticated]
     queryset = Category.objects.all()
     serializer_class = CategoryStatisticsSerializer
 
@@ -34,9 +32,8 @@ class CategoryStatisticsListView(OwnerMixin, generics.ListAPIView):
         return qs.annotate(total=Sum("balance_records__amount"))
 
 
-class YearStatisticsListView(BalanceRecordOwnerMixin, generics.ListAPIView):
+class YearStatisticsListView(OwnerMixin, generics.ListAPIView):
     filter_backends = api_settings.DEFAULT_FILTER_BACKENDS + [BalanceRecordYearFilter]
-    permission_classes = [IsAuthenticated]
     queryset = BalanceRecord.objects.all()
     serializer_class = YearStatisticsSerializer
 
@@ -52,8 +49,7 @@ class YearStatisticsListView(BalanceRecordOwnerMixin, generics.ListAPIView):
         return qs
 
 
-class HistoryView(BalanceRecordOwnerMixin, generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+class HistoryView(OwnerMixin, generics.ListAPIView):
     queryset = BalanceRecord.objects.order_by("-created_at")
     serializer_class = BalanceRecordSerializer
     pagination_class = PageNumberPagination
@@ -61,35 +57,35 @@ class HistoryView(BalanceRecordOwnerMixin, generics.ListAPIView):
 
 class FilledMonthesView(APIView):
     http_method_names = ["get"]
-    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         filled_months = FilledMonthesCache(request.user).get_filled_months()
-        return JsonResponse(filled_months)
+        return Response(filled_months)
 
 
 class CategoryViewSet(OwnerMixin, viewsets.ModelViewSet):
     filter_fields = ["kind"]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
-    permission_classes = [IsCategoryOwner]
 
     @action(methods=["get"], detail=True)
     def year_statistics(self, request, pk):
+        date_joined = request.user.date_joined
+        now = timezone.now()
         category = self.get_object()
-        year_filter = BalanceRecordYearFilter()
-        records = year_filter.filter_queryset(request, category.balance_records, self)
-        records = (
-            records.annotate(month=functions.ExtractMonth("created_at"))
-            .only("amount", "month")
-            .values("month")
+        records = list(
+            category.balance_records.annotate(
+                year=ExtractYear("created_at"), month=ExtractMonth("created_at")
+            )
+            .only("amount", "year", "month")
+            .values("year", "month")
             .annotate(total=Sum("amount"))
-            .order_by("month")
+            .order_by("year", "month")
         )
-        return JsonResponse(list(records), safe=False)
+        records = fill_empty_period(records, date_joined, now)
+        return Response(records)
 
 
-class BalanceRecordViewSet(BalanceRecordOwnerMixin, viewsets.ModelViewSet):
+class BalanceRecordViewSet(OwnerMixin, viewsets.ModelViewSet):
     serializer_class = BalanceRecordSerializer
     queryset = BalanceRecord.objects.all()
-    permission_classes = [IsRecordOwner]
