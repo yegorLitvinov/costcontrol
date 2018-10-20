@@ -59,6 +59,27 @@ def test_history_get_another_user(db):
     assert response.data == {"count": 0, "next": None, "previous": None, "results": []}
 
 
+def test_history_filter(db):
+    user = UserFactory()
+    category1, category2 = ProceedCategoryFactory.create_batch(2, user=user)
+
+    proceed = ProceedRecordFactory(category=category1)
+    client = APIClient()
+    client.force_authenticate(user=user)
+
+    response = client.get("/api/costcontrol/history/", dict(category=543534534))
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    response = client.get("/api/costcontrol/history/", dict(category=category2.id))
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["count"] == 0
+
+    response = client.get("/api/costcontrol/history/", dict(category=category1.id))
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["count"] == 1
+    assert response.data["results"][0]["id"] == proceed.id
+
+
 def test_filled_months_get_another_user(db):
     user1, user2 = UserFactory.create_batch(2)
     category = ProceedCategoryFactory(user=user1)

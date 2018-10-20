@@ -7,7 +7,7 @@ export default Vue.extend({
   props: ['chartData', 'options'],
   mixins: [mixins.reactiveProp],
   mounted() {
-    ;(this as any).renderChart(this.chartData, {
+    (this as any).renderChart(this.chartData, {
       scales: {
         yAxes: [
           {

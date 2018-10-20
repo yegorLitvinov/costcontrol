@@ -49,7 +49,7 @@ export default class Statistics extends Vue {
   }
 
   get id(): number {
-    return parseInt(this.$route.params.id, 10)
+    return parseInt(this.$route.params.category, 10)
   }
 
   get category(): Category {

@@ -32,7 +32,7 @@ export default new Router({
           component: Statistics
         },
         {
-          path: 'categories/:id/',
+          path: 'categories/:category/',
           name: 'category',
           component: CategoryStatistics
         },

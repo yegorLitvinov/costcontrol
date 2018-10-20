@@ -9,7 +9,7 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
-import { RootState } from '../../../types'
+import { RootState, BalanceRecord, PaginatedResults } from '../../../types'
 import ActivityItem from './ActivityItem.vue'
 
 export default Vue.extend({
@@ -18,14 +18,27 @@ export default Vue.extend({
   data() {
     return {
       page: 0,
+      count: Infinity,
       isLoading: false,
       scrollDistance: 200
     }
   },
-  computed: mapState({
-    history: (state: RootState) =>
-      state.costcontrol.historyOrderedIds.map(id => state.costcontrol.historyEntities[id])
-  }),
+  computed: {
+    history(): BalanceRecord[] {
+      const state: RootState = this.$store.state
+      return state.costcontrol.historyOrderedIds.map(id => state.costcontrol.historyEntities[id])
+    },
+    category(): number | undefined {
+      const category: string | undefined = this.$route.params.category
+      return category ? parseInt(category, 10) : undefined
+    }
+  },
+  watch: {
+    category(val) {
+      this.clearHistory()
+      this.loadHistory()
+    }
+  },
   mounted() {
     this.loadHistory()
     window.addEventListener('scroll', this.scroll)
@@ -39,17 +52,27 @@ export default Vue.extend({
   },
   methods: {
     loadHistory() {
+      if (this.history.length === this.count) {
+        return
+      }
       this.page += 1
       this.isLoading = true
+      const { category } = this
       this.$store
-        .dispatch('costcontrol/getHistory', { page: this.page })
-        .then(() => {
+        .dispatch('costcontrol/getHistory', { page: this.page, category })
+        .then((data: PaginatedResults<BalanceRecord>) => {
           this.isLoading = false
+          this.count = data.count
         })
         .catch(() => {
           this.isLoading = false
           this.page -= 1
         })
+    },
+    clearHistory() {
+      this.page = 0
+      this.count = Infinity
+      this.$store.commit('costcontrol/clearHistory')
     },
     isAtBottom(): boolean {
       const BOOTSTRAP_MD_MIN = 768

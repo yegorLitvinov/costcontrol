@@ -26,6 +26,11 @@ const appendHistory = (state: CostcontrolState, history: BalanceRecord[]) => {
   state.historyOrderedIds = [...state.historyOrderedIds, ...history.map(rec => rec.id)]
 }
 
+const clearHistory = (state: CostcontrolState) => {
+  state.historyEntities = {}
+  state.historyOrderedIds = []
+}
+
 
 // Append record to history
 const appendRecord = (state: CostcontrolState, record: BalanceRecord) => {
@@ -34,5 +39,5 @@ const appendRecord = (state: CostcontrolState, record: BalanceRecord) => {
 }
 
 export default <MutationTree<CostcontrolState>> {
-  insert, insertAsIs, insertFilledMonthes, appendRecord, appendHistory
+  insert, insertAsIs, insertFilledMonthes, appendRecord, appendHistory, clearHistory
 }

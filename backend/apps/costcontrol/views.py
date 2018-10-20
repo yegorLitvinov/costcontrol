@@ -53,6 +53,7 @@ class HistoryView(OwnerMixin, generics.ListAPIView):
     queryset = BalanceRecord.objects.order_by("-created_at")
     serializer_class = BalanceRecordSerializer
     pagination_class = PageNumberPagination
+    filter_fields = ["category"]
 
 
 class FilledMonthesView(APIView):

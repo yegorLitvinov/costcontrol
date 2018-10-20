@@ -22,8 +22,10 @@ export function get<D = {}>(context: ActionContext<CostcontrolState, RootState>,
     })
 }
 
-function getHistory(context: ActionContext<CostcontrolState, RootState>, payload?: {page?: number}) {
-  return axios.get<PaginatedResults<BalanceRecord>>('/costcontrol/history/', {params: {page: payload && payload.page}}).then(function(response) {
+function getHistory(context: ActionContext<CostcontrolState, RootState>, payload?: {page?: number, category?: number}) {
+  const page = payload && payload.page;
+  const category = payload && payload.category;
+  return axios.get<PaginatedResults<BalanceRecord>>('/costcontrol/history/', {params: {page, category}}).then(function(response) {
     context.commit('appendHistory', response.data.results)
     return Promise.resolve(response.data)
   })

@@ -23,6 +23,7 @@ class CategoryMonthOfYearFilter(Filter):
                 balance_records__created_at__range=(start_date, end_date)
             ).distinct()
             return qs
+        # TODO: rise validation error.
         return queryset.none()
 
 
