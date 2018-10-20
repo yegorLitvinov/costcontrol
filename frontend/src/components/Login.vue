@@ -4,8 +4,8 @@
 
       <b-form-group label="Email address:" :feedback="error" :state="state">
         <b-form-input
+          id="email"
           name="email"
-          v-model="form.email"
           :state="state"
           required
           placeholder="Enter email"
@@ -15,8 +15,8 @@
 
       <b-form-group label="Password:" :feedback="error" :state="state">
         <b-form-input
+          id="password"
           type="password"
-          v-model="form.password"
           :state="state"
           required
           placeholder="Enter password"
@@ -45,31 +45,47 @@ export default Vue.extend({
   name: 'login',
   data: () => ({
     submitting: false,
-    form: {
-      email: '',
-      password: ''
-    },
-    error: ''
+    error: '',
   }),
   computed: {
     state(): string | null {
       return this.error ? 'invalid' : null
-    }
+    },
   },
   methods: {
+    getInputValue(id: string): string {
+      const el = document.getElementById(id) as HTMLInputElement
+      if (!el) {
+        return ''
+      }
+      return el.value
+    },
     onSubmit() {
+      const email = this.getInputValue('email')
+      const password = this.getInputValue('password')
+      console.log(email)
       this.submitting = true
-      return this.$store.dispatch('accounts/login', this.form)
+      return this.$store
+        .dispatch('accounts/login', { email, password })
         .then(() => {
           this.error = ''
           this.submitting = false
         })
-        .catch((error: AxiosError) => {
-          this.error = error.response ? error.response.data.detail : {}
-          this.submitting = false
-        })
-    }
-  }
+        .catch(this.handleError)
+    },
+    handleError(error: AxiosError) {
+      if (error.response) {
+        if (error.response.status === 401) {
+          this.error = error.response.data.detail
+        } else {
+          this.error = error.response.statusText
+        }
+      } else {
+        this.error = error.message
+      }
+      this.submitting = false
+    },
+  },
 })
 </script>
 

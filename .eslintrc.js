@@ -4,7 +4,7 @@ module.exports = {
   root: true,
   parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module'
+    sourceType: 'module',
   },
   env: {
     browser: true,
@@ -12,11 +12,9 @@ module.exports = {
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: 'standard',
   // required to lint *.vue files
-  plugins: [
-    'html'
-  ],
+  plugins: ['html'],
   // add your custom rules here
-  'rules': {
+  rules: {
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await
@@ -24,7 +22,7 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     // CUSTOM
-    "space-before-function-paren": ["error", "never"],
+    'space-before-function-paren': ['error', 'never'],
   },
   globals: {
     describe: true,
@@ -35,5 +33,5 @@ module.exports = {
     afterEach: true,
     context: true,
     expect: true,
-  }
+  },
 }
