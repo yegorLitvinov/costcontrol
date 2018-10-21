@@ -22,10 +22,17 @@ export function get<D = {}>(context: ActionContext<CostcontrolState, RootState>,
     })
 }
 
-function getHistory(context: ActionContext<CostcontrolState, RootState>, payload?: {page?: number, category?: number}) {
+function getHistory(
+  context: ActionContext<CostcontrolState, RootState>,
+  payload?: {page?: number, category?: number, search?: string}
+) {
   const page = payload && payload.page;
   const category = payload && payload.category;
-  return axios.get<PaginatedResults<BalanceRecord>>('/costcontrol/history/', {params: {page, category}}).then(function(response) {
+  const search = payload && payload.search;
+  return axios.get<PaginatedResults<BalanceRecord>>(
+    '/costcontrol/history/',
+    {params: {page, category, search}}
+  ).then(function(response) {
     context.commit('appendHistory', response.data.results)
     return Promise.resolve(response.data)
   })

@@ -80,6 +80,27 @@ def test_history_filter(db):
     assert response.data["results"][0]["id"] == proceed.id
 
 
+def test_history_search(db):
+    user = UserFactory()
+    proceed = ProceedRecordFactory(category__user=user, comment="Juice")
+    client = APIClient()
+    client.force_authenticate(user=user)
+
+    response = client.get("/api/costcontrol/history/", dict(search=""))
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["count"] == 1
+    assert response.data["results"][0]["id"] == proceed.id
+
+    response = client.get("/api/costcontrol/history/", dict(search="Bread"))
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["count"] == 0
+
+    response = client.get("/api/costcontrol/history/", dict(search="Ice"))
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["count"] == 1
+    assert response.data["results"][0]["id"] == proceed.id
+
+
 def test_filled_months_get_another_user(db):
     user1, user2 = UserFactory.create_batch(2)
     category = ProceedCategoryFactory(user=user1)

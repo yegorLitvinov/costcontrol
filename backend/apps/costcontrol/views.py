@@ -3,6 +3,7 @@ from django.db.models.functions import ExtractMonth, ExtractYear
 from django.utils import timezone
 from rest_framework import generics, viewsets
 from rest_framework.decorators import action
+from rest_framework.filters import SearchFilter
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
@@ -50,10 +51,12 @@ class YearStatisticsListView(OwnerMixin, generics.ListAPIView):
 
 
 class HistoryView(OwnerMixin, generics.ListAPIView):
+    filter_backends = api_settings.DEFAULT_FILTER_BACKENDS + [SearchFilter]
     queryset = BalanceRecord.objects.order_by("-created_at")
     serializer_class = BalanceRecordSerializer
     pagination_class = PageNumberPagination
     filter_fields = ["category"]
+    search_fields = ["comment"]
 
 
 class FilledMonthesView(APIView):
