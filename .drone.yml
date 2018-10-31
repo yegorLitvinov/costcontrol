@@ -26,7 +26,7 @@ pipeline:
   build-static:
     image: node:8.12
     commands:
-      - yarn --prod
+      - yarn
       - yarn build
 
   rebuild-cache:
