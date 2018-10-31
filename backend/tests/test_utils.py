@@ -1,6 +1,10 @@
 from datetime import datetime
+from unittest.mock import MagicMock
 
-from apps.costcontrol.utils import YearMonthCounter, fill_empty_period
+import pytz
+
+from apps.costcontrol.factories import ProceedRecordFactory
+from apps.costcontrol.utils import FilledMonthesCache, YearMonthCounter, fill_empty_period
 
 
 def test_year_month_counter():
@@ -57,3 +61,20 @@ def test_fill_empty_period_start_date_more_than_end_date():
         [{"year": 2018, "month": 3, "total": 1}], start_date, end_date
     )
     assert records == []
+
+
+def test_filled_monthes_cache(db, user, monkeypatch):
+    cache = FilledMonthesCache(user=user)
+    tz = pytz.timezone("Europe/Moscow")
+    now_mock = MagicMock(return_value=datetime(2018, 4, 4, tzinfo=tz))
+    monkeypatch.setattr("django.utils.timezone.now", now_mock)
+    ProceedRecordFactory(category__user=user)
+
+    assert cache.get_filled_months() == {2018: {4: True}}
+    cache.add_month(datetime(2018, 3, 3))
+    assert cache.get_filled_months() == {2018: {3: True, 4: True}}
+    cache.add_month(datetime(2019, 1, 1))
+    assert cache.get_filled_months() == {2018: {3: True, 4: True}, 2019: {1: True}}
+    cache.clear()
+    assert cache.get_filled_months() == {2018: {4: True}}
+    cache.clear()

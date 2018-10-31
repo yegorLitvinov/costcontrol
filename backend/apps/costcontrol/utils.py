@@ -13,16 +13,14 @@ class FilledMonthesCache:
     def _generate_filled_months(self):
         filled_months = {}
         for year, month in BalanceRecord.objects.unique_year_month_for(self._user):
-            if year not in filled_months:
-                filled_months[year] = {}
-            filled_months[year][month] = True
+            filled_months.setdefault(year, {}).setdefault(month, True)
         return filled_months
 
     @cached_property
     def cache_key(self):
         return f"api:{self.__class__.__name__}:user_{self._user.id}"
 
-    def get_filled_months(self):
+    def get_filled_months(self) -> dict:
         filled_months = cache.get(self.cache_key)
         if filled_months is None:
             filled_months = self._generate_filled_months()
@@ -32,13 +30,10 @@ class FilledMonthesCache:
     def clear(self):
         cache.delete(self.cache_key)
 
-    def add_month(self, date):
+    def add_month(self, date: datetime):
         filled_months = self.get_filled_months()
-        if date.year not in filled_months:
-            filled_months[date.year] = {}
-        if date.month not in filled_months[date.year]:
-            filled_months[date.year][date.month] = True
-            cache.set(self.cache_key, filled_months)
+        filled_months.setdefault(date.year, {}).setdefault(date.month, True)
+        cache.set(self.cache_key, filled_months)
 
 
 class YearMonthCounter:
