@@ -15,7 +15,7 @@ pipeline:
     image: python:3.6
     environment:
       - PIPENV_VENV_IN_PROJECT=true
-      - SETTINGS_MODULE=config.settings.ci
+      - DJANGO_SETTINGS_MODULE=config.settings.ci
       - PYTHONPATH=./backend/
     commands:
       - pip install virtualenv pipenv
