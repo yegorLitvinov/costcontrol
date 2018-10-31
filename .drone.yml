@@ -23,11 +23,11 @@ pipeline:
   #     - pipenv run flake8 app test locustfile.py
   #     - pipenv run pytest -x --ds=config.settings.ci
 
-  build-static:
-    image: node:8.12
-    commands:
-      - yarn
-      - yarn build
+  # build-static:
+  #   image: node:8.12
+  #   commands:
+  #     - yarn
+  #     - yarn build
 
   rebuild-cache:
     image: drillster/drone-volume-cache
