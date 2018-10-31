@@ -22,18 +22,13 @@ pipeline:
       - virtualenv .venv
       - pipenv install --dev
       - pipenv run flake8 app test locustfile.py
-      - pipenv run pytest
+      - pipenv run pytest -x
 
   build-static:
     image: node:8.12
     commands:
       - yarn --prod
       - yarn build
-
-  deploy:
-    image: yegorLitvinov/ansible_drone_plugin
-    secrets: [ id_rsa, id_rsa_pub ]
-
 
   rebuild-cache:
     image: drillster/drone-volume-cache
@@ -44,13 +39,17 @@ pipeline:
     volumes:
       - /tmp/coscontrol_cache:/cache
 
+  deploy:
+    image: yegorLitvinov/ansible_drone_plugin
+    secrets: [ id_rsa, id_rsa_pub ]
+
 services:
   db:
     image: postgres:alpine
     environment:
-      - POSTGRES_DB=metric
-      - POSTGRES_USER=metric
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=costcontrol
+      - POSTGRES_USER=costcontrol
+      - POSTGRES_PASSWORD=costcontrol
 
   cache:
     image: memcached:alpine
