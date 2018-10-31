@@ -3,9 +3,3 @@
 
   roles:
     - role: init
-
-    - role: thefinn93.letsencrypt
-      letsencrypt_webroot_path: /var/www/letsencrypt
-      letsencrypt_email: "{{ admin_email }}"
-      letsencrypt_cert_domains: "{{ cert_domains }}"
-      letsencrypt_renewal_command_args: '--renew-hook "systemctl restart nginx"'

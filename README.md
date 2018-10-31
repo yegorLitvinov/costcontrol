@@ -46,12 +46,6 @@ export PYTHONPATH=`pwd`/backend
 
 # Node
 layout node
-
-# Ansible
-export ADMIN_EMAIL=test@mail.ru
-export USER_PASS=password
-export WEB_DOMAIN=example.com
-export REPO=https://bitbucket.org/team/project/
 ```
 
 ## TODO:

@@ -10,13 +10,8 @@ django_settings: config.settings.prod
 gunicorn_host: localhost
 gunicorn_port: 8000
 
-admin_email: "{{ lookup('env','ADMIN_EMAIL') }}"
-repo: "{{ lookup('env','REPO') }}"
-
-web_domain: "{{ lookup('env','WEB_DOMAIN') }}"
-
-cert_domains:
-  - "{{ web_domain }}"
+repo: https://github.com/yegorLitvinov/costcontrol
+web_domain: cc.tvgun.ga
 
 nginx_servers:
   - name: "{{ web_domain }}"
