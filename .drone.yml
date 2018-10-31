@@ -39,7 +39,7 @@ pipeline:
       - /tmp/coscontrol_cache:/cache
 
   deploy:
-    image: yegorLitvinov/ansible_drone_plugin
+    image: yegorlitvinov/ansible_drone_plugin
     secrets: [ id_rsa, id_rsa_pub ]
 
 services:
