@@ -17,11 +17,12 @@ pipeline:
       - PIPENV_VENV_IN_PROJECT=true
       - PYTHONPATH=./backend/
     commands:
-      - pip install virtualenv pipenv
-      - virtualenv .venv
+      - pip install pipenv
+      # Uncomment next line if it is initial run
+      # - virtualenv .venv
       - pipenv install --dev
-      - pipenv run flake8 app test locustfile.py
-      - pipenv run pytest -x --ds=config.settings.ci
+      - pipenv run flake8 backend locustfile.py
+      - pipenv run pytest --ds=config.settings.ci
 
   build-static:
     image: node:8.12
