@@ -40,6 +40,7 @@ pipeline:
 
   deploy:
     image: yegorlitvinov/ansible_drone_plugin
+    pull: true
     secrets: [ id_rsa, id_rsa_pub ]
 
 services:
