@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/yegorLitvinov/costcontrol.svg?branch=master)](https://travis-ci.org/yegorLitvinov/costcontrol)
+[![Build Status](https://drone.tvgun.ga/api/badges/yegorLitvinov/costcontrol/status.svg)](https://drone.tvgun.ga/yegorLitvinov/costcontrol)
 
 ## Backend Build Setup
 
@@ -70,12 +70,12 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Disable buttons when submit sent
     - [X] Configure BundleAnalyzerPlugin
     - [X] Source maps for styles
+    - [X] Class-Style Components (not so easy, no profit)
+    - [X] Category name in history
     - [ ] Cool transactions
     - [ ] Progress bar
     - [ ] Setup tslint
-    - [ ] Class-Style Components
     - [ ] Doughnut charts equal size
-    - [ ] Category name in history
 
 - Backend
     - [X] Filled-months and history urls are not protected
@@ -86,9 +86,10 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Owner Mixin -> permissions
     - [X] UpdateCacheMixin -> Model hooks
     - [x] Am I using djanog filters right?
+    - [X] History pagination
     - [ ] Secret key -> environment
     - [ ] HistoryView -> BalanceRecordViewSet + django_filters
-    - [ ] History pagination
+    - [ ] Use redis
 
 - Devops
     - [X] Build frontend on local machine
@@ -99,7 +100,8 @@ export REPO=https://bitbucket.org/team/project/
     - [X] Travis CI badges to github
     - [ ] Sentry integration
     - [ ] Backend error log
+    - [ ] Drone integration
 
 - Editor
     - [ ] Eslint feat. Prettier
-    - [ ] Python format on save
+    - [X] Python format on save

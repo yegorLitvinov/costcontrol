@@ -6,4 +6,5 @@
     - django
     - gunicorn
     - supervisor
+    - front
     - nginx

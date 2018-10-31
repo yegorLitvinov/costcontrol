@@ -1,9 +1,0 @@
-language: python
-python:
-  - "3.6"
-
-install:
-  - pip3.6 install pipenv
-  - pipenv install --dev
-
-script: PYTHONPATH=`pwd`/backend pytest --ds=config.settings.ci

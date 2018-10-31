@@ -1,0 +1,55 @@
+branches:
+  - master
+
+pipeline:
+  restore-cache:
+    image: drillster/drone-volume-cache
+    restore: true
+    mount:
+      - ./.venv
+      - ./node_modules
+    volumes:
+      - /tmp/coscontrol_cache:/cache
+
+  test:
+    image: python:3.6
+    environment:
+      - PIPENV_VENV_IN_PROJECT=true
+      - SETTINGS_MODULE=app.conf.ci
+    commands:
+      - pip install virtualenv pipenv
+      - virtualenv .venv
+      - pipenv install --dev
+      - pipenv run flake8 app test locustfile.py
+      - pipenv run pytest
+
+  build-static:
+    image: node:8.12
+    commands:
+      - yarn --prod
+      - yarn build
+
+  deploy:
+    image: yegorLitvinov/ansible_drone_plugin
+    secrets: [ id_rsa, id_rsa_pub ]
+
+
+  rebuild-cache:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    mount:
+      - ./.venv
+      - ./node_modules
+    volumes:
+      - /tmp/coscontrol_cache:/cache
+
+services:
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_DB=metric
+      - POSTGRES_USER=metric
+      - POSTGRES_PASSWORD=password
+
+  cache:
+    image: memcached:alpine

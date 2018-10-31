@@ -1,11 +1,21 @@
 from .dev import *  # noqa
 
-DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite"}}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "costcontrol",
+        "USER": "costcontrol",
+        "PASSWORD": "costcontrol",
+        "HOST": "db",
+        "PORT": "",
+    }
+}
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": "/tmp/django_cache",
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": "cache:11211",
+        "TIMEOUT": 60 * 60 * 24 * 30,
     }
 }
 
