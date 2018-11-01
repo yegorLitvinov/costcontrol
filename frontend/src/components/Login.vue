@@ -63,7 +63,6 @@ export default Vue.extend({
     onSubmit() {
       const email = this.getInputValue('email')
       const password = this.getInputValue('password')
-      console.log(email)
       this.submitting = true
       return this.$store
         .dispatch('accounts/login', { email, password })

@@ -15,7 +15,6 @@
     - vim
     - htop
     - git
-    - memcached
 
 - name: Fetch repo
   become: yes

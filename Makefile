@@ -8,7 +8,7 @@ isort:
 	isort -rc backend
 
 black:
-	black -l 90 backend
+	black --line-length 90 backend
 
 flake:
 	flake8 backend locustfile.py

@@ -19,7 +19,7 @@ from .serializers import (
     CategoryStatisticsSerializer,
     YearStatisticsSerializer,
 )
-from .utils import FilledMonthesCache, fill_empty_period
+from .utils import fill_empty_period, generate_filled_monthes
 
 
 class CategoryStatisticsListView(OwnerMixin, generics.ListAPIView):
@@ -63,7 +63,7 @@ class FilledMonthesView(APIView):
     http_method_names = ["get"]
 
     def get(self, request, *args, **kwargs):
-        filled_months = FilledMonthesCache(request.user).get_filled_months()
+        filled_months = generate_filled_monthes(request.user.date_joined, timezone.now())
         return Response(filled_months)
 
 

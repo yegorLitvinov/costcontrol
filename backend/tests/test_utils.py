@@ -1,23 +1,24 @@
 from datetime import datetime
-from unittest.mock import MagicMock
 
-import pytz
-
-from apps.costcontrol.factories import ProceedRecordFactory
-from apps.costcontrol.utils import FilledMonthesCache, YearMonthCounter, fill_empty_period
+from apps.costcontrol.utils import (
+    YearMonthCounter,
+    fill_empty_period,
+    generate_filled_monthes,
+)
 
 
 def test_year_month_counter():
     counter = YearMonthCounter(2018, 11)
+    assert counter <= datetime(2019, 1, 1)
+
     assert next(counter) == {"year": 2018, "month": 11, "total": 0}
     assert next(counter) == {"year": 2018, "month": 12, "total": 0}
     assert next(counter) == {"year": 2019, "month": 1, "total": 0}
     assert next(counter) == {"year": 2019, "month": 2, "total": 0}
 
-    assert not counter < datetime(2019, 3, 1)
-    assert not counter > datetime(2019, 3, 1)
+    assert counter == datetime(2019, 3, 22)
+    assert not (counter < datetime(2019, 3, 1))
     assert counter < datetime(2019, 5, 1)
-    assert counter > datetime(2018, 5, 1)
 
     counter = YearMonthCounter(2019, 2, reverse=True)
     assert next(counter) == {"year": 2019, "month": 2, "total": 0}
@@ -63,18 +64,10 @@ def test_fill_empty_period_start_date_more_than_end_date():
     assert records == []
 
 
-def test_filled_monthes_cache(db, user, monkeypatch):
-    cache = FilledMonthesCache(user=user)
-    tz = pytz.timezone("Europe/Moscow")
-    now_mock = MagicMock(return_value=datetime(2018, 4, 4, tzinfo=tz))
-    monkeypatch.setattr("django.utils.timezone.now", now_mock)
-    ProceedRecordFactory(category__user=user)
-
-    assert cache.get_filled_months() == {2018: {4: True}}
-    cache.add_month(datetime(2018, 3, 3))
-    assert cache.get_filled_months() == {2018: {3: True, 4: True}}
-    cache.add_month(datetime(2019, 1, 1))
-    assert cache.get_filled_months() == {2018: {3: True, 4: True}, 2019: {1: True}}
-    cache.clear()
-    assert cache.get_filled_months() == {2018: {4: True}}
-    cache.clear()
+def test_generate_filled_monthes():
+    assert generate_filled_monthes(datetime(2018, 11, 1), datetime(2018, 11, 30)) == {
+        2018: {11: True}
+    }
+    assert generate_filled_monthes(datetime(2018, 11, 1), datetime(2018, 12, 30)) == {
+        2018: {11: True, 12: True}
+    }

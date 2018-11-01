@@ -101,28 +101,6 @@ def test_history_search(db):
     assert response.data["results"][0]["id"] == proceed.id
 
 
-def test_filled_months_get_another_user(db):
-    user1, user2 = UserFactory.create_batch(2)
-    category = ProceedCategoryFactory(user=user1)
-    ProceedRecordFactory(category=category)
-    client = APIClient()
-    client.force_authenticate(user=user2)
-    response = client.get("/api/costcontrol/filled-months/")
-    assert response.status_code == status.HTTP_200_OK
-    assert response.json() == {}
-
-
-def test_filled_months_get_success(db, user):
-    category = ProceedCategoryFactory(user=user)
-    ProceedRecordFactory(category=category)
-    client = APIClient()
-    client.force_authenticate(user=user)
-    response = client.get("/api/costcontrol/filled-months/")
-    assert response.status_code == status.HTTP_200_OK
-    now = timezone.now()
-    assert response.json() == {str(now.year): {str(now.month): True}}
-
-
 def test_year_statistics(db, user):
     now = timezone.datetime(2018, 1, 3, tzinfo=timezone.get_current_timezone())
     two_month_later = now + timedelta(days=60)

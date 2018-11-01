@@ -1,40 +1,5 @@
 from datetime import datetime
 
-from django.core.cache import cache
-from django.utils.functional import cached_property
-
-from .models import BalanceRecord
-
-
-class FilledMonthesCache:
-    def __init__(self, user):
-        self._user = user
-
-    def _generate_filled_months(self):
-        filled_months = {}
-        for year, month in BalanceRecord.objects.unique_year_month_for(self._user):
-            filled_months.setdefault(year, {}).setdefault(month, True)
-        return filled_months
-
-    @cached_property
-    def cache_key(self):
-        return f"api:{self.__class__.__name__}:user_{self._user.id}"
-
-    def get_filled_months(self) -> dict:
-        filled_months = cache.get(self.cache_key)
-        if filled_months is None:
-            filled_months = self._generate_filled_months()
-            cache.set(self.cache_key, filled_months)
-        return filled_months
-
-    def clear(self):
-        cache.delete(self.cache_key)
-
-    def add_month(self, date: datetime):
-        filled_months = self.get_filled_months()
-        filled_months.setdefault(date.year, {}).setdefault(date.month, True)
-        cache.set(self.cache_key, filled_months)
-
 
 class YearMonthCounter:
     def __init__(self, start_year, start_month, reverse=False):
@@ -58,38 +23,36 @@ class YearMonthCounter:
                 self.month += 1
         return record
 
-    def __lt__(self, date):
-        if self.year < date.year:
-            return True
-        if self.month < date.month:
-            return True
-        return False
-
     def __eq__(self, date):
         if self.year == date.year and self.month == date.month:
             return True
         return False
 
-    def __gt__(self, date):
-        if self.year > date.year:
+    def __lt__(self, date):
+        if self.year < date.year:
             return True
-        if self.month > date.month:
+        elif self.year > date.year:
+            return False
+        elif self.month < date.month:
             return True
         return False
+
+    def __le__(self, date):
+        return self == date or self < date
 
     def __repr__(self):
         return f"(year={self.year}, month={self.month}, reverse={self.reverse})"
 
 
-def fill_empty_period(records: list, start_date: datetime, end_date: datetime):
+def fill_empty_period(records: list, start_date: datetime, end_date: datetime) -> list:
     """
     Sometimes there are no added records during month.
-    Fill such  monthes with empty values.
+    Fill such monthes with empty values.
     """
 
     def empty_range():
         counter = YearMonthCounter(start_date.year, start_date.month)
-        while counter < end_date or counter == end_date:
+        while counter <= end_date:
             yield next(counter)
 
     # Create map of {year: {month: total}}, e.g. {2018: {2: 44}}
@@ -116,3 +79,12 @@ def fill_empty_period(records: list, start_date: datetime, end_date: datetime):
         for result in results
     ]
     return results
+
+
+def generate_filled_monthes(start_date: datetime, end_date: datetime) -> dict:
+    filled_months = {}
+    counter = YearMonthCounter(start_date.year, start_date.month)
+    while counter <= end_date:
+        filled_months.setdefault(counter.year, {}).setdefault(counter.month, True)
+        next(counter)
+    return filled_months

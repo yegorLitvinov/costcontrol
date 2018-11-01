@@ -81,10 +81,10 @@ layout node
     - [X] UpdateCacheMixin -> Model hooks
     - [x] Am I using djanog filters right?
     - [X] History pagination
+    - [X] ~~Use redis~~ Disable caching
+    - [X] ~~Fix 3a.m. filled_monthes test bug~~ Remove filled monthes cache
     - [ ] Secret key -> environment
     - [ ] HistoryView -> BalanceRecordViewSet + django_filters
-    - [ ] Use redis
-    - [ ] Fix 3a.m. filled_monthes test bug
 
 - Devops
     - [X] Build frontend on local machine
@@ -93,10 +93,10 @@ layout node
     - [X] ~~Docker service -> docker~~ No docker
     - [X] Restart gunicorn takes a lot of time
     - [X] Travis CI badges to github
+    - [X] Drone integration
     - [ ] Sentry integration
     - [ ] Backend error log
-    - [ ] Drone integration
 
 - Editor
-    - [ ] Eslint feat. Prettier
     - [X] Python format on save
+    - [ ] Eslint feat. Prettier

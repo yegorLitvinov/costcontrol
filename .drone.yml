@@ -51,6 +51,3 @@ services:
       - POSTGRES_DB=costcontrol
       - POSTGRES_USER=costcontrol
       - POSTGRES_PASSWORD=costcontrol
-
-  cache:
-    image: memcached:alpine

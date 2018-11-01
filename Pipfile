@@ -14,7 +14,6 @@ ipython = "*"
 ipython-genutils = "*"
 markdown = "*"
 pillow = "*"
-python-memcached = "*"
 werkzeug = "*"
 "psycopg2-binary" = "*"
 
