@@ -85,6 +85,7 @@ layout node
     - [X] ~~Fix 3a.m. filled_monthes test bug~~ Remove filled monthes cache
     - [ ] Secret key -> environment
     - [ ] HistoryView -> BalanceRecordViewSet + django_filters
+    - [ ] Disable drf api html preview in prod
 
 - Devops
     - [X] Build frontend on local machine
