@@ -18,9 +18,9 @@ pipeline:
       - PYTHONPATH=./backend/
     commands:
       - pip install pipenv
-      # Uncomment next line if it is initial run
-      # - virtualenv .venv
-      - pipenv install --dev
+      - virtualenv .venv
+      - pipenv run pip install -r requirements/prod.txt
+      - pipenv run pip install -r requirements/dev.txt
       - pipenv run flake8 backend locustfile.py
       - pipenv run pytest --ds=config.settings.ci
 

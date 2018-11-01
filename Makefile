@@ -13,12 +13,18 @@ black:
 flake:
 	flake8 backend locustfile.py
 
-create-prod-requirements:
+create-requirements:
 	mkdir -p requirements
 	pipenv lock -r > requirements/prod.txt
+	pipenv lock -r > requirements/dev.txt
 	sort requirements/prod.txt -o requirements/prod.txt
+	sort requirements/dev.txt -o requirements/dev.txt
 
-precommit: isort black flake create-prod-requirements
+pre-commit: isort black flake create-requirements
+
+hook:
+	echo "make pre-commit" > .git/hooks/pre-commit
+	chmod +x .git/hooks/pre-commit
 
 init-server:
 	cd deploy && ansible-playbook init.yml
