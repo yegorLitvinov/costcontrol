@@ -2,7 +2,7 @@
   <div ref="activity" class="bg-light scroll-content inner-h-100">
     <p class="text-uppercase p-4">Latest Activity</p>
     <b-form-group class="m-4">
-      <b-input placeholder="Search" v-model="search" @change="handleSearchChange" />
+      <b-input placeholder="Search" v-model="search" @change="handleSearchChange" id="activity-search" />
     </b-form-group>
     <activity-item v-for="record in history" :key="record.id" :record="record"></activity-item>
   </div>
@@ -80,12 +80,24 @@ export default Vue.extend({
       this.$store.commit('costcontrol/clearHistory')
     },
     handleSearchChange() {
+      this.blurSearchInput()
       this.clearHistory()
       this.loadHistory()
     },
-    isAtBottom(): boolean {
+    isMobile() {
       const BOOTSTRAP_MD_MIN = 768
-      if (window.outerWidth < BOOTSTRAP_MD_MIN) {
+      return window.outerWidth < BOOTSTRAP_MD_MIN
+    },
+    blurSearchInput() {
+      if (this.isMobile()) {
+        const element = document.getElementById("activity-search")
+        if (element) {
+          element.blur()
+        }
+      }
+    },
+    isAtBottom(): boolean {
+      if (this.isMobile()) {
         return (
           window.document.body.scrollHeight - window.scrollY - window.outerHeight <=
           this.scrollDistance
