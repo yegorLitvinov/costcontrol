@@ -19,7 +19,6 @@ werkzeug = "*"
 "psycopg2-binary" = "*"
 
 [dev-packages]
-"autopep8" = "*"
 "flake8" = "*"
 isort = "*"
 pdbpp = "*"

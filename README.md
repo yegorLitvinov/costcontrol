@@ -84,6 +84,7 @@ layout node
     - [ ] Secret key -> environment
     - [ ] HistoryView -> BalanceRecordViewSet + django_filters
     - [ ] Use redis
+    - [ ] Fix 3a.m. filled_monthes test bug
 
 - Devops
     - [X] Build frontend on local machine
