@@ -24,7 +24,7 @@ from .utils import fill_empty_period, generate_filled_monthes
 
 class CategoryStatisticsListView(OwnerMixin, generics.ListAPIView):
     filter_backends = api_settings.DEFAULT_FILTER_BACKENDS + [CategoryMonthOfYearFilter]
-    filter_fields = ["kind"]
+    filterset_fields = ["kind"]
     queryset = Category.objects.all()
     serializer_class = CategoryStatisticsSerializer
 
@@ -55,7 +55,7 @@ class HistoryView(OwnerMixin, generics.ListAPIView):
     queryset = BalanceRecord.objects.order_by("-created_at")
     serializer_class = BalanceRecordSerializer
     pagination_class = PageNumberPagination
-    filter_fields = ["category"]
+    filterset_fields = ["category"]
     search_fields = ["comment"]
 
 
@@ -68,7 +68,7 @@ class FilledMonthesView(APIView):
 
 
 class CategoryViewSet(OwnerMixin, viewsets.ModelViewSet):
-    filter_fields = ["kind"]
+    filterset_fields = ["kind"]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
 
