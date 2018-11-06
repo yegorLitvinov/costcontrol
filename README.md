@@ -86,6 +86,7 @@ layout node
     - [ ] Secret key -> environment
     - [ ] HistoryView -> BalanceRecordViewSet + django_filters
     - [ ] Disable drf api html preview in prod
+    - [ ] Fix duplicated items bug (in pagination after creating new record, then scroll history)
 
 - Devops
     - [X] Build frontend on local machine

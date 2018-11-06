@@ -3,25 +3,25 @@
     <b-form @submit.prevent="onSubmit" class="w-100 m-3">
 
       <b-form-group label="Email address:" :feedback="error" :state="state">
-        <b-form-input
+        <b-input
           id="email"
           name="email"
           :state="state"
           required
           placeholder="Enter email"
         >
-        </b-form-input>
+        </b-input>
       </b-form-group>
 
       <b-form-group label="Password:" :feedback="error" :state="state">
-        <b-form-input
+        <b-input
           id="password"
           type="password"
           :state="state"
           required
           placeholder="Enter password"
         >
-        </b-form-input>
+        </b-input>
       </b-form-group>
 
       <b-button

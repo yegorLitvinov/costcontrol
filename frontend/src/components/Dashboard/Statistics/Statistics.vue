@@ -3,8 +3,8 @@
   <div class="d-flex justify-content-between">
     <div>Statistics</div>
     <div class="d-flex justify-content-end">
-      <b-form-select :options="years" v-model="year" class="mx-2 px-2 py-0 round-select"></b-form-select>
-      <b-form-select :options="months" v-model="month" class="mx-2 px-2 py-0 round-select"></b-form-select>
+      <b-select :options="years" v-model="year" class="mx-2 px-2 py-0 round-select"></b-select>
+      <b-select :options="months" v-model="month" class="mx-2 px-2 py-0 round-select"></b-select>
     </div>
   </div>
 

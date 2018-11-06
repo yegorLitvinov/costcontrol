@@ -5,37 +5,37 @@
         label="Amount:"
         description="In rubles"
       >
-        <b-form-input
+        <b-input
           v-model="record.amount"
           :state="errors.amount.length ? false : null"
           type="number"
           placeholder="Enter amount"
-        ></b-form-input>
-        <b-form-feedback v-for="error in errors.amount" :key="error">
+        ></b-input>
+        <b-form-invalid-feedback v-for="error in errors.amount" :key="error">
           {{error}}
-        </b-form-feedback>
+        </b-form-invalid-feedback>
       </b-form-group>
 
       <b-form-group label="Comment:">
-        <b-form-input
+        <b-input
           v-model="record.comment"
           :state="errors.comment.length ? false : null"
           placeholder="Enter comment"
-        ></b-form-input>
-        <b-form-feedback v-for="error in errors.comment" :key="error">
+        ></b-input>
+        <b-form-invalid-feedback v-for="error in errors.comment" :key="error">
           {{error}}
-        </b-form-feedback>
+        </b-form-invalid-feedback>
       </b-form-group>
 
       <b-form-group label="Category:">
-        <b-form-select
+        <b-select
           v-model="record.category"
           :state="errors.category.length ? false : null"
           :options="[{ text: 'Select Category', value: null}].concat(categories)"
-        ></b-form-select>
-        <b-form-feedback v-for="error in errors.category" :key="error">
+        ></b-select>
+        <b-form-invalid-feedback v-for="error in errors.category" :key="error">
           {{error}}
-        </b-form-feedback>
+        </b-form-invalid-feedback>
       </b-form-group>
 
       <b-button
