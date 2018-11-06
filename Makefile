@@ -16,7 +16,7 @@ flake:
 create-requirements:
 	mkdir -p requirements
 	pipenv lock -r > requirements/prod.txt
-	pipenv lock -r > requirements/dev.txt
+	pipenv lock --dev -r > requirements/dev.txt
 	sort requirements/prod.txt -o requirements/prod.txt
 	sort requirements/dev.txt -o requirements/dev.txt
 
