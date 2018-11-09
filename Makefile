@@ -13,14 +13,7 @@ black:
 flake:
 	flake8 backend locustfile.py
 
-create-requirements:
-	mkdir -p requirements
-	pipenv lock -r > requirements/prod.txt
-	pipenv lock --dev -r > requirements/dev.txt
-	sort requirements/prod.txt -o requirements/prod.txt
-	sort requirements/dev.txt -o requirements/dev.txt
-
-pre-commit: isort black flake create-requirements
+pre-commit: isort black flake
 
 hook:
 	echo "make pre-commit" > .git/hooks/pre-commit

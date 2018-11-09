@@ -10,3 +10,11 @@
     - python3.6
     - python3.6-dev
     - virtualenv
+
+- name: Install pipenv
+  become: yes
+  become_user: "{{ user }}"
+  pip:
+    name: pipenv
+    executable: pip3
+    extra_args: --user
