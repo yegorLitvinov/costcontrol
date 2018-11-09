@@ -20,7 +20,7 @@ pipeline:
       - pip install pipenv
       - virtualenv .venv
       - pipenv install --dev
-      - pipenv clean
+      # - pipenv clean
       - pipenv run flake8 backend locustfile.py
       - pipenv run pytest --ds=config.settings.ci
 
