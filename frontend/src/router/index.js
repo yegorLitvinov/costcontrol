@@ -7,6 +7,7 @@ import Statistics from '@/components/Dashboard/Statistics/Statistics'
 import CategoryStatistics from '@/components/Dashboard/Statistics/CategoryStatistics'
 import YearStatistics from '@/components/Dashboard/Statistics/YearStatistics'
 import Creation from '@/components/Dashboard/Creation/Creation'
+import TotalTable from '@/components/Dashboard/TotalTable'
 
 Vue.use(Router)
 
@@ -14,39 +15,43 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/login/'
+      redirect: '/login/',
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
     },
     {
       path: '/dashboard',
-      name: 'dashboard',
       component: Dashboard,
       children: [
         {
+          path: '/',
+          name: 'totalTable',
+          component: TotalTable,
+        },
+        {
           path: 'statistics',
           name: 'statistics',
-          component: Statistics
+          component: Statistics,
         },
         {
           path: 'categories/:category/',
           name: 'category',
-          component: CategoryStatistics
+          component: CategoryStatistics,
         },
         {
           path: 'year-statistics',
           name: 'yearStatistics',
-          component: YearStatistics
+          component: YearStatistics,
         },
         {
           path: 'creation',
           name: 'creation',
-          component: Creation
-        }
-      ]
-    }
-  ]
+          component: Creation,
+        },
+      ],
+    },
+  ],
 })

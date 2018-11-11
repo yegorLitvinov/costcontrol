@@ -34,3 +34,11 @@ class YearStatisticsSerializer(serializers.Serializer):
 
     class Meta:
         fields = ("month", "proceeds", "spendings")
+
+
+class YearSerializer(serializers.Serializer):
+    year = serializers.IntegerField(min_value=1990, max_value=2200, required=True)
+
+
+class MonthOfYearSerializer(YearSerializer):
+    month = serializers.IntegerField(min_value=1, max_value=12, required=True)

@@ -15,6 +15,9 @@ import bFormInput from 'bootstrap-vue/es/components/form-input/form-input'
 import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select'
 // Buttons
 import bButton from 'bootstrap-vue/es/components/button/button'
+// Table
+import bTable from 'bootstrap-vue/es/components/table/table'
+import bAlert from 'bootstrap-vue/es/components/alert/alert'
 
 // Cards
 Vue.component('b-card', bCard)
@@ -31,3 +34,6 @@ Vue.component('b-select', bFormSelect)
 Vue.component('b-input', bFormInput)
 // Buttons
 Vue.component('b-button', bButton)
+// Table
+Vue.component('b-table', bTable)
+Vue.component('b-alert', bAlert)

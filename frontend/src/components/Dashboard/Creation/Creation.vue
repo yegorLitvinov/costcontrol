@@ -28,7 +28,7 @@ import BalanceRecordForm from './BalanceRecordForm.vue'
 const mapCategories = (categories: Category[]) => {
   return categories.map(category => ({
     text: category.name,
-    value: category.id
+    value: category.id,
   }))
 }
 
@@ -50,21 +50,21 @@ export default Vue.extend({
         state.costcontrol.proceedCategoriesOrderedIds.map(
           id => state.costcontrol.proceedCategoriesEntities[id]
         )
-      )
+      ),
   }),
   methods: {
     addSpending: function(record: BalanceRecord) {
       return this.$store.dispatch('costcontrol/addRecord', {
         type: 'spending',
-        ...record
+        ...record,
       })
     },
     addProceed: function(record: BalanceRecord) {
       return this.$store.dispatch('costcontrol/addRecord', {
         type: 'proceed',
-        ...record
+        ...record,
       })
-    }
-  }
+    },
+  },
 })
 </script>

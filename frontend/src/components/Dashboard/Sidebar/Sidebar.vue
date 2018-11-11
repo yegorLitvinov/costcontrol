@@ -19,12 +19,12 @@ export default {
   components: { NavLink },
   data: () => ({
     navs: [
-      { to: { name: 'dashboard' }, icon: 'dashboard', text: 'Main' },
+      { to: { name: 'totalTable' }, icon: 'dashboard', text: 'Main' },
       { to: { name: 'statistics' }, icon: 'pie-chart', text: 'Statistics' },
       { to: { name: 'yearStatistics' }, icon: 'pie-chart', text: 'Year Statistics' },
-      { to: { name: 'creation' }, icon: 'edit', text: 'Create' }
-    ]
-  })
+      { to: { name: 'creation' }, icon: 'edit', text: 'Create' },
+    ],
+  }),
 }
 </script>
 

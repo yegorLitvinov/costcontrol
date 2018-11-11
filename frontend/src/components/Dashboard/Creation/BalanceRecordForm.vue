@@ -61,12 +61,12 @@ import { RootState, Category } from '../../../types'
 const defaultRecord = {
   amount: '',
   comment: '',
-  category: null
+  category: null,
 }
 const defaultErrors = {
   amount: [],
   comment: [],
-  category: []
+  category: [],
 }
 
 export default Vue.extend({
@@ -76,19 +76,19 @@ export default Vue.extend({
       type: Function,
       required: true,
     },
-    categories : {
+    categories: {
       type: Array as () => Category[],
       required: true,
     },
-    header: String
+    header: String,
   },
   data: () => ({
     submitting: false,
     record: { ...defaultRecord },
-    errors: { ...defaultErrors }
+    errors: { ...defaultErrors },
   }),
   computed: mapState({
-    userId: (state: RootState) => state.accounts.user.id
+    userId: (state: RootState) => state.accounts.user.id,
   }),
   methods: {
     onSubmit(): void {
@@ -104,7 +104,7 @@ export default Vue.extend({
           this.errors = { ...this.errors, ...defaultErrors, ...errorResponseData }
           this.submitting = false
         })
-    }
-  }
+    },
+  },
 })
 </script>

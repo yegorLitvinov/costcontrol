@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'three-bounce'
+  name: 'three-bounce',
 }
 </script>
 

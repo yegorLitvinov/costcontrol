@@ -59,6 +59,22 @@ class HistoryView(OwnerMixin, generics.ListAPIView):
     search_fields = ["comment"]
 
 
+class TotalView(APIView):
+    http_method_names = ["get"]
+
+    def get(self, request, *args, **kwargs):
+        def get_amount(qs):
+            values = qs.annotate(total=Sum("amount")).values_list("total", flat=True)
+            return sum(values)
+
+        records = BalanceRecord.objects.filter(category__user=request.user)
+        spendings = records.filter(category__kind=Category.KIND_SPENDING)
+        proceeds = records.filter(category__kind=Category.KIND_PROCEED)
+        spendings_amount = get_amount(spendings)
+        proceeds_amount = get_amount(proceeds)
+        return Response({"accumulated": proceeds_amount - spendings_amount})
+
+
 class FilledMonthesView(APIView):
     http_method_names = ["get"]
 

@@ -50,7 +50,7 @@ import { CategoryStatistic, FilledMonthes, ChartData } from '../../../types'
 
 @Component({
   name: 'dashboard-statistics',
-  components: { BalanceDoughnutChart }
+  components: { BalanceDoughnutChart },
 })
 export default class Statistics extends Vue {
   year = moment().year()
@@ -90,7 +90,7 @@ export default class Statistics extends Vue {
     const spendingTotal = this.spendingStatistics.reduce((prev, curr) => prev + curr.total, 0)
     return [
       { id: 1, name: 'Proceed', color: '#aad962', total: proceedTotal },
-      { id: 2, name: 'Spending', color: '#ed0345', total: spendingTotal }
+      { id: 2, name: 'Spending', color: '#ed0345', total: spendingTotal },
     ]
   }
 

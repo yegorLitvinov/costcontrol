@@ -19,8 +19,8 @@ export default Vue.extend({
   props: {
     record: {
       type: Object as () => BalanceRecord,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {}
@@ -30,14 +30,14 @@ export default Vue.extend({
       const state: RootState = this.$store.state
       return {
         ...state.costcontrol.spendingCategoriesEntities,
-        ...state.costcontrol.proceedCategoriesEntities
+        ...state.costcontrol.proceedCategoriesEntities,
       }
     },
     category(): Category | undefined {
       return this.categories[this.record.category]
-    }
+    },
   },
-  methods: {}
+  methods: {},
 })
 </script>
 

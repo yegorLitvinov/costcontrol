@@ -15,10 +15,10 @@ export default Vue.extend({
   props: {
     items: {
       type: Array as () => BalanceDoughnutChartItem[],
-      required: true
+      required: true,
     },
     onSectorClick: Function,
-    label: String
+    label: String,
   },
   computed: {
     chartData(): ChartData {
@@ -28,22 +28,22 @@ export default Vue.extend({
           {
             label: this.label,
             backgroundColor: this.items.map(item => item.color),
-            data: this.items.map(item => item.total)
-          }
-        ]
+            data: this.items.map(item => item.total),
+          },
+        ],
       }
-    }
+    },
   },
   watch: {
-    chartData: mixins.reactiveData.watch.chartData
+    chartData: mixins.reactiveData.watch.chartData,
   },
   mounted() {
-    (this as any).renderChart(this.chartData, {
+    ;(this as any).renderChart(this.chartData, {
       maintainAspectRatio: false,
       legend: {
-        position: 'bottom'
+        position: 'bottom',
       },
-      onClick: this.onClick
+      onClick: this.onClick,
     })
   },
   methods: {
@@ -53,7 +53,7 @@ export default Vue.extend({
         const id = this.items[elements[0]._index].id
         this.onSectorClick(id)
       }
-    }
-  }
+    },
+  },
 })
 </script>

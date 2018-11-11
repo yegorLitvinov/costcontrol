@@ -9,21 +9,21 @@ export default {
     const options = {
       maintainAspectRatio: false,
       legend: {
-        position: 'bottom'
+        position: 'bottom',
       },
       responsive: true,
       scales: {
         yAxes: [
           {
             ticks: {
-              beginAtZero: true
-            }
-          }
-        ]
+              beginAtZero: true,
+            },
+          },
+        ],
       },
-      ...this.options
+      ...this.options,
     }
     this.renderChart(this.chartData, options)
-  }
+  },
 }
 </script>

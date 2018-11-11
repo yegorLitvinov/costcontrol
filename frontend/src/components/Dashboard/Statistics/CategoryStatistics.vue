@@ -15,7 +15,6 @@
   </div>
 </template>
 
-
 <script lang="ts" type="text/prs.typescript">
 import Vue from 'vue'
 import axios from 'axios'

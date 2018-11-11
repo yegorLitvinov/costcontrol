@@ -8,7 +8,7 @@
 <script>
 export default {
   name: 'nav-link',
-  props: ['to', 'text', 'icon']
+  props: ['to', 'text', 'icon'],
 }
 </script>
 
@@ -21,14 +21,15 @@ export default {
     text-decoration: none;
   }
 
-  &:hover, &.router-link-active {
+  &:hover,
+  &.router-link-active {
     background-color: rgba($light, 0.1);
 
-    a, svg {
+    a,
+    svg {
       color: white;
     }
   }
-
 }
 </style>
 

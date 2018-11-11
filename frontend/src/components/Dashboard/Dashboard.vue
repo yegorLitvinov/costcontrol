@@ -36,22 +36,22 @@ export default {
     }
     this.$store.dispatch('costcontrol/get', {
       what: 'costcontrol/categories/?kind=spending',
-      where: 'spendingCategories'
+      where: 'spendingCategories',
     })
     this.$store.dispatch('costcontrol/get', {
       what: 'costcontrol/categories/?kind=proceed',
-      where: 'proceedCategories'
+      where: 'proceedCategories',
     })
     this.$store.dispatch('costcontrol/getFilledMonthes', {
       what: '',
-      where: 'filledMonthes'
+      where: 'filledMonthes',
     })
-  }
+  },
 }
 </script>
 
 <style lang="scss">
-@import "../../styles/constants";
+@import '../../styles/constants';
 
 .scroll-content {
   overflow-y: scroll;

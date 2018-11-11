@@ -7,6 +7,7 @@ from .views import (
     CategoryViewSet,
     FilledMonthesView,
     HistoryView,
+    TotalView,
     YearStatisticsListView,
 )
 
@@ -25,4 +26,5 @@ urlpatterns = [
     url(r"^year-statistics/", YearStatisticsListView.as_view(), name="year_statistics"),
     url(r"^history/", HistoryView.as_view(), name="history"),
     url(r"^filled-months/", FilledMonthesView.as_view(), name="filled_months"),
+    url(r"^total/", TotalView.as_view(), name="total"),
 ] + router.urls

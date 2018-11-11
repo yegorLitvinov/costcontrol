@@ -18,13 +18,13 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('accounts/logout')
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style scoped lang="scss">
-@import "../../styles/constants";
+@import '../../styles/constants';
 
 .header {
   height: $heading-height;

@@ -113,8 +113,26 @@ def test_year_statistics(db, user):
 
     client = APIClient()
     client.force_authenticate(user=user)
-    response = client.get(f"/api/costcontrol/year-statistics/?year={now.year}")
 
+    response = client.get("/api/costcontrol/year-statistics/")
+    assert response.status_code == 400
+    assert response.data == {"year": ["This field is required."]}
+
+    response = client.get("/api/costcontrol/year-statistics/?year=18")
+    assert response.status_code == 400
+    assert response.data == {
+        "year": ["Ensure this value is greater than or equal to 1990."]
+    }
+
+    response = client.get("/api/costcontrol/year-statistics/?year=")
+    assert response.status_code == 400
+    assert response.data == {"year": ["A valid integer is required."]}
+
+    response = client.get("/api/costcontrol/year-statistics/?year=string")
+    assert response.status_code == 400
+    assert response.data == {"year": ["A valid integer is required."]}
+
+    response = client.get(f"/api/costcontrol/year-statistics/?year={now.year}")
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == [
         {"month": now.month, "category__kind": "proceed", "total": 200},
@@ -133,3 +151,15 @@ def test_category_statistics(db, user):
     response = client.get(f"/api/costcontrol/categories/{category.id}/year_statistics/")
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == [{"year_month": f"{now.year}-{now.month}", "total": 123}]
+
+
+def test_total(db, user):
+    ProceedRecordFactory(category__user=user, amount=302)
+    SpendingRecordFactory(category__user=user, amount=102)
+    SpendingRecordFactory(amount=100)
+    client = APIClient()
+    client.force_authenticate(user=user)
+
+    response = client.get("/api/costcontrol/total/")
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == {"accumulated": 200}
