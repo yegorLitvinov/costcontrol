@@ -5,9 +5,6 @@
   notify:
     - restart-gunicorn
 
-- name: Create virtualenv
-  command: "virtualenv --python=/usr/bin/python3.6 {{ venv_dir }}"
-
 - name: Install pipenv requirements
   command: "{{ user_home }}/.local/bin/pipenv install"
   environment:
@@ -15,7 +12,7 @@
     LC_ALL: C.UTF-8
     LANG: C.UTF-8
 
-- name: Clean deleted pipenv requirements
+- name: Clean pipenv requirements
   command: "{{ user_home }}/.local/bin/pipenv clean"
   environment:
     PIPENV_VENV_IN_PROJECT: true

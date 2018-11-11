@@ -18,3 +18,8 @@
     name: pipenv
     executable: pip3
     extra_args: --user
+
+- name: Create virtualenv
+  become: yes
+  become_user: "{{ user }}"
+  command: "virtualenv --python=/usr/bin/python3.6 {{ venv_dir }}"
